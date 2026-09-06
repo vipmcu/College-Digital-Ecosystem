@@ -79,6 +79,7 @@ export default function SisPortalPage() {
   const [activeTab, setActiveTab] = useState<"register" | "grades" | "petitions" | "schedule">("register")
   const [enrolledIds, setEnrolledIds] = useState<string[]>(["cs-301", "cs-302"])
   const [alertMessage, setAlertMessage] = useState<string | null>(null)
+  const [showTuitionModal, setShowTuitionModal] = useState(false)
 
   const toggleEnroll = (course: CourseSection) => {
     if (enrolledIds.includes(course.id)) {
@@ -298,14 +299,17 @@ export default function SisPortalPage() {
 
             <div className="flex items-center gap-space-sm">
               <button
-                onClick={() => alert("พิมพ์ใบแจ้งยอดชำระเงินค่าเล่าเรียนและใบลงทะเบียนเรียนเรียบร้อย")}
+                onClick={() => setShowTuitionModal(true)}
                 className="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <span className="material-symbols-outlined text-sm">print</span>
+                <span className="material-symbols-outlined text-sm">receipt_long</span>
                 <span>พิมพ์ใบลงทะเบียน</span>
               </button>
               <button
-                onClick={() => alert("ยืนยันแผนการเรียนและล็อกที่นั่ง (Atomic Seat Locked) เสร็จสมบูรณ์")}
+                onClick={() => {
+                  setAlertMessage("ยืนยันแผนการเรียนและล็อกที่นั่ง (Atomic Seat Locked) เสร็จสมบูรณ์")
+                  setTimeout(() => setAlertMessage(null), 4000)
+                }}
                 className="px-space-md py-2 rounded-lg bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 <span className="material-symbols-outlined text-sm">lock</span>
@@ -417,6 +421,153 @@ export default function SisPortalPage() {
           </div>
         </div>
       </main>
+
+      {/* Tuition & Registration Invoice Modal */}
+      {showTuitionModal && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-surface-card rounded-2xl max-w-2xl w-full shadow-2xl border border-border-subtle overflow-hidden">
+            {/* Modal Header */}
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="material-symbols-outlined text-amber-primary text-2xl">receipt_long</span>
+                <div>
+                  <h3 className="font-headline-sm text-base font-bold text-white leading-tight">
+                    ใบแจ้งการชำระเงินค่าเล่าเรียนและใบลงทะเบียนเรียน
+                  </h3>
+                  <p className="text-xs text-primary-fixed-dim">
+                    Semester 1/2569 • Academic Enrollment Invoice (M02-F06)
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowTuitionModal(false)}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-space-lg space-y-space-md max-h-[75vh] overflow-y-auto">
+              {/* Institution & Student Info */}
+              <div className="border-b border-border-subtle pb-space-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                  <h4 className="font-bold text-navy-deep text-base">วิทยาลัยสารสนเทศและเทคโนโลยี</h4>
+                  <p className="text-xs text-on-surface-variant">สำนักส่งเสริมวิชาการและงานทะเบียน (REGISTRAR OFFICE)</p>
+                </div>
+                <div className="text-left sm:text-right text-xs text-on-surface-variant">
+                  <p className="font-mono font-bold text-navy-deep">เลขที่ใบแจ้งหนี้: INV-2569-09412</p>
+                  <p>วันที่ออก: 6 กันยายน 2569</p>
+                </div>
+              </div>
+
+              {/* Student Metadata */}
+              <div className="bg-surface-container-low p-space-md rounded-xl grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <span className="text-outline block">รหัสนักศึกษา:</span>
+                  <span className="font-mono font-bold text-navy-deep">6601101234</span>
+                </div>
+                <div>
+                  <span className="text-outline block">ชื่อ-นามสกุล:</span>
+                  <span className="font-bold text-navy-deep">นายสมชาย ใจดี</span>
+                </div>
+                <div>
+                  <span className="text-outline block">คณะ/สาขา:</span>
+                  <span className="text-navy-deep">คณะวิทยาการสารสนเทศ</span>
+                </div>
+                <div>
+                  <span className="text-outline block">สถานะชำระ:</span>
+                  <span className="font-bold text-amber-primary">รอการชำระเงิน</span>
+                </div>
+              </div>
+
+              {/* Course List Table */}
+              <div className="border border-border-subtle rounded-xl overflow-hidden">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-surface-container text-on-surface-variant font-bold border-b border-border-subtle">
+                    <tr>
+                      <th className="py-2.5 px-3">รหัสวิชา</th>
+                      <th className="py-2.5 px-3">ชื่อรายวิชา</th>
+                      <th className="py-2.5 px-3 text-center">ตอน</th>
+                      <th className="py-2.5 px-3 text-center">หน่วยกิต</th>
+                      <th className="py-2.5 px-3 text-right">จำนวนเงิน (บาท)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-subtle">
+                    {courseCatalog
+                      .filter((c) => enrolledIds.includes(c.id))
+                      .map((course) => (
+                        <tr key={course.id} className="hover:bg-surface-container-low/50">
+                          <td className="py-2 px-3 font-mono font-bold text-primary">{course.code}</td>
+                          <td className="py-2 px-3 font-medium text-navy-deep">{course.nameTh}</td>
+                          <td className="py-2 px-3 text-center font-mono">{course.section}</td>
+                          <td className="py-2 px-3 text-center font-bold">{course.credits}</td>
+                          <td className="py-2 px-3 text-right font-mono">{(course.credits * 2500).toLocaleString()}.00</td>
+                        </tr>
+                      ))}
+                    <tr className="bg-surface-container-low font-bold text-navy-deep">
+                      <td colSpan={3} className="py-2.5 px-3 text-right">ค่าบำรุงการศึกษาและระบบดิจิทัลสถาบัน:</td>
+                      <td className="py-2.5 px-3 text-center">-</td>
+                      <td className="py-2.5 px-3 text-right font-mono">3,500.00</td>
+                    </tr>
+                    <tr className="bg-primary/10 font-bold text-primary text-sm">
+                      <td colSpan={3} className="py-3 px-3 text-right">ยอดรวมสุทธิที่ต้องชำระ (Total Amount):</td>
+                      <td className="py-3 px-3 text-center">
+                        {courseCatalog.filter((c) => enrolledIds.includes(c.id)).reduce((sum, c) => sum + c.credits, 0)} นก.
+                      </td>
+                      <td className="py-3 px-3 text-right font-mono font-extrabold text-base">
+                        {(
+                          courseCatalog.filter((c) => enrolledIds.includes(c.id)).reduce((sum, c) => sum + c.credits * 2500, 0) +
+                          3500
+                        ).toLocaleString()}
+                        .00 บาท
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Payment Barcode / QR Section */}
+              <div className="bg-surface-container-low p-space-md rounded-xl border border-dashed border-outline/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="space-y-1 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded bg-navy-deep text-white font-bold text-[10px]">
+                      Thai QR Payment / PromptPay
+                    </span>
+                    <span className="text-outline">Cross-bank Payment</span>
+                  </div>
+                  <p className="font-mono text-[11px] text-on-surface">Ref 1 (รหัสนักศึกษา): <strong>6601101234</strong></p>
+                  <p className="font-mono text-[11px] text-on-surface">Ref 2 (รหัสชำระ): <strong>256901009412</strong></p>
+                  <p className="text-[11px] text-outline">กำหนดชำระเงินภายใน: 25 กันยายน 2569</p>
+                </div>
+                <div className="flex flex-col items-center p-2 bg-white rounded-lg border border-border-subtle shadow-xs">
+                  <span className="material-symbols-outlined text-5xl text-navy-deep">qr_code_2</span>
+                  <span className="text-[10px] font-bold text-navy-deep">สแกนเพื่อจ่ายเงิน</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-end gap-space-sm">
+              <button
+                onClick={() => setShowTuitionModal(false)}
+                className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+              >
+                ปิด
+              </button>
+              <button
+                onClick={() => {
+                  window.print()
+                }}
+                className="px-4 py-2 rounded-lg bg-primary hover:bg-navy-deep text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">print</span>
+                <span>พิมพ์ใบแจ้งหนี้</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 3. Footer */}
       <footer className="w-full bg-navy-deep text-on-primary py-space-md border-t border-navy-surface mt-auto">

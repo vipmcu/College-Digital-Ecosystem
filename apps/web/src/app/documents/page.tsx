@@ -63,6 +63,8 @@ export default function DocumentsWorkflowPage() {
   const [docs, setDocs] = useState<EDocument[]>(initialDocuments)
   const [filterTab, setFilterTab] = useState<"all" | "pending_sign" | "in_progress" | "signed">("all")
   const [showCreateModal, setShowCreateModal] = useState(false)
+  const [selectedDocForVerify, setSelectedDocForVerify] = useState<EDocument | null>(null)
+  const [copiedHash, setCopiedHash] = useState(false)
   const [newTitle, setNewTitle] = useState("")
   const [newType, setNewType] = useState("บันทึกข้อความภายใน (Memo)")
   const [alertMsg, setAlertMsg] = useState<string | null>(null)
@@ -298,7 +300,7 @@ export default function DocumentsWorkflowPage() {
                 {/* Actions */}
                 <div className="flex items-center gap-space-sm shrink-0">
                   <button
-                    onClick={() => alert(`ตรวจสอบต้นฉบับเอกสาร: ${doc.docNumber}\nSHA-256: ${doc.checksumSha256}`)}
+                    onClick={() => setSelectedDocForVerify(doc)}
                     className="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-sm">visibility</span>
@@ -380,6 +382,117 @@ export default function DocumentsWorkflowPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Verification Modal */}
+      {selectedDocForVerify && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-surface-card rounded-2xl max-w-xl w-full shadow-2xl border border-border-subtle overflow-hidden">
+            {/* Modal Header */}
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="material-symbols-outlined text-amber-primary text-2xl">verified</span>
+                <div>
+                  <h3 className="font-headline-sm text-base font-bold text-white leading-tight">
+                    ตรวจสอบต้นฉบับเอกสารดิจิทัล
+                  </h3>
+                  <p className="text-xs text-primary-fixed-dim">
+                    Digital Signature &amp; Integrity Verification (M03-F04)
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedDocForVerify(null)
+                  setCopiedHash(false)
+                }}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-space-lg space-y-space-md">
+              {/* Document Info Card */}
+              <div className="bg-surface-container-low p-space-md rounded-xl border border-border-subtle space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-md">
+                    {selectedDocForVerify.docNumber}
+                  </span>
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-status-success/15 text-status-success flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs">check_circle</span>
+                    ลายเซ็นดิจิทัลสมบูรณ์ (ETDA Valid)
+                  </span>
+                </div>
+                <h4 className="font-bold text-navy-deep text-sm leading-snug">
+                  {selectedDocForVerify.title}
+                </h4>
+                <div className="text-xs text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1 pt-1">
+                  <span><strong>ประเภท:</strong> {selectedDocForVerify.type}</span>
+                  <span><strong>หน่วยงาน:</strong> {selectedDocForVerify.fromDept}</span>
+                  <span><strong>วันที่ออก:</strong> {selectedDocForVerify.createdAt}</span>
+                </div>
+              </div>
+
+              {/* SHA-256 Checksum Block */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-navy-deep flex items-center gap-1">
+                    <span className="material-symbols-outlined text-sm text-secondary">fingerprint</span>
+                    SHA-256 Cryptographic Checksum (ลายพิมพ์ดิจิทัล)
+                  </span>
+                  <button
+                    onClick={() => {
+                      if (typeof navigator !== "undefined" && navigator.clipboard) {
+                        navigator.clipboard.writeText(selectedDocForVerify.checksumSha256)
+                      }
+                      setCopiedHash(true)
+                      setTimeout(() => setCopiedHash(false), 2500)
+                    }}
+                    className="text-primary hover:text-navy-deep font-semibold flex items-center gap-1 text-xs cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-xs">
+                      {copiedHash ? "done" : "content_copy"}
+                    </span>
+                    <span>{copiedHash ? "คัดลอกแล้ว!" : "คัดลอกรหัส"}</span>
+                  </button>
+                </div>
+                <div className="bg-navy-deep text-emerald-400 p-3 rounded-xl font-mono text-xs break-all select-all border border-navy-surface shadow-inner">
+                  {selectedDocForVerify.checksumSha256}
+                </div>
+                <p className="text-[11px] text-on-surface-variant flex items-center gap-1 pt-1">
+                  <span className="material-symbols-outlined text-xs text-status-success">shield</span>
+                  ต้นฉบับผ่านการตรวจสอบความครบถ้วนสมบูรณ์ (Data Integrity &amp; Non-repudiation)
+                </p>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-end gap-space-sm">
+              <button
+                onClick={() => {
+                  setSelectedDocForVerify(null)
+                  setCopiedHash(false)
+                }}
+                className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+              >
+                ปิดหน้าต่าง
+              </button>
+              <button
+                onClick={() => {
+                  setAlertMsg(`ดาวน์โหลดสำเนาอิเล็กทรอนิกส์ ${selectedDocForVerify.docNumber} เรียบร้อย (Certified Copy)`)
+                  setSelectedDocForVerify(null)
+                  setTimeout(() => setAlertMsg(null), 4000)
+                }}
+                className="px-4 py-2 rounded-lg bg-primary hover:bg-navy-deep text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">download</span>
+                <span>ดาวน์โหลดสำเนารับรอง</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
