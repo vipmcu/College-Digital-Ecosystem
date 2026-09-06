@@ -1,0 +1,11 @@
+export const STUDENT_CODE_REGEX = /^[0-9]{10}$/
+export const COURSE_CODE_REGEX = /^[A-Z]{2,10}-[0-9]{3}-[0-9]{3}$/
+export const ACADEMIC_YEAR_MIN = 2560 // Buddhist Era
+export const DEFAULT_TIMEZONE = 'Asia/Bangkok'
+export const DEFAULT_LOCALE = 'th-TH'
+export const MAX_UPLOAD_BYTES = 50 * 1024 * 1024 // 50 MB
+export const SESSION_TIMEOUT_MS = 8 * 60 * 60 * 1000 // 8 hours (general)
+export const ADMIN_SESSION_MS = 30 * 60 * 1000 // 30 minutes (privileged)
+export const AUDIT_RETENTION_YEARS = 3
+export const RATE_LIMIT_PER_IP = 100 // requests per minute
+export const RATE_LIMIT_AUTH = 1000 // requests per minute (authenticated)

@@ -1,0 +1,71 @@
+{
+  "id": "college",
+  "realm": "college",
+  "displayName": "College Digital Ecosystem",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "student",
+        "description": "Student Role"
+      },
+      {
+        "name": "instructor",
+        "description": "Instructor / Faculty Role"
+      },
+      {
+        "name": "registrar",
+        "description": "Registrar Staff Role"
+      },
+      {
+        "name": "document_officer",
+        "description": "Document & Archive Officer Role"
+      },
+      {
+        "name": "executive",
+        "description": "Executive & Dean Role"
+      },
+      {
+        "name": "it_admin",
+        "description": "IT Administrator Role"
+      },
+      {
+        "name": "dpo",
+        "description": "Data Protection Officer Role"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "mvp-backend",
+      "name": "College MVP Backend Services",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "mvp-backend-secret-dev",
+      "serviceAccountsEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true
+    },
+    {
+      "clientId": "mvp-frontend",
+      "name": "College MVP Frontend Web Apps",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "http://localhost:3000/*",
+        "http://localhost:3001/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "http://localhost:3001"
+      ],
+      "standardFlowEnabled": true
+    }
+  ]
+}

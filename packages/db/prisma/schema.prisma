@@ -1,0 +1,393 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ── Identity Domain (M01) ──────────────────────────────────
+
+model Organization {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @unique @db.VarChar(20)
+  nameTh    String   @map("name_th") @db.VarChar(255)
+  nameEn    String?  @map("name_en") @db.VarChar(255)
+  orgType   String   @map("org_type") @db.VarChar(50)
+  parentId  String?  @map("parent_id") @db.Uuid
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy String?  @map("created_by") @db.Uuid
+  updatedBy String?  @map("updated_by") @db.Uuid
+
+  parent    Organization?  @relation("OrgHierarchy", fields: [parentId], references: [id])
+  children  Organization[] @relation("OrgHierarchy")
+  users     User[]
+  programs  Program[]
+  courses   Course[]
+  documents Document[]
+  userRoles UserRole[]
+
+  @@index([parentId])
+  @@index([orgType])
+  @@map("organizations")
+}
+
+model User {
+  id          String    @id @default(uuid()) @db.Uuid
+  keycloakId   String?   @unique @map("keycloak_id") @db.VarChar(255)
+  passwordHash String?   @map("password_hash") @db.VarChar(255)
+  username     String    @unique @db.VarChar(100)
+  email       String    @unique @db.VarChar(255)
+  firstNameTh String    @map("first_name_th") @db.VarChar(100)
+  lastNameTh  String    @map("last_name_th") @db.VarChar(100)
+  firstNameEn String?   @map("first_name_en") @db.VarChar(100)
+  lastNameEn  String?   @map("last_name_en") @db.VarChar(100)
+  userType    String    @map("user_type") @db.VarChar(20)
+  orgUnitId   String?   @map("org_unit_id") @db.Uuid
+  isActive    Boolean   @default(true) @map("is_active")
+  lastLoginAt DateTime? @map("last_login_at") @db.Timestamptz()
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy   String?   @map("created_by") @db.Uuid
+  updatedBy   String?   @map("updated_by") @db.Uuid
+
+  orgUnit          Organization?      @relation(fields: [orgUnitId], references: [id])
+  roles            UserRole[]         @relation("UserToUserRoles")
+  grantedRoles     UserRole[]         @relation("GrantedByRelation")
+  student          Student?
+  taughtSections   CourseSection[]    @relation("InstructorSections")
+  createdDocuments Document[]         @relation("DocumentCreator")
+  signatures       DigitalSignature[]
+  workflowSteps    WorkflowStep[]     @relation("ApproverSteps")
+
+  @@index([keycloakId])
+  @@index([username])
+  @@index([email])
+  @@index([userType])
+  @@index([orgUnitId])
+  @@map("users")
+}
+
+model Role {
+  id          String    @id @default(uuid()) @db.Uuid
+  code        String    @unique @db.VarChar(50)
+  nameTh      String    @map("name_th") @db.VarChar(100)
+  nameEn      String?   @map("name_en") @db.VarChar(100)
+  description String?   @db.Text
+  isSystem    Boolean   @default(false) @map("is_system")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy   String?   @map("created_by") @db.Uuid
+  updatedBy   String?   @map("updated_by") @db.Uuid
+
+  userRoles UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  roleId     String    @map("role_id") @db.Uuid
+  orgUnitId  String?   @map("org_unit_id") @db.Uuid
+  grantedAt  DateTime  @default(now()) @map("granted_at") @db.Timestamptz()
+  expiresAt  DateTime? @map("expires_at") @db.Timestamptz()
+  grantedBy  String?   @map("granted_by") @db.Uuid
+
+  user      User          @relation("UserToUserRoles", fields: [userId], references: [id], onDelete: Cascade)
+  role      Role          @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  orgUnit   Organization? @relation(fields: [orgUnitId], references: [id])
+  granter   User?         @relation("GrantedByRelation", fields: [grantedBy], references: [id])
+
+  @@unique([userId, roleId, orgUnitId])
+  @@index([userId])
+  @@index([roleId])
+  @@map("user_roles")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid()) @db.Uuid
+  eventTime    DateTime @default(now()) @map("event_time") @db.Timestamptz()
+  userId       String?  @map("user_id") @db.Uuid
+  action       String   @db.VarChar(100)
+  resourceType String?  @map("resource_type") @db.VarChar(100)
+  resourceId   String?  @map("resource_id") @db.Uuid
+  ipAddress    String   @map("ip_address") @db.VarChar(45)
+  userAgent    String?  @map("user_agent") @db.Text
+  metadata     Json?
+  severity     String   @default("INFO") @db.VarChar(20)
+
+  @@index([eventTime(sort: Desc)])
+  @@index([userId])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+// ── Academic Domain (M02) ──────────────────────────────────
+
+model Student {
+  id             String    @id @default(uuid()) @db.Uuid
+  userId         String    @unique @map("user_id") @db.Uuid
+  studentCode    String    @unique @map("student_code") @db.VarChar(10)
+  enrollmentYear Int       @map("enrollment_year")
+  programId      String?   @map("program_id") @db.Uuid
+  status         String    @default("active") @db.VarChar(20)
+  encNationalId  String?   @map("enc_national_id") @db.Text
+  encPhone       String?   @map("enc_phone") @db.Text
+  piiBirthDate   DateTime? @map("pii_birth_date") @db.Date
+  piiAddress     String?   @map("pii_address") @db.Text
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy      String?   @map("created_by") @db.Uuid
+  updatedBy      String?   @map("updated_by") @db.Uuid
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  program     Program?     @relation(fields: [programId], references: [id])
+  enrollments Enrollment[]
+  petitions   Petition[]
+
+  @@index([userId])
+  @@index([studentCode])
+  @@index([status])
+  @@map("students")
+}
+
+model Program {
+  id             String    @id @default(uuid()) @db.Uuid
+  code           String    @unique @db.VarChar(20)
+  nameTh         String    @map("name_th") @db.VarChar(255)
+  nameEn         String?   @map("name_en") @db.VarChar(255)
+  degreeLevel    String    @map("degree_level") @db.VarChar(20)
+  creditRequired Int       @map("credit_required")
+  orgUnitId      String?   @map("org_unit_id") @db.Uuid
+  isActive       Boolean   @default(true) @map("is_active")
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy      String?   @map("created_by") @db.Uuid
+  updatedBy      String?   @map("updated_by") @db.Uuid
+
+  orgUnit  Organization? @relation(fields: [orgUnitId], references: [id])
+  students Student[]
+
+  @@map("programs")
+}
+
+model Course {
+  id          String    @id @default(uuid()) @db.Uuid
+  code        String    @db.VarChar(20)
+  nameTh      String    @map("name_th") @db.VarChar(255)
+  nameEn      String?   @map("name_en") @db.VarChar(255)
+  credit      Int       @db.SmallInt
+  courseType  String    @map("course_type") @db.VarChar(20)
+  orgUnitId   String?   @map("org_unit_id") @db.Uuid
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy   String?   @map("created_by") @db.Uuid
+  updatedBy   String?   @map("updated_by") @db.Uuid
+
+  orgUnit  Organization?   @relation(fields: [orgUnitId], references: [id])
+  sections CourseSection[]
+
+  @@unique([code, orgUnitId])
+  @@map("courses")
+}
+
+model CourseSection {
+  id            String    @id @default(uuid()) @db.Uuid
+  courseId      String    @map("course_id") @db.Uuid
+  sectionNumber String    @map("section_number") @db.VarChar(10)
+  academicYear  Int       @map("academic_year")
+  semester      Int       @db.SmallInt
+  instructorId  String?   @map("instructor_id") @db.Uuid
+  maxStudents   Int       @default(40) @map("max_students")
+  enrolledCount Int       @default(0) @map("enrolled_count")
+  room          String?   @db.VarChar(50)
+  schedule      Json?
+  status        String    @default("open") @db.VarChar(20)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt     DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy     String?   @map("created_by") @db.Uuid
+  updatedBy     String?   @map("updated_by") @db.Uuid
+
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  instructor  User?        @relation("InstructorSections", fields: [instructorId], references: [id])
+  enrollments Enrollment[]
+
+  @@unique([courseId, sectionNumber, academicYear, semester])
+  @@index([courseId])
+  @@index([academicYear, semester])
+  @@map("course_sections")
+}
+
+model Enrollment {
+  id              String    @id @default(uuid()) @db.Uuid
+  studentId       String    @map("student_id") @db.Uuid
+  sectionId       String    @map("section_id") @db.Uuid
+  enrolledAt      DateTime  @default(now()) @map("enrolled_at") @db.Timestamptz()
+  status          String    @default("enrolled") @db.VarChar(20)
+  grade           String?   @db.VarChar(5)
+  gradePoint      Decimal?  @map("grade_point") @db.Decimal(3, 2)
+  gradeApprovedAt DateTime? @map("grade_approved_at") @db.Timestamptz()
+  gradeApprovedBy String?   @map("grade_approved_by") @db.Uuid
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy       String?   @map("created_by") @db.Uuid
+  updatedBy       String?   @map("updated_by") @db.Uuid
+
+  student Student       @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  section CourseSection @relation(fields: [sectionId], references: [id], onDelete: Restrict)
+
+  @@unique([studentId, sectionId])
+  @@index([studentId])
+  @@index([sectionId])
+  @@map("enrollments")
+}
+
+model Petition {
+  id           String    @id @default(uuid()) @db.Uuid
+  petitionType String    @map("petition_type") @db.VarChar(50)
+  studentId    String    @map("student_id") @db.Uuid
+  subject      String    @db.VarChar(255)
+  description  String?   @db.Text
+  status       String    @default("pending") @db.VarChar(20)
+  workflowId   String?   @map("workflow_id") @db.Uuid
+  submittedAt  DateTime  @default(now()) @map("submitted_at") @db.Timestamptz()
+  resolvedAt   DateTime? @map("resolved_at") @db.Timestamptz()
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt    DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy    String?   @map("created_by") @db.Uuid
+  updatedBy    String?   @map("updated_by") @db.Uuid
+
+  student  Student   @relation(fields: [studentId], references: [id])
+  workflow Workflow? @relation(fields: [workflowId], references: [id])
+
+  @@index([studentId])
+  @@index([status])
+  @@map("petitions")
+}
+
+// ── Document Domain (M03) ──────────────────────────────────
+
+model DocumentType {
+  id                String    @id @default(uuid()) @db.Uuid
+  code              String    @unique @db.VarChar(50)
+  nameTh            String    @map("name_th") @db.VarChar(255)
+  nameEn            String?   @map("name_en") @db.VarChar(255)
+  defaultWorkflowId String?   @map("default_workflow_id") @db.Uuid
+  isActive          Boolean   @default(true) @map("is_active")
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt         DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy         String?   @map("created_by") @db.Uuid
+  updatedBy         String?   @map("updated_by") @db.Uuid
+
+  documents Document[]
+
+  @@map("document_types")
+}
+
+model Document {
+  id              String    @id @default(uuid()) @db.Uuid
+  documentTypeId  String    @map("document_type_id") @db.Uuid
+  docNumber       String?   @map("doc_number") @db.VarChar(50)
+  subject         String    @db.VarChar(500)
+  body            String?   @db.Text
+  status          String    @default("draft") @db.VarChar(20)
+  filePath        String?   @map("file_path") @db.Text
+  fileSizeBytes   BigInt?   @map("file_size_bytes")
+  mimeType        String?   @map("mime_type") @db.VarChar(100)
+  createdByUserId String    @map("created_by_user") @db.Uuid
+  orgUnitId       String?   @map("org_unit_id") @db.Uuid
+  submittedAt     DateTime? @map("submitted_at") @db.Timestamptz()
+  archivedAt      DateTime? @map("archived_at") @db.Timestamptz()
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy       String?   @map("created_by") @db.Uuid
+  updatedBy       String?   @map("updated_by") @db.Uuid
+
+  documentType DocumentType       @relation(fields: [documentTypeId], references: [id])
+  creator      User               @relation("DocumentCreator", fields: [createdByUserId], references: [id])
+  orgUnit      Organization?      @relation(fields: [orgUnitId], references: [id])
+  workflows    Workflow[]
+  signatures   DigitalSignature[]
+
+  @@index([status])
+  @@index([createdByUserId])
+  @@index([documentTypeId])
+  @@map("documents")
+}
+
+model Workflow {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @db.VarChar(255)
+  documentId  String?   @map("document_id") @db.Uuid
+  currentStep Int       @default(1) @map("current_step")
+  totalSteps  Int       @map("total_steps")
+  status      String    @default("active") @db.VarChar(20)
+  startedAt   DateTime  @default(now()) @map("started_at") @db.Timestamptz()
+  completedAt DateTime? @map("completed_at") @db.Timestamptz()
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz()
+  createdBy   String?   @map("created_by") @db.Uuid
+  updatedBy   String?   @map("updated_by") @db.Uuid
+
+  document  Document?      @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  steps     WorkflowStep[]
+  petitions Petition[]
+
+  @@map("workflows")
+}
+
+model WorkflowStep {
+  id           String    @id @default(uuid()) @db.Uuid
+  workflowId   String    @map("workflow_id") @db.Uuid
+  stepNumber   Int       @map("step_number")
+  stepName     String    @map("step_name") @db.VarChar(255)
+  approverId   String?   @map("approver_id") @db.Uuid
+  approverRole String?   @map("approver_role") @db.VarChar(50)
+  status       String    @default("pending") @db.VarChar(20)
+  actionAt     DateTime? @map("action_at") @db.Timestamptz()
+  comment      String?   @db.Text
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
+
+  workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  approver User?    @relation("ApproverSteps", fields: [approverId], references: [id])
+
+  @@unique([workflowId, stepNumber])
+  @@index([workflowId])
+  @@index([approverId])
+  @@map("workflow_steps")
+}
+
+model DigitalSignature {
+  id             String   @id @default(uuid()) @db.Uuid
+  documentId     String   @map("document_id") @db.Uuid
+  signerId       String   @map("signer_id") @db.Uuid
+  signedAt       DateTime @default(now()) @map("signed_at") @db.Timestamptz()
+  signatureType  String   @default("simple_electronic") @map("signature_type") @db.VarChar(20)
+  signatureHash  String   @map("signature_hash") @db.Text
+  ipAddress      String   @map("ip_address") @db.VarChar(45)
+  metadata       Json?
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  signer   User     @relation(fields: [signerId], references: [id])
+
+  @@index([documentId])
+  @@map("digital_signatures")
+}

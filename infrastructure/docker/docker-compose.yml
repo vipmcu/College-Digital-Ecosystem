@@ -1,0 +1,38 @@
+services:
+  # ── PostgreSQL 16 ──────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: college-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: college_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d college_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  # ── RabbitMQ ──────────────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: college-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  postgres_data:
+  rabbitmq_data:

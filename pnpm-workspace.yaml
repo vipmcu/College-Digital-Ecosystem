@@ -1,0 +1,17 @@
+packages:
+  - "apps/*"
+  - "services/*"
+  - "packages/*"
+
+overrides:
+  prisma: "file:/Applications/MAMP/htdocs/IT Service Portal System/scripts/cache/prisma.tgz"
+  "@prisma/client": "file:/Applications/MAMP/htdocs/IT Service Portal System/scripts/cache/client.tgz"
+  next: "file:/Applications/MAMP/htdocs/IT Service Portal System/scripts/cache/next.tgz"
+  "@turbo/darwin-arm64": "file:/Applications/MAMP/htdocs/IT Service Portal System/scripts/cache/turbo-arm64.tgz"
+  "@next/swc-darwin-arm64": "file:/Applications/MAMP/htdocs/IT Service Portal System/scripts/cache/swc-arm64.tgz"
+
+allowBuilds:
+  '@prisma/client@file:scripts/cache/client.tgz': true
+  '@prisma/engines': true
+  esbuild: true
+  prisma@file:scripts/cache/prisma.tgz: true
