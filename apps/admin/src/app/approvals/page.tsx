@@ -3,6 +3,11 @@
 import React, { useState } from "react"
 import Link from "next/link"
 
+interface ApprovalAttachment {
+  name: string
+  size: string
+}
+
 interface PendingItem {
   id: string
   docNumber: string
@@ -15,6 +20,8 @@ interface PendingItem {
   stepIndex: number
   totalSteps: number
   slaRemainingHours: number
+  content?: string
+  attachments?: ApprovalAttachment[]
 }
 
 const initialApprovals: PendingItem[] = [
@@ -23,13 +30,19 @@ const initialApprovals: PendingItem[] = [
     docNumber: "มอ 003.1/10294",
     subject: "คำร้องขอลาพักการศึกษาเพื่อเข้าร่วมการแข่งขันระดับนานาชาติ (นายธนภัทร สิริวัฒนกุล)",
     type: "คำร้องออนไลน์ (e-Petition)",
-    submittedBy: "นายธนภัทร สิริวัฒนกุล (รหัส: 653040128-9)",
+    submittedBy: "นายธนภัทร สิริวัฒนกุล (รหัส: 6601104567)",
     dept: "สาขาวิทยาการคอมพิวเตอร์และปัญญาประดิษฐ์",
     submittedAt: "เมื่อวานนี้ 14:20 น.",
     stepName: "คณบดีคณะวิทยาการสารสนเทศและการคำนวณ",
     stepIndex: 2,
     totalSteps: 3,
     slaRemainingHours: 2.8,
+    content:
+      "ข้าพเจ้านายธนภัทร สิริวัฒนกุล นักศึกษาชั้นปีที่ 3 สาขาวิทยาการคอมพิวเตอร์ มีความประสงค์ขอลาพักการศึกษาในภาคเรียนที่ 1/2569 เพื่อเป็นตัวแทนประเทศไทยเข้าร่วมการแข่งขันหุ่นยนต์ปัญญาประดิษฐ์ World Robocup ณ กรุงโตเกียว ประเทศญี่ปุ่น โดยได้รับการพิจารณารับรองจากอาจารย์ที่ปรึกษาแล้ว จึงเสนอเพื่อโปรดพิจารณาอนุมัติ",
+    attachments: [
+      { name: "หนังสือเชิญการแข่งขันระดับนานาชาติ.pdf", size: "3.2 MB" },
+      { name: "ความเห็นและคำยินยอมของอาจารย์ที่ปรึกษา.pdf", size: "850 KB" },
+    ],
   },
   {
     id: "appr-02",
@@ -43,6 +56,12 @@ const initialApprovals: PendingItem[] = [
     stepIndex: 2,
     totalSteps: 3,
     slaRemainingHours: 7.5,
+    content:
+      "ด้วย สาขาวิชาวิทยาการคอมพิวเตอร์ กำหนดจัดโครงการสัมมนาเชิงปฏิบัติการเทคโนโลยีปัญญาประดิษฐ์และคลาวด์คอมพิวติ้ง ระหว่างวันที่ 15-17 ตุลาคม 2569 ณ ห้องประชุมนวัตกรรมดิจิทัล เพื่อเสริมสร้างความรู้แก่นักศึกษาชั้นปีที่ 3 จำนวน 120 คน งบประมาณรวมทั้งสิ้น 45,000 บาท จึงใคร่ขออนุมัติจัดโครงการและเบิกจ่ายงบประมาณตามระเบียบ",
+    attachments: [
+      { name: "โครงการสัมมนา_AI_Cloud_2569.pdf", size: "2.4 MB" },
+      { name: "ตารางกำหนดการและวิทยากรบรรยาย.pdf", size: "1.1 MB" },
+    ],
   },
   {
     id: "appr-03",
@@ -56,20 +75,33 @@ const initialApprovals: PendingItem[] = [
     stepIndex: 1,
     totalSteps: 3,
     slaRemainingHours: 12.0,
+    content:
+      "สำนักบริการเทคโนโลยีสารสนเทศ มีความจำเป็นต้องจัดซื้อเครื่องแม่ข่ายและอุปกรณ์สวิตช์เครือข่ายความเร็วสูง 100Gbps สำหรับรองรับระบบ Big Data & HPC Cluster ของมหาวิทยาลัย เพื่อรองรับงานวิจัยและการเรียนการสอน โดยใช้งบประมาณจัดสรรประจำปี 2569",
+    attachments: [
+      { name: "TOR_ข้อกำหนดคุณลักษณะครุภัณฑ์_HPC.pdf", size: "4.5 MB" },
+      { name: "ตารางเปรียบเทียบราคามาตรฐาน.pdf", size: "1.3 MB" },
+    ],
   },
 ]
 
 export default function ApprovalsQueuePage() {
   const [items, setItems] = useState<PendingItem[]>(initialApprovals)
+  const [selectedItemForReview, setSelectedItemForReview] = useState<PendingItem | null>(null)
+  const [reviewerNote, setReviewerNote] = useState("")
   const [toastMsg, setToastMsg] = useState<string | null>(null)
 
-  const handleAction = (id: string, action: "approve" | "reject") => {
+  const handleAction = (id: string, action: "approve" | "reject", note?: string) => {
     const item = items.find((i) => i.id === id)
     if (!item) return
 
     setItems(items.filter((i) => i.id !== id))
-    const actionText = action === "approve" ? "ลงนามอนุมัติดิจิทัล (Digital Signature Signed)" : "ส่งกลับแก้ไข/ปฏิเสธคำร้อง"
-    setToastMsg(`${actionText} สำหรับเอกสาร ${item.docNumber} สำเร็จ`)
+    setSelectedItemForReview(null)
+    setReviewerNote("")
+    const actionText =
+      action === "approve"
+        ? `ลงนามอนุมัติดิจิทัลสำเร็จ (Digital Signature Signed)`
+        : `ส่งกลับแก้ไข/ตีกลับคำร้องเรียบร้อย`
+    setToastMsg(`${actionText}: ${item.docNumber} ${note ? `(${note})` : ""}`)
     setTimeout(() => setToastMsg(null), 4000)
   }
 
@@ -205,11 +237,22 @@ export default function ApprovalsQueuePage() {
                 {/* Actions */}
                 <div className="flex items-center gap-space-sm shrink-0">
                   <button
+                    onClick={() => {
+                      setSelectedItemForReview(item)
+                      setReviewerNote("")
+                    }}
+                    className="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-sm">visibility</span>
+                    <span>ตรวจพิจารณา</span>
+                  </button>
+
+                  <button
                     onClick={() => handleAction(item.id, "reject")}
                     className="px-space-md py-2 rounded-lg bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-status-danger font-label-md text-label-md font-semibold border border-border-subtle transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-sm">undo</span>
-                    <span>ส่งกลับแก้ไข</span>
+                    <span>ส่งกลับ</span>
                   </button>
 
                   <button
@@ -217,7 +260,7 @@ export default function ApprovalsQueuePage() {
                     className="px-space-md py-2 rounded-lg bg-amber-primary hover:bg-status-warning text-surface-card font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-sm">draw</span>
-                    <span>ลงนามอนุมัติ (Sign)</span>
+                    <span>ลงนามอนุมัติ</span>
                   </button>
                 </div>
               </div>
@@ -225,6 +268,135 @@ export default function ApprovalsQueuePage() {
           )}
         </div>
       </main>
+
+      {/* Review & e-Sign Modal */}
+      {selectedItemForReview && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-surface-card rounded-2xl max-w-2xl w-full shadow-2xl border border-border-subtle overflow-hidden flex flex-col max-h-[85vh]">
+            {/* Header */}
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="material-symbols-outlined text-amber-primary text-2xl">fact_check</span>
+                <div>
+                  <h3 className="font-headline-sm text-base font-bold text-white leading-tight">
+                    ตรวจพิจารณาเอกสารและลงนามอิเล็กทรอนิกส์
+                  </h3>
+                  <p className="text-xs text-primary-fixed-dim">
+                    การลงนามมีผลผูกพันทางกฎหมายตาม พ.ร.บ. ธุรกรรมทางอิเล็กทรอนิกส์
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedItemForReview(null)}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            {/* Content Body */}
+            <div className="p-space-lg space-y-space-md overflow-y-auto">
+              {/* Top Metadata */}
+              <div className="p-space-md bg-surface-container-low rounded-xl border border-border-subtle space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-bold text-secondary bg-surface-container px-2 py-0.5 rounded">
+                    {selectedItemForReview.docNumber}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-primary/15 text-amber-primary font-bold">
+                    เหลือเวลา SLA: {selectedItemForReview.slaRemainingHours} ชม.
+                  </span>
+                </div>
+                <h4 className="font-bold text-navy-deep text-sm leading-snug">
+                  {selectedItemForReview.subject}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-on-surface-variant pt-1">
+                  <p><strong>ผู้ยื่นเรื่อง:</strong> {selectedItemForReview.submittedBy}</p>
+                  <p><strong>หน่วยงาน:</strong> {selectedItemForReview.dept}</p>
+                  <p><strong>วันที่ยื่น:</strong> {selectedItemForReview.submittedAt}</p>
+                  <p><strong>ลำดับการพิจารณา:</strong> ขั้นตอนที่ {selectedItemForReview.stepIndex}/{selectedItemForReview.totalSteps}</p>
+                </div>
+              </div>
+
+              {/* Memo Text Body */}
+              <div className="space-y-1.5">
+                <span className="font-bold text-navy-deep text-xs block">
+                  ข้อความในเอกสาร / บันทึกข้อความ:
+                </span>
+                <div className="bg-white p-3.5 rounded-lg border border-border-subtle text-xs text-navy-deep leading-relaxed whitespace-pre-line shadow-inner">
+                  {selectedItemForReview.content}
+                </div>
+              </div>
+
+              {/* Attachments */}
+              {selectedItemForReview.attachments && selectedItemForReview.attachments.length > 0 && (
+                <div className="space-y-1.5">
+                  <span className="font-bold text-navy-deep text-xs block">
+                    เอกสารหลักฐานแนบ ({selectedItemForReview.attachments.length} รายการ):
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {selectedItemForReview.attachments.map((file, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between p-2.5 rounded-lg border border-border-subtle bg-surface-container-low text-xs"
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="material-symbols-outlined text-red-500 text-lg">picture_as_pdf</span>
+                          <span className="font-medium text-navy-deep truncate">{file.name}</span>
+                        </div>
+                        <span className="text-outline text-[11px] shrink-0 ml-2">{file.size}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Reviewer Note Textarea */}
+              <div className="space-y-1.5">
+                <label className="font-bold text-navy-deep text-xs block">
+                  ความเห็น / ข้อสั่งการของผู้บริหาร (Directive &amp; Feedback):
+                </label>
+                <textarea
+                  rows={3}
+                  value={reviewerNote}
+                  onChange={(e) => setReviewerNote(e.target.value)}
+                  placeholder="ระบุข้อสั่งการ เช่น เห็นชอบตามเสนอ ดำเนินการต่อได้ หรือ ระบุเหตุผลในกรณีส่งกลับแก้ไข..."
+                  className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep focus:outline-none focus:ring-2 focus:ring-secondary placeholder:text-outline"
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Footer Actions */}
+            <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-between gap-space-sm">
+              <button
+                type="button"
+                onClick={() => setSelectedItemForReview(null)}
+                className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+              >
+                ปิดหน้าต่าง
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleAction(selectedItemForReview.id, "reject", reviewerNote)}
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-700 font-label-md text-label-md font-semibold border border-border-subtle transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm">undo</span>
+                  <span>ส่งกลับแก้ไข</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleAction(selectedItemForReview.id, "approve", reviewerNote)}
+                  className="px-4 py-2 rounded-lg bg-amber-primary hover:bg-amber-600 text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm">draw</span>
+                  <span>ลงนามอนุมัติดิจิทัล (Approve &amp; Sign)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 3. Footer */}
       <footer className="w-full bg-navy-deep text-on-primary py-space-md border-t border-navy-surface mt-auto">

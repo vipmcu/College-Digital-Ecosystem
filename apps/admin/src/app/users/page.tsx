@@ -91,15 +91,99 @@ const initialUsers: UserAccount[] = [
   },
 ]
 
+const ALL_ROLES = [
+  { id: "it_admin", label: "IT Administrator (it_admin)" },
+  { id: "executive", label: "ผู้บริหารระดับสูง (executive)" },
+  { id: "instructor", label: "อาจารย์ผู้สอน (instructor)" },
+  { id: "registrar", label: "เจ้าหน้าที่สำนักทะเบียน (registrar)" },
+  { id: "document_officer", label: "เจ้าหน้าที่สารบรรณ (document_officer)" },
+  { id: "dpo", label: "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (dpo)" },
+  { id: "student", label: "นักศึกษา (student)" },
+]
+
 export default function UsersGovernancePage() {
   const [users, setUsers] = useState<UserAccount[]>(initialUsers)
   const [search, setSearch] = useState("")
   const [roleFilter, setRoleFilter] = useState("all")
   const [toastMsg, setToastMsg] = useState<string | null>(null)
 
+  // Modals state
+  const [showAddUserModal, setShowAddUserModal] = useState(false)
+  const [userForEditRoles, setUserForEditRoles] = useState<UserAccount | null>(null)
+  const [userForResetPassword, setUserForResetPassword] = useState<UserAccount | null>(null)
+
+  // Add User Form state
+  const [newUsername, setNewUsername] = useState("")
+  const [newNameTh, setNewNameTh] = useState("")
+  const [newNameEn, setNewNameEn] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newUserType, setNewUserType] = useState<"admin" | "instructor" | "staff" | "student">("staff")
+  const [newRoles, setNewRoles] = useState<string[]>(["document_officer"])
+  const [newMfa, setNewMfa] = useState(true)
+  const [newPdpa, setNewPdpa] = useState(true)
+
+  // Edit Roles state
+  const [editingRoles, setEditingRoles] = useState<string[]>([])
+  const [editingActive, setEditingActive] = useState(true)
+
   const showToast = (msg: string) => {
     setToastMsg(msg)
     setTimeout(() => setToastMsg(null), 3500)
+  }
+
+  const handleOpenEditRoles = (user: UserAccount) => {
+    setUserForEditRoles(user)
+    setEditingRoles([...user.roles])
+    setEditingActive(user.isActive)
+  }
+
+  const handleSaveEditRoles = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!userForEditRoles) return
+
+    setUsers(
+      users.map((u) =>
+        u.id === userForEditRoles.id
+          ? { ...u, roles: editingRoles, isActive: editingActive }
+          : u
+      )
+    )
+    showToast(`อัปเดตสิทธิ์ RBAC สำหรับ ${userForEditRoles.username} เสร็จสมบูรณ์`)
+    setUserForEditRoles(null)
+  }
+
+  const handleAddUserSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newUsername.trim() || !newEmail.trim()) return
+
+    const newUser: UserAccount = {
+      id: `usr-${Date.now()}`,
+      username: newUsername.trim(),
+      nameTh: newNameTh.trim() || newUsername,
+      nameEn: newNameEn.trim() || newUsername,
+      email: newEmail.trim(),
+      userType: newUserType,
+      roles: newRoles.length > 0 ? newRoles : ["staff"],
+      mfaEnabled: newMfa,
+      pdpaConsent: newPdpa,
+      isActive: true,
+    }
+
+    setUsers([newUser, ...users])
+    setShowAddUserModal(false)
+    setNewUsername("")
+    setNewNameTh("")
+    setNewNameEn("")
+    setNewEmail("")
+    setNewRoles(["document_officer"])
+    showToast(`เพิ่มผู้ใช้งาน ${newUser.username} เข้าสู่ระบบ Keycloak SSO เรียบร้อยแล้ว`)
+  }
+
+  const handleConfirmResetPassword = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!userForResetPassword) return
+    showToast(`สร้างรหัสผ่านชั่วคราวและส่งไปยังอีเมล ${userForResetPassword.email} เรียบร้อยแล้ว`)
+    setUserForResetPassword(null)
   }
 
   const filteredUsers = users.filter((u) => {
@@ -139,7 +223,7 @@ export default function UsersGovernancePage() {
           </div>
 
           <button
-            onClick={() => showToast("เปิดแบบฟอร์มเพิ่มบัญชีผู้ใช้งานใหม่ใน Keycloak SSO")}
+            onClick={() => setShowAddUserModal(true)}
             className="px-space-md py-2 bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <span className="material-symbols-outlined text-base">person_add</span>
@@ -320,14 +404,14 @@ export default function UsersGovernancePage() {
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end gap-1.5">
                           <button
-                            onClick={() => showToast(`แก้ไขสิทธิ์ RBAC สำหรับ: ${u.username}`)}
-                            className="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-navy-deep text-xs font-semibold transition-colors"
+                            onClick={() => handleOpenEditRoles(u)}
+                            className="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-navy-deep text-xs font-semibold transition-colors cursor-pointer"
                           >
                             แก้ไขสิทธิ์
                           </button>
                           <button
-                            onClick={() => showToast(`ส่งอีเมลรีเซ็ตรหัสผ่านไปยัง: ${u.email}`)}
-                            className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors"
+                            onClick={() => setUserForResetPassword(u)}
+                            className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors cursor-pointer"
                           >
                             รีเซ็ตรหัส
                           </button>
@@ -341,6 +425,331 @@ export default function UsersGovernancePage() {
           </div>
         </div>
       </main>
+
+      {/* Add User Modal */}
+      {showAddUserModal && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-surface-card rounded-2xl max-w-xl w-full shadow-2xl border border-border-subtle overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-amber-primary text-xl">person_add</span>
+                <h3 className="font-headline-sm text-base font-bold text-white">
+                  เพิ่มบัญชีผู้ใช้งานใหม่ (SSO &amp; RBAC)
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowAddUserModal(false)}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <form onSubmit={handleAddUserSubmit}>
+              <div className="p-space-lg space-y-space-md max-h-[75vh] overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+                  <div>
+                    <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-1">
+                      ชื่อผู้ใช้ (Username) <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="เช่น somchai.j"
+                      value={newUsername}
+                      onChange={(e) => setNewUsername(e.target.value)}
+                      className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep font-mono focus:outline-none focus:ring-2 focus:ring-secondary"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-1">
+                      อีเมลสถาบัน (@college.ac.th) <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="somchai.j@college.ac.th"
+                      value={newEmail}
+                      onChange={(e) => setNewEmail(e.target.value)}
+                      className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep focus:outline-none focus:ring-2 focus:ring-secondary"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+                  <div>
+                    <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-1">
+                      ชื่อ-นามสกุล (ภาษาไทย)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="นายสมชาย ใจดี"
+                      value={newNameTh}
+                      onChange={(e) => setNewNameTh(e.target.value)}
+                      className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep focus:outline-none focus:ring-2 focus:ring-secondary"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-1">
+                      Full Name (English)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Mr. Somchai Jaidee"
+                      value={newNameEn}
+                      onChange={(e) => setNewNameEn(e.target.value)}
+                      className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep focus:outline-none focus:ring-2 focus:ring-secondary"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-1">
+                    ประเภทผู้ใช้งาน (User Classification)
+                  </label>
+                  <select
+                    value={newUserType}
+                    onChange={(e) => setNewUserType(e.target.value as typeof newUserType)}
+                    className="w-full bg-surface-container-low border border-border-subtle rounded-lg p-2.5 text-xs text-navy-deep font-semibold focus:outline-none focus:ring-2 focus:ring-secondary"
+                  >
+                    <option value="staff">เจ้าหน้าที่สายสนับสนุน (Staff)</option>
+                    <option value="instructor">อาจารย์ผู้สอน / นักวิจัย (Instructor)</option>
+                    <option value="admin">ผู้ดูแลระบบสารสนเทศ (Administrator)</option>
+                    <option value="student">นักศึกษา (Student)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="font-label-sm text-label-sm text-navy-deep font-bold block mb-2">
+                    กำหนดบทบาทและสิทธิ์การเข้าถึง (RBAC Roles)
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-surface-container-low p-3 rounded-xl border border-border-subtle">
+                    {ALL_ROLES.map((role) => {
+                      const isChecked = newRoles.includes(role.id)
+                      return (
+                        <label
+                          key={role.id}
+                          className="flex items-center gap-2 text-xs text-navy-deep cursor-pointer p-1 rounded hover:bg-surface-card"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setNewRoles([...newRoles, role.id])
+                              } else {
+                                setNewRoles(newRoles.filter((r) => r !== role.id))
+                              }
+                            }}
+                            className="rounded text-primary focus:ring-secondary"
+                          />
+                          <span>{role.label}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                <div className="p-3 bg-surface-container-low rounded-xl border border-border-subtle space-y-2 text-xs">
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="font-medium text-navy-deep">เปิดใช้งาน 2-Factor Authentication (MFA)</span>
+                    <input
+                      type="checkbox"
+                      checked={newMfa}
+                      onChange={(e) => setNewMfa(e.target.checked)}
+                      className="rounded text-primary focus:ring-secondary"
+                    />
+                  </label>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="font-medium text-navy-deep">บันทึกความยินยอม PDPA Consent เริ่มต้น</span>
+                    <input
+                      type="checkbox"
+                      checked={newPdpa}
+                      onChange={(e) => setNewPdpa(e.target.checked)}
+                      className="rounded text-primary focus:ring-secondary"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-end gap-space-sm">
+                <button
+                  type="button"
+                  onClick={() => setShowAddUserModal(false)}
+                  className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+                >
+                  ยกเลิก
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-primary hover:bg-navy-deep text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm">save</span>
+                  <span>บันทึกและสร้างบัญชี</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit RBAC Roles Modal */}
+      {userForEditRoles && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-surface-card rounded-2xl max-w-lg w-full shadow-2xl border border-border-subtle overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-amber-primary text-xl">admin_panel_settings</span>
+                <h3 className="font-headline-sm text-base font-bold text-white">
+                  แก้ไขสิทธิ์ RBAC: {userForEditRoles.username}
+                </h3>
+              </div>
+              <button
+                onClick={() => setUserForEditRoles(null)}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEditRoles}>
+              <div className="p-space-lg space-y-space-md">
+                <div className="p-3 bg-surface-container-low rounded-xl border border-border-subtle flex items-center justify-between text-xs">
+                  <div>
+                    <div className="font-bold text-navy-deep">{userForEditRoles.nameTh}</div>
+                    <div className="text-outline">{userForEditRoles.email}</div>
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer font-bold text-navy-deep">
+                    <span>สถานะบัญชี:</span>
+                    <input
+                      type="checkbox"
+                      checked={editingActive}
+                      onChange={(e) => setEditingActive(e.target.checked)}
+                      className="rounded text-primary focus:ring-secondary"
+                    />
+                    <span className={editingActive ? "text-status-success" : "text-red-500"}>
+                      {editingActive ? "ใช้งานอยู่" : "ระงับการใช้งาน"}
+                    </span>
+                  </label>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="font-label-sm text-label-sm text-navy-deep font-bold block">
+                    เลือกสิทธิ์การเข้าถึงระบบที่อนุญาต:
+                  </span>
+                  <div className="space-y-1.5 bg-surface-container-low p-3 rounded-xl border border-border-subtle">
+                    {ALL_ROLES.map((role) => {
+                      const isChecked = editingRoles.includes(role.id)
+                      return (
+                        <label
+                          key={role.id}
+                          className="flex items-center gap-2.5 text-xs text-navy-deep cursor-pointer p-1.5 rounded hover:bg-surface-card"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setEditingRoles([...editingRoles, role.id])
+                              } else {
+                                setEditingRoles(editingRoles.filter((r) => r !== role.id))
+                              }
+                            }}
+                            className="rounded text-primary focus:ring-secondary"
+                          />
+                          <span className="font-medium">{role.label}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-end gap-space-sm">
+                <button
+                  type="button"
+                  onClick={() => setUserForEditRoles(null)}
+                  className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+                >
+                  ยกเลิก
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-primary hover:bg-navy-deep text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm">check</span>
+                  <span>บันทึกการเปลี่ยนแปลง</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Reset Password Modal */}
+      {userForResetPassword && (
+        <div className="fixed inset-0 z-50 bg-navy-deep/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-surface-card rounded-2xl max-w-md w-full shadow-2xl border border-border-subtle overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="bg-navy-deep px-space-lg py-space-md text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-amber-primary text-xl">lock_reset</span>
+                <h3 className="font-headline-sm text-base font-bold text-white">
+                  รีเซ็ตรหัสผ่านบัญชี SSO
+                </h3>
+              </div>
+              <button
+                onClick={() => setUserForResetPassword(null)}
+                className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <form onSubmit={handleConfirmResetPassword}>
+              <div className="p-space-lg space-y-space-md">
+                <div className="p-3.5 bg-amber-primary/10 border border-amber-primary/30 rounded-xl text-xs text-navy-deep flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-amber-primary text-xl shrink-0">info</span>
+                  <p>
+                    ระบบจะสร้างรหัสผ่านชั่วคราว (Temporary Password) และจัดส่งไปยังอีเมลทางการศึกษาของผู้ใช้งานโดยอัตโนมัติ พร้อมบังคับให้เปลี่ยนรหัสผ่านทันทีเมื่อล็อกอิน
+                  </p>
+                </div>
+
+                <div className="bg-surface-container-low p-3.5 rounded-xl border border-border-subtle space-y-1.5 text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-outline">ชื่อผู้ใช้:</span>
+                    <strong className="font-mono text-secondary">{userForResetPassword.username}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-outline">ชื่อ-นามสกุล:</span>
+                    <strong className="text-navy-deep">{userForResetPassword.nameTh}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-outline">อีเมลปลายทาง:</span>
+                    <strong className="text-navy-deep">{userForResetPassword.email}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-surface-container-low px-space-lg py-space-sm border-t border-border-subtle flex items-center justify-end gap-space-sm">
+                <button
+                  type="button"
+                  onClick={() => setUserForResetPassword(null)}
+                  className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors cursor-pointer"
+                >
+                  ยกเลิก
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-amber-primary hover:bg-amber-600 text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm">send</span>
+                  <span>ยืนยันส่งรหัสผ่านใหม่</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* 3. Footer */}
       <footer className="w-full bg-navy-deep text-on-primary py-space-md border-t border-navy-surface mt-auto">

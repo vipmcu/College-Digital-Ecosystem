@@ -51,20 +51,136 @@ export default function ExecutiveDashboardPage() {
     { id: "LOG-9817", action: "WORKFLOW_STEP_TRANSITION", resourceType: "workflow_steps", userId: "admin", eventTime: "10:18:50", status: "SUCCESS" },
   ]
 
+  const facultyData: Record<
+    string,
+    {
+      name: string
+      headcount: string
+      normalStudents: string
+      leaveStudents: string
+      normalPercent: string
+      leavePercent: string
+      slaHours: string
+      slaFaster: string
+      signedCount: string
+      pendingCount: string
+      signedPercent: string
+      adoptionPercent: string
+      activeUsersDay: string
+    }
+  > = {
+    all: {
+      name: "ภาพรวมวิทยาลัย (ทุกส่วนงาน)",
+      headcount: "5,840",
+      normalStudents: "5,536",
+      leaveStudents: "304",
+      normalPercent: "94.8%",
+      leavePercent: "5.2%",
+      slaHours: "4.2",
+      slaFaster: "65%",
+      signedCount: "1,842",
+      pendingCount: "238",
+      signedPercent: "88.6%",
+      adoptionPercent: "88.4%",
+      activeUsersDay: "4,210",
+    },
+    cs: {
+      name: "สาขาวิทยาการคอมพิวเตอร์",
+      headcount: "1,820",
+      normalStudents: "1,750",
+      leaveStudents: "70",
+      normalPercent: "96.2%",
+      leavePercent: "3.8%",
+      slaHours: "2.8",
+      slaFaster: "72%",
+      signedCount: "680",
+      pendingCount: "42",
+      signedPercent: "94.2%",
+      adoptionPercent: "95.6%",
+      activeUsersDay: "1,480",
+    },
+    it: {
+      name: "สาขาเทคโนโลยีสารสนเทศ",
+      headcount: "2,350",
+      normalStudents: "2,210",
+      leaveStudents: "140",
+      normalPercent: "94.0%",
+      leavePercent: "6.0%",
+      slaHours: "4.5",
+      slaFaster: "60%",
+      signedCount: "740",
+      pendingCount: "115",
+      signedPercent: "86.5%",
+      adoptionPercent: "85.2%",
+      activeUsersDay: "1,650",
+    },
+    ai: {
+      name: "สาขาปัญญาประดิษฐ์และวิทยาการข้อมูล",
+      headcount: "1,670",
+      normalStudents: "1,576",
+      leaveStudents: "94",
+      normalPercent: "94.4%",
+      leavePercent: "5.6%",
+      slaHours: "3.1",
+      slaFaster: "69%",
+      signedCount: "422",
+      pendingCount: "81",
+      signedPercent: "83.9%",
+      adoptionPercent: "92.0%",
+      activeUsersDay: "1,080",
+    },
+  }
+
   const handleExportBriefing = () => {
-    setExportNotice("กำลังสร้างเอกสารรายงานยุทธศาสตร์ PDF Briefing (M04-F04)...")
+    setExportNotice("กำลังเตรียมพิมพ์เอกสารรายงานยุทธศาสตร์ PDF Briefing (M04-F04)...")
+    if (typeof window !== "undefined") {
+      window.print()
+    }
     setTimeout(() => {
-      setExportNotice("ดาวน์โหลดรายงานสรุปยุทธศาสตร์ (Executive Briefing PDF) สำเร็จ")
+      setExportNotice("เปิดหน้าต่างพิมพ์รายงานสรุปยุทธศาสตร์ (PDF Briefing) เรียบร้อย")
       setTimeout(() => setExportNotice(null), 4000)
-    }, 1200)
+    }, 1000)
   }
 
   const handleExportData = () => {
-    setExportNotice("กำลังเตรียมชุดข้อมูลสถิติ Excel/CSV (M04 Dataset)...")
-    setTimeout(() => {
-      setExportNotice("ส่งออกชุดข้อมูล Excel/CSV เรียบร้อย")
-      setTimeout(() => setExportNotice(null), 4000)
-    }, 1200)
+    const current = facultyData[selectedFaculty] || facultyData.all
+    const rows = [
+      ["College Executive Analytics Report", `Year: ${selectedYear}`, `Faculty: ${current.name}`],
+      ["Generated At", new Date().toLocaleString("th-TH")],
+      [],
+      ["Metric Name", "Value", "Unit", "Benchmark Status"],
+      ["จำนวนนักศึกษาปัจจุบัน (Headcount)", current.headcount, "คน", "ปกติ"],
+      ["นักศึกษาสภาพปกติ", current.normalStudents, `คน (${current.normalPercent})`, "คงอยู่"],
+      ["นักศึกษาลาพัก/ผ่อนผัน", current.leaveStudents, `คน (${current.leavePercent})`, "ติดตาม"],
+      ["ระยะเวลาอนุมัติคำร้องเฉลี่ย (SLA)", current.slaHours, "ชั่วโมง/ฉบับ", `เร็วกว่าเป้าหมาย ${current.slaFaster}`],
+      ["เกษียณหนังสือเสร็จสิ้น", current.signedCount, `ฉบับ (${current.signedPercent})`, "เสร็จสมบูรณ์"],
+      ["เอกสารรอลงนามคงค้าง", current.pendingCount, "ฉบับ", "อยู่ในเกณฑ์"],
+      ["อัตราการยอมรับและใช้งานดิจิทัล", `${current.adoptionPercent}`, "%", "บรรลุเป้าหมาย"],
+      ["ผู้ใช้งานสม่ำเสมอต่อวัน", current.activeUsersDay, "คน/วัน", "Active"],
+      ["เสถียรภาพระบบไอที (System Uptime)", "99.98%", "%", "High Availability"],
+      [],
+      ["Service Status", "Port", "Latency", "State"],
+      ...servicesList.map((s) => [s.name, s.port.toString(), `${s.latencyMs}ms`, s.status]),
+      [],
+      ["Recent Audit Log ID", "Action", "Resource", "User", "Timestamp", "Status"],
+      ...recentAuditLogs.map((l) => [l.id, l.action, l.resourceType, l.userId, l.eventTime, l.status]),
+    ]
+
+    const csvContent =
+      "\uFEFF" +
+      rows.map((r) => r.map((c) => `"${c.replace(/"/g, '""')}"`).join(",")).join("\n")
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.setAttribute("download", `executive_metrics_${selectedFaculty}_${selectedYear}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+
+    setExportNotice("ส่งออกชุดข้อมูล Excel/CSV เรียบร้อย (executive_metrics.csv)")
+    setTimeout(() => setExportNotice(null), 4000)
   }
 
   return (
@@ -298,131 +414,134 @@ export default function ExecutiveDashboardPage() {
         {/* Main Strategic Analytics Content Area */}
         <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop w-full -mt-4 space-y-space-xl">
           {/* Top Strategic KPI Cards Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
-            {/* KPI 1: Active Students Headcount */}
-            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
-                    M04-F01 • ฐานข้อมูลนักศึกษา
-                  </span>
-                  <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
-                    จำนวนนักศึกษาปัจจุบัน
-                  </h3>
-                </div>
-                <div className="w-10 h-10 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center">
-                  <span className="material-symbols-outlined">groups</span>
-                </div>
-              </div>
+          {(() => {
+            const currFaculty = facultyData[selectedFaculty] || facultyData.all
+            return (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+                {/* KPI 1: Active Students Headcount */}
+                <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
+                        M04-F01 • ฐานข้อมูลนักศึกษา
+                      </span>
+                      <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
+                        จำนวนนักศึกษาปัจจุบัน
+                      </h3>
+                    </div>
+                    <div className="w-10 h-10 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center">
+                      <span className="material-symbols-outlined">groups</span>
+                    </div>
+                  </div>
 
-              <div className="my-space-sm flex items-baseline justify-between">
-                <div>
-                  <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
-                    5,840
-                  </span>
-                  <span className="font-label-md text-label-md text-on-surface-variant ml-1 font-semibold">
-                    คน
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">arrow_upward</span> +4.2% YoY
-                </span>
-              </div>
+                  <div className="my-space-sm flex items-baseline justify-between">
+                    <div>
+                      <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
+                        {currFaculty.headcount}
+                      </span>
+                      <span className="font-label-md text-label-md text-on-surface-variant ml-1 font-semibold">
+                        คน
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
+                      <span className="material-symbols-outlined text-xs">arrow_upward</span> +4.2% YoY
+                    </span>
+                  </div>
 
-              <div className="space-y-1">
-                <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
-                  <div className="bg-secondary h-full" style={{ width: "94.8%" }} title="คงสภาพ: 94.8%"></div>
-                  <div className="bg-status-warning h-full" style={{ width: "5.2%" }} title="พัก/ผ่อนผัน: 5.2%"></div>
+                  <div className="space-y-1">
+                    <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+                      <div className="bg-secondary h-full" style={{ width: currFaculty.normalPercent }} title={`คงสภาพ: ${currFaculty.normalPercent}`}></div>
+                      <div className="bg-status-warning h-full" style={{ width: currFaculty.leavePercent }} title={`พัก/ผ่อนผัน: ${currFaculty.leavePercent}`}></div>
+                    </div>
+                    <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+                      <span>สภาพปกติ {currFaculty.normalStudents} คน ({currFaculty.normalPercent})</span>
+                      <span className="text-status-warning font-semibold">พัก/ผ่อนผัน {currFaculty.leaveStudents} คน ({currFaculty.leavePercent})</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-                  <span>สภาพปกติ 5,536 คน (94.8%)</span>
-                  <span className="text-status-warning font-semibold">พัก/ผ่อนผัน 304 คน (5.2%)</span>
-                </div>
-              </div>
-            </div>
 
-            {/* KPI 2: e-Document SLA */}
-            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-amber-primary"></div>
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
-                    M04-F02 • ประสิทธิภาพสารบรรณ
-                  </span>
-                  <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
-                    ระยะเวลาอนุมัติคำร้อง (SLA)
-                  </h3>
-                </div>
-                <div className="w-10 h-10 rounded-lg bg-amber-subtle text-amber-primary flex items-center justify-center">
-                  <span className="material-symbols-outlined">timer</span>
-                </div>
-              </div>
+                {/* KPI 2: e-Document SLA */}
+                <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-amber-primary"></div>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
+                        M04-F02 • ประสิทธิภาพสารบรรณ
+                      </span>
+                      <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
+                        ระยะเวลาอนุมัติคำร้อง (SLA)
+                      </h3>
+                    </div>
+                    <div className="w-10 h-10 rounded-lg bg-amber-subtle text-amber-primary flex items-center justify-center">
+                      <span className="material-symbols-outlined">timer</span>
+                    </div>
+                  </div>
 
-              <div className="my-space-sm flex items-baseline justify-between">
-                <div>
-                  <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
-                    4.2
-                  </span>
-                  <span className="font-label-md text-label-md text-on-surface-variant ml-1 font-semibold">
-                    ชั่วโมง/ฉบับ
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">bolt</span> เร็วกว่าเป้าหมาย 65%
-                </span>
-              </div>
+                  <div className="my-space-sm flex items-baseline justify-between">
+                    <div>
+                      <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
+                        {currFaculty.slaHours}
+                      </span>
+                      <span className="font-label-md text-label-md text-on-surface-variant ml-1 font-semibold">
+                        ชั่วโมง/ฉบับ
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
+                      <span className="material-symbols-outlined text-xs">bolt</span> เร็วกว่าเป้าหมาย {currFaculty.slaFaster}
+                    </span>
+                  </div>
 
-              <div className="space-y-1">
-                <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
-                  <div className="bg-amber-primary h-full" style={{ width: "88.6%" }} title="เสร็จสิ้นตาม SLA: 88.6%"></div>
-                  <div className="bg-outline-variant h-full" style={{ width: "11.4%" }} title="รอดำเนินการ: 11.4%"></div>
+                  <div className="space-y-1">
+                    <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+                      <div className="bg-amber-primary h-full" style={{ width: currFaculty.signedPercent }} title={`เสร็จสิ้นตาม SLA: ${currFaculty.signedPercent}`}></div>
+                      <div className="bg-outline-variant h-full" style={{ width: `${100 - parseFloat(currFaculty.signedPercent)}%` }} title="รอดำเนินการ"></div>
+                    </div>
+                    <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+                      <span>เกษียณเสร็จสิ้น {currFaculty.signedCount} ฉบับ ({currFaculty.signedPercent})</span>
+                      <span className="text-amber-primary font-semibold">รอลงนาม {currFaculty.pendingCount} ฉบับ</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-                  <span>เกษียณเสร็จสิ้น 1,842 ฉบับ (88.6%)</span>
-                  <span className="text-amber-primary font-semibold">รอลงนาม 238 ฉบับ</span>
-                </div>
-              </div>
-            </div>
 
-            {/* KPI 3: Digital Adoption Rate */}
-            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-status-success"></div>
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
-                    M04-F03 • การยอมรับระบบดิจิทัล
-                  </span>
-                  <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
-                    อัตราการยอมรับและใช้งาน
-                  </h3>
-                </div>
-                <div className="w-10 h-10 rounded-lg bg-status-success/15 text-status-success flex items-center justify-center">
-                  <span className="material-symbols-outlined">trending_up</span>
-                </div>
-              </div>
+                {/* KPI 3: Digital Adoption Rate */}
+                <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-status-success"></div>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block font-semibold">
+                        M04-F03 • การยอมรับระบบดิจิทัล
+                      </span>
+                      <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-0.5">
+                        อัตราการยอมรับและใช้งาน
+                      </h3>
+                    </div>
+                    <div className="w-10 h-10 rounded-lg bg-status-success/15 text-status-success flex items-center justify-center">
+                      <span className="material-symbols-outlined">trending_up</span>
+                    </div>
+                  </div>
 
-              <div className="my-space-sm flex items-baseline justify-between">
-                <div>
-                  <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
-                    88.4%
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">arrow_upward</span> +12.6%
-                </span>
-              </div>
+                  <div className="my-space-sm flex items-baseline justify-between">
+                    <div>
+                      <span className="font-display-lg text-display-lg text-navy-deep font-bold tracking-tight">
+                        {currFaculty.adoptionPercent}
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
+                      <span className="material-symbols-outlined text-xs">arrow_upward</span> +12.6%
+                    </span>
+                  </div>
 
-              <div className="space-y-1">
-                <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
-                  <div className="bg-status-success h-full" style={{ width: "88.4%" }}></div>
+                  <div className="space-y-1">
+                    <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+                      <div className="bg-status-success h-full" style={{ width: currFaculty.adoptionPercent }}></div>
+                    </div>
+                    <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+                      <span>ผู้ใช้งานสม่ำเสมอ: {currFaculty.activeUsersDay} คน/วัน</span>
+                      <span className="text-status-success font-semibold">บรรลุเป้าหมาย</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-                  <span>ผู้ใช้งานสม่ำเสมอ: 4,210 คน/วัน</span>
-                  <span className="text-status-success font-semibold">บรรลุเป้าหมาย</span>
-                </div>
-              </div>
-            </div>
 
             {/* KPI 4: Infrastructure & Uptime */}
             <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col justify-between relative overflow-hidden">
@@ -463,6 +582,8 @@ export default function ExecutiveDashboardPage() {
               </div>
             </div>
           </div>
+        )
+      })()}
 
           {/* Middle Strategic Analytics Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-md">

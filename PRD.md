@@ -1,5 +1,4 @@
 # PRD — College Digital Ecosystem MVP
-<!-- Version: 1.0.0 | Last Updated: 2026-09-05 | Owner: Product Owner / Tech Lead -->
 
 ---
 
@@ -13,41 +12,41 @@
 
 ## 2. Problem Statement — Pain Points Traceability Matrix
 
-| # | Pain Point | Module ที่แก้ | Severity |
-|:---:|---|---|:---:|
-| P01 | ข้อมูลกระจัดกระจาย ไม่เชื่อมโยงกัน (Data Silo) | M01, M02, M04 | Critical |
-| P02 | โครงสร้างพื้นฐานดิจิทัลและ IT ไม่เพียงพอ | M01, M06 | High |
-| P03 | Digital Literacy & Resistance to Change | M05 (non-software) | High |
-| P04 | ธรรมาภิบาลข้อมูลและ Cybersecurity อ่อนแอ | M06, M01 | High |
-| P05 | กระบวนการเอกสาร/อนุมัติแบบ Manual | M03 | Medium-High |
+| #   | Pain Point                                     | Module ที่แก้      | Severity    |
+| --- | ---------------------------------------------- | ------------------ | ----------- |
+| P01 | ข้อมูลกระจัดกระจาย ไม่เชื่อมโยงกัน (Data Silo) | M01, M02, M04      | Critical    |
+| P02 | โครงสร้างพื้นฐานดิจิทัลและ IT ไม่เพียงพอ       | M01, M06           | High        |
+| P03 | Digital Literacy & Resistance to Change        | M05 (non-software) | High        |
+| P04 | ธรรมาภิบาลข้อมูลและ Cybersecurity อ่อนแอ       | M06, M01           | High        |
+| P05 | กระบวนการเอกสาร/อนุมัติแบบ Manual              | M03                | Medium-High |
 
 ---
 
 ## 3. Goals & Success Metrics (KPIs)
 
-| หมวด | KPI | เป้าหมาย | วิธีวัด |
-|---|---|:---:|---|
-| Adoption | % บุคลากรที่ใช้ระบบ e-Document | >= 70% | Active Users / Total Staff |
-| Adoption | % นักศึกษาที่ใช้ SIS ออนไลน์ | >= 85% | Monthly Active Users |
-| Efficiency | ลดเวลาอนุมัติเอกสารเฉลี่ย | >= 50% | Avg. Approval Time Before vs After |
-| Data Quality | อัตราข้อมูลซ้ำซ้อนใน Master Data | <= 2% | Dedup Check รายเดือน |
-| Security | Data Breach Incidents | 0 | Security Log Monitoring |
-| Compliance | ผ่าน PDPA Audit | Pass | External Audit Report |
-| Satisfaction | NPS ของผู้ใช้ระบบ | >= +20 | Quarterly Survey |
+| หมวด         | KPI                              | เป้าหมาย | วิธีวัด                            |
+| ------------ | -------------------------------- | -------- | ---------------------------------- |
+| Adoption     | % บุคลากรที่ใช้ระบบ e-Document   | >= 70%   | Active Users / Total Staff         |
+| Adoption     | % นักศึกษาที่ใช้ SIS ออนไลน์     | >= 85%   | Monthly Active Users               |
+| Efficiency   | ลดเวลาอนุมัติเอกสารเฉลี่ย        | >= 50%   | Avg. Approval Time Before vs After |
+| Data Quality | อัตราข้อมูลซ้ำซ้อนใน Master Data | <= 2%    | Dedup Check รายเดือน               |
+| Security     | Data Breach Incidents            | 0        | Security Log Monitoring            |
+| Compliance   | ผ่าน PDPA Audit                  | Pass     | External Audit Report              |
+| Satisfaction | NPS ของผู้ใช้ระบบ                | >= +20   | Quarterly Survey                   |
 
 ---
 
 ## 4. User Personas & Roles
 
-| Persona | Role Code | ความต้องการหลัก | Module หลัก |
-|---|---|---|---|
-| นักศึกษา | `student` | ลงทะเบียน ดูเกรด ยื่นคำร้องออนไลน์ | M02 |
-| อาจารย์ | `instructor` | กรอกเกรด อนุมัติคำร้องนักศึกษา | M02, M03 |
-| เจ้าหน้าที่ทะเบียน | `registrar` | จัดการข้อมูลนักศึกษา หลักสูตร | M01, M02 |
-| เจ้าหน้าที่สารบรรณ | `document_officer` | รับ-ส่งหนังสือ ติดตามสถานะ | M03 |
-| ผู้บริหาร | `executive` | Dashboard ภาพรวม อนุมัติเอกสารสำคัญ | M04, M03 |
-| IT Administrator | `it_admin` | จัดการ User, Permission, System Config | M01, M06 |
-| Data Protection Officer | `dpo` | ตรวจสอบ Audit Log, PDPA Compliance | M06 |
+| Persona                 | Role Code          | ความต้องการหลัก                        | Module หลัก |
+| ----------------------- | ------------------ | -------------------------------------- | ----------- |
+| นักศึกษา                | `student`          | ลงทะเบียน ดูเกรด ยื่นคำร้องออนไลน์     | M02         |
+| อาจารย์                 | `instructor`       | กรอกเกรด อนุมัติคำร้องนักศึกษา         | M02, M03    |
+| เจ้าหน้าที่ทะเบียน      | `registrar`        | จัดการข้อมูลนักศึกษา หลักสูตร          | M01, M02    |
+| เจ้าหน้าที่สารบรรณ      | `document_officer` | รับ-ส่งหนังสือ ติดตามสถานะ             | M03         |
+| ผู้บริหาร               | `executive`        | Dashboard ภาพรวม อนุมัติเอกสารสำคัญ    | M04, M03    |
+| IT Administrator        | `it_admin`         | จัดการ User, Permission, System Config | M01, M06    |
+| Data Protection Officer | `dpo`              | ตรวจสอบ Audit Log, PDPA Compliance     | M06         |
 
 ---
 
@@ -69,7 +68,6 @@
 - ระบบวิจัยและผลงานวิชาการ
 - Mobile Native Application (iOS/Android) — MVP ใช้ Responsive Web
 - AI/ML Analytics ขั้นสูง
-- Integration กับระบบ สกอ./สมศ. แบบ Real-time
 - Multi-institution (Single Institution MVP)
 
 ---
@@ -78,64 +76,64 @@
 
 ### M01 — Unified Master Data & Identity
 
-| ID | Requirement | Priority |
-|---|---|:---:|
-| M01-F01 | Single Sign-On (SSO) สำหรับทุก Module | Must Have |
-| M01-F02 | Role-Based Access Control (RBAC) | Must Have |
-| M01-F03 | Master Data ของ User (นักศึกษา/บุคลากร) | Must Have |
-| M01-F04 | Audit Log ทุก Authentication Event | Must Have |
-| M01-F05 | Multi-Factor Authentication (MFA) สำหรับ Admin/Executive | Must Have |
-| M01-F06 | Self-service Password Reset | Should Have |
-| M01-F07 | Bulk Import User จาก Excel/CSV | Should Have |
+| ID      | Requirement                                              | Priority    |
+| ------- | -------------------------------------------------------- | ----------- |
+| M01-F01 | Single Sign-On (SSO) สำหรับทุก Module                    | Must Have   |
+| M01-F02 | Role-Based Access Control (RBAC)                         | Must Have   |
+| M01-F03 | Master Data ของ User (นักศึกษา/บุคลากร)                  | Must Have   |
+| M01-F04 | Audit Log ทุก Authentication Event                       | Must Have   |
+| M01-F05 | Multi-Factor Authentication (MFA) สำหรับ Admin/Executive | Must Have   |
+| M01-F06 | Self-service Password Reset                              | Should Have |
+| M01-F07 | Bulk Import User จาก Excel/CSV                           | Should Have |
 
 ### M02 — Core SIS
 
-| ID | Requirement | Priority |
-|---|---|:---:|
-| M02-F01 | ลงทะเบียนเรียนออนไลน์ | Must Have |
-| M02-F02 | กรอกและประกาศเกรด | Must Have |
-| M02-F03 | Transcript ออนไลน์ (ไม่เป็นทางการ) | Must Have |
-| M02-F04 | คำร้องออนไลน์ (พักการเรียน/ลาออก/ขอเอกสาร) | Must Have |
-| M02-F05 | ตารางเรียน/ตารางสอบออนไลน์ | Must Have |
-| M02-F06 | ข้อมูลหลักสูตรและรายวิชา | Must Have |
-| M02-F07 | Dashboard นักศึกษา (GPA, Credit สะสม) | Should Have |
+| ID      | Requirement                                | Priority    |
+| ------- | ------------------------------------------ | ----------- |
+| M02-F01 | ลงทะเบียนเรียนออนไลน์                      | Must Have   |
+| M02-F02 | กรอกและประกาศเกรด                          | Must Have   |
+| M02-F03 | Transcript ออนไลน์ (ไม่เป็นทางการ)         | Must Have   |
+| M02-F04 | คำร้องออนไลน์ (พักการเรียน/ลาออก/ขอเอกสาร) | Must Have   |
+| M02-F05 | ตารางเรียน/ตารางสอบออนไลน์                 | Must Have   |
+| M02-F06 | ข้อมูลหลักสูตรและรายวิชา                   | Must Have   |
+| M02-F07 | Dashboard นักศึกษา (GPA, Credit สะสม)      | Should Have |
 
 ### M03 — e-Document & Approval Workflow
 
-| ID | Requirement | Priority |
-|---|---|:---:|
-| M03-F01 | รับ-ส่งหนังสือราชการอิเล็กทรอนิกส์ | Must Have |
-| M03-F02 | Workflow อนุมัติแบบกำหนดเองได้ (>= 5 ชั้น) | Must Have |
-| M03-F03 | ติดตามสถานะ Real-time | Must Have |
-| M03-F04 | แจ้งเตือนอัตโนมัติ (Email / In-app) ภายใน 1 นาที | Must Have |
-| M03-F05 | ลายเซ็นดิจิทัล (Simple Electronic Signature) | Must Have |
-| M03-F06 | ค้นหาและ Archive เอกสาร ย้อนหลัง >= 5 ปี | Must Have |
-| M03-F07 | Export เอกสารเป็น PDF | Should Have |
-| M03-F08 | จัดเก็บไฟล์บน Local Host Storage พร้อม SHA-256 Checksum ตรวจสอบความสมบูรณ์ไฟล์ | Must Have |
+| ID      | Requirement                                                                    | Priority    |
+| ------- | ------------------------------------------------------------------------------ | ----------- |
+| M03-F01 | รับ-ส่งหนังสือราชการอิเล็กทรอนิกส์                                             | Must Have   |
+| M03-F02 | Workflow อนุมัติแบบกำหนดเองได้ (>= 5 ชั้น)                                     | Must Have   |
+| M03-F03 | ติดตามสถานะ Real-time                                                          | Must Have   |
+| M03-F04 | แจ้งเตือนอัตโนมัติ (Email / In-app) ภายใน 1 นาที                               | Must Have   |
+| M03-F05 | ลายเซ็นดิจิทัล (Simple Electronic Signature)                                   | Must Have   |
+| M03-F06 | ค้นหาและ Archive เอกสาร ย้อนหลัง >= 5 ปี                                       | Must Have   |
+| M03-F07 | Export เอกสารเป็น PDF                                                          | Should Have |
+| M03-F08 | จัดเก็บไฟล์บน Local Host Storage พร้อม SHA-256 Checksum ตรวจสอบความสมบูรณ์ไฟล์ | Must Have   |
 
 ### M04 — Executive Dashboard
 
-| ID | Requirement | Priority |
-|---|---|:---:|
-| M04-F01 | Dashboard จำนวนนักศึกษา (Active/Inactive) | Must Have |
-| M04-F02 | Dashboard สถานะคำร้องและเอกสาร | Must Have |
-| M04-F03 | Dashboard Adoption Rate ของระบบ | Must Have |
-| M04-F04 | Export รายงานเป็น Excel/PDF | Should Have |
-| M04-F05 | Trend Analysis (3 เดือนย้อนหลัง) | Nice to Have |
-| M04-F06 | Native System Observability Dashboard (Tailwind CSS + Lucide Icons) สลับดู Service Latency, RAM Heap/RSS, Database Table Counts แทน Prometheus/Grafana | Must Have |
+| ID      | Requirement                                                                                                                                            | Priority     |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
+| M04-F01 | Dashboard จำนวนนักศึกษา (Active/Inactive)                                                                                                              | Must Have    |
+| M04-F02 | Dashboard สถานะคำร้องและเอกสาร                                                                                                                         | Must Have    |
+| M04-F03 | Dashboard Adoption Rate ของระบบ                                                                                                                        | Must Have    |
+| M04-F04 | Export รายงานเป็น Excel/PDF                                                                                                                            | Should Have  |
+| M04-F05 | Trend Analysis (3 เดือนย้อนหลัง)                                                                                                                       | Nice to Have |
+| M04-F06 | Native System Observability Dashboard (Tailwind CSS + Lucide Icons) สลับดู Service Latency, RAM Heap/RSS, Database Table Counts แทน Prometheus/Grafana | Must Have    |
 
 ### M06 — Security & Data Governance Baseline
 
-| ID | Requirement | Priority |
-|---|---|:---:|
-| M06-F01 | MFA บังคับสำหรับ Admin/Executive/DPO | Must Have |
-| M06-F02 | Encryption at Rest สำหรับ PII Fields (AES-256) | Must Have |
-| M06-F03 | Encryption in Transit (TLS 1.2+) | Must Have |
-| M06-F04 | Audit Log สำหรับการเข้าถึง PII (Immutable) | Must Have |
-| M06-F05 | Automated Backup รายวัน Retention 30 วัน | Must Have |
-| M06-F06 | Disaster Recovery: RTO <= 4h, RPO <= 24h | Must Have |
-| M06-F07 | PDPA Consent Management พร้อม Timestamp | Must Have |
-| M06-F08 | Vulnerability Scanning รายไตรมาส | Should Have |
+| ID      | Requirement                                    | Priority    |
+| ------- | ---------------------------------------------- | ----------- |
+| M06-F01 | MFA บังคับสำหรับ Admin/Executive/DPO           | Must Have   |
+| M06-F02 | Encryption at Rest สำหรับ PII Fields (AES-256) | Must Have   |
+| M06-F03 | Encryption in Transit (TLS 1.2+)               | Must Have   |
+| M06-F04 | Audit Log สำหรับการเข้าถึง PII (Immutable)     | Must Have   |
+| M06-F05 | Automated Backup รายวัน Retention 30 วัน       | Must Have   |
+| M06-F06 | Disaster Recovery: RTO <= 4h, RPO <= 24h       | Must Have   |
+| M06-F07 | PDPA Consent Management พร้อม Timestamp        | Must Have   |
+| M06-F08 | Vulnerability Scanning รายไตรมาส               | Should Have |
 
 ---
 
@@ -143,13 +141,13 @@
 
 ### 7.1 Performance
 
-| Metric | Target | ขอบเขต |
-|---|:---:|---|
-| Page Load Time (LCP) | < 2.5s | ทุก Page บน Connection 10 Mbps |
-| API Response Time (p95) | < 500ms | ทุก Endpoint ยกเว้น Report Generation |
-| Report Generation Time | < 10s | Export <= 10,000 rows |
-| Concurrent Users | >= 500 | ช่วง Peak (ลงทะเบียน/ประกาศเกรด) |
-| Database Query Time (p95) | < 100ms | ทุก Query ยกเว้น Analytics |
+| Metric                    | Target  | ขอบเขต                                |
+| ------------------------- | ------- | ------------------------------------- |
+| Page Load Time (LCP)      | < 2.5s  | ทุก Page บน Connection 10 Mbps        |
+| API Response Time (p95)   | < 500ms | ทุก Endpoint ยกเว้น Report Generation |
+| Report Generation Time    | < 10s   | Export <= 10,000 rows                 |
+| Concurrent Users          | >= 500  | ช่วง Peak (ลงทะเบียน/ประกาศเกรด)      |
+| Database Query Time (p95) | < 100ms | ทุก Query ยกเว้น Analytics            |
 
 ### 7.2 Security & PDPA
 
@@ -161,11 +159,11 @@
 
 ### 7.3 Availability & SLA
 
-| Environment | Uptime Target | Maintenance Window |
-|---|:---:|---|
-| Production | >= 99.5% | อาทิตย์ 01:00–03:00 น. |
-| Staging | >= 95% | ไม่กำหนด |
-| Development | Best Effort | ไม่กำหนด |
+| Environment | Uptime Target | Maintenance Window     |
+| ----------- | ------------- | ---------------------- |
+| Production  | >= 99.5%      | อาทิตย์ 01:00–03:00 น. |
+| Staging     | >= 95%        | ไม่กำหนด               |
+| Development | Best Effort   | ไม่กำหนด               |
 
 ### 7.4 Accessibility
 
@@ -198,18 +196,18 @@
 
 ## 9. Glossary
 
-| คำศัพท์ | ความหมาย |
-|---|---|
-| **Student ID** | รหัสนักศึกษา รูปแบบ `YYYYNNNNNN` (ปี ค.ศ. + เลขลำดับ 6 หลัก) |
-| **Academic Year** | ปีการศึกษา รูปแบบ พ.ศ. เช่น `2568` |
-| **Semester** | ภาคการศึกษา ค่า: `1`, `2`, `3` (Summer) |
-| **Course ID** | รหัสวิชา รูปแบบ `DEPT-NNN-NNN` |
-| **Org Unit** | หน่วยงาน/สาขาวิชา/คณะ ภายในโครงสร้างองค์กร |
-| **PII** | Personally Identifiable Information — ข้อมูลส่วนบุคคลตาม PDPA |
-| **DPO** | Data Protection Officer — เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล |
-| **RBAC** | Role-Based Access Control |
-| **SIS** | Student Information System |
-| **SSO** | Single Sign-On |
-| **OIDC** | OpenID Connect — Protocol สำหรับ SSO |
-| **MVP** | Minimum Viable Product |
-| **Vibe Coding** | การพัฒนาซอฟต์แวร์โดยใช้ AI Agent ช่วยเขียนโค้ด |
+| คำศัพท์           | ความหมาย                                                      |
+| ----------------- | ------------------------------------------------------------- |
+| **Student ID**    | รหัสนักศึกษา รูปแบบ `YYYYNNNNNN` (ปี ค.ศ. + เลขลำดับ 6 หลัก)  |
+| **Academic Year** | ปีการศึกษา รูปแบบ พ.ศ. เช่น `2568`                            |
+| **Semester**      | ภาคการศึกษา ค่า: `1`, `2`, `3` (Summer)                       |
+| **Course ID**     | รหัสวิชา รูปแบบ `DEPT-NNN-NNN`                                |
+| **Org Unit**      | หน่วยงาน/สาขาวิชา/คณะ ภายในโครงสร้างองค์กร                    |
+| **PII**           | Personally Identifiable Information — ข้อมูลส่วนบุคคลตาม PDPA |
+| **DPO**           | Data Protection Officer — เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล  |
+| **RBAC**          | Role-Based Access Control                                     |
+| **SIS**           | Student Information System                                    |
+| **SSO**           | Single Sign-On                                                |
+| **OIDC**          | OpenID Connect — Protocol สำหรับ SSO                          |
+| **MVP**           | Minimum Viable Product                                        |
+| **Vibe Coding**   | การพัฒนาซอฟต์แวร์โดยใช้ AI Agent ช่วยเขียนโค้ด                |
