@@ -2,392 +2,429 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { formatThaiDate } from "@repo/utils"
-import {
-  BookOpen,
-  GraduationCap,
-  CheckCircle2,
-  Clock,
-  Users,
-  MapPin,
-  ArrowLeft,
-  Award,
-  FileText,
-  Check,
-  Plus,
-  Trash2
-} from "lucide-react"
 
-interface Course {
+interface CourseSection {
   id: string
   code: string
   nameTh: string
-  credit: number
+  nameEn: string
+  credits: number
   section: string
   instructor: string
+  schedule: string
   room: string
   enrolled: number
   capacity: number
+  prereq?: string
 }
 
-const mockCourses: Course[] = [
-  { id: "1", code: "CPE-101", nameTh: "การโปรแกรมคอมพิวเตอร์ขั้นต้น (Intro to Computer Programming)", credit: 3, section: "01", instructor: "ดร.สมชาย สมหวัง", room: "Lab-401", enrolled: 28, capacity: 40 },
-  { id: "2", code: "CPE-201", nameTh: "โครงสร้างข้อมูลและขั้นตอนวิธี (Data Structures & Algorithms)", credit: 3, section: "01", instructor: "ผศ.ดร.วิภาดา ชัยชนะ", room: "Com-302", enrolled: 35, capacity: 40 },
-  { id: "3", code: "GEN-102", nameTh: "ภาษาอังกฤษเพื่อการสื่อสารทางวิชาการ (English for Academic Communication)", credit: 3, section: "02", instructor: "อ.จอห์น สมิธ", room: "LC-201", enrolled: 39, capacity: 40 },
-  { id: "4", code: "MAT-101", nameTh: "แคลคูลัสสำหรับวิศวกรรม (Calculus for Engineers)", credit: 3, section: "01", instructor: "รศ.ดร.นพพร มั่นคง", room: "Lec-101", enrolled: 40, capacity: 40 },
+const courseCatalog: CourseSection[] = [
+  {
+    id: "cs-301",
+    code: "CS-301-001",
+    nameTh: "การออกแบบและวิเคราะห์ขั้นตอนวิธีขั้นสูง",
+    nameEn: "Advanced Algorithm Design & Analysis",
+    credits: 3,
+    section: "01",
+    instructor: "รศ.ดร. นันทิกร วิเศษสุข",
+    schedule: "จันทร์ 09:00 - 12:00",
+    room: "Lab Com 401",
+    enrolled: 42,
+    capacity: 45,
+    prereq: "CS-201 Data Structures",
+  },
+  {
+    id: "cs-302",
+    code: "CS-302-001",
+    nameTh: "สถาปัตยกรรมระบบคลาวด์และไมโครเซอร์วิส",
+    nameEn: "Cloud Architecture & Microservices",
+    credits: 3,
+    section: "01",
+    instructor: "ผศ.ดร. ภาณุพงศ์ วงศ์สวรรค์",
+    schedule: "อังคาร 13:00 - 16:00",
+    room: "Lab Com 305",
+    enrolled: 38,
+    capacity: 40,
+    prereq: "CS-202 Operating Systems",
+  },
+  {
+    id: "cs-303",
+    code: "CS-303-002",
+    nameTh: "ความมั่นคงปลอดภัยสารสนเทศและกฎหมาย PDPA",
+    nameEn: "Information Security & PDPA Governance",
+    credits: 3,
+    section: "02",
+    instructor: "ดร. เอกชัย ปกป้อง",
+    schedule: "พุธ 09:00 - 12:00",
+    room: "Auditorium 2",
+    enrolled: 55,
+    capacity: 60,
+  },
+  {
+    id: "gen-201",
+    code: "GEN-201-003",
+    nameTh: "ภาษาอังกฤษเชิงวิชาการและการนำเสนอผลงาน",
+    nameEn: "English for Academic Presentation",
+    credits: 3,
+    section: "03",
+    instructor: "อ. จอห์นสัน แอนเดอร์สัน",
+    schedule: "พฤหัสบดี 13:00 - 16:00",
+    room: "LC 204",
+    enrolled: 30,
+    capacity: 35,
+  },
 ]
 
-export default function SisPage() {
-  const [enrolledIds, setEnrolledIds] = useState<string[]>(["1"])
-  const [activeTab, setActiveTab] = useState<"courses" | "my-courses" | "transcript">("courses")
+export default function SisPortalPage() {
+  const [activeTab, setActiveTab] = useState<"register" | "grades" | "petitions" | "schedule">("register")
+  const [enrolledIds, setEnrolledIds] = useState<string[]>(["cs-301", "cs-302"])
+  const [alertMessage, setAlertMessage] = useState<string | null>(null)
 
-  const toggleEnroll = (id: string) => {
-    if (enrolledIds.includes(id)) {
-      setEnrolledIds(enrolledIds.filter((item) => item !== id))
+  const toggleEnroll = (course: CourseSection) => {
+    if (enrolledIds.includes(course.id)) {
+      setEnrolledIds(enrolledIds.filter((id) => id !== course.id))
+      setAlertMessage(`ถอนรายวิชา ${course.code} เรียบร้อยแล้ว (คืนที่นั่งสู่ระบบ)`)
     } else {
-      setEnrolledIds([...enrolledIds, id])
+      if (course.enrolled >= course.capacity) {
+        setAlertMessage(`ไม่สามารถลงทะเบียนได้: ที่นั่งรายวิชา ${course.code} เต็มแล้ว`)
+        return
+      }
+      setEnrolledIds([...enrolledIds, course.id])
+      setAlertMessage(`ลงทะเบียนสำเร็จ: ${course.code} (Atomic Seat Locked เรียบร้อย)`)
     }
+    setTimeout(() => setAlertMessage(null), 4000)
   }
 
-  const totalCredits = enrolledIds
-    .map((id) => mockCourses.find((c) => c.id === id)?.credit || 0)
-    .reduce((a, b) => a + b, 0)
+  const enrolledCourses = courseCatalog.filter((c) => enrolledIds.includes(c.id))
+  const currentTotalCredits = enrolledCourses.reduce((sum, c) => sum + c.credits, 0)
 
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "2rem 1rem" }}>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <Link
-          href="/"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            color: "#64748b",
-            textDecoration: "none",
-            fontSize: "0.9rem",
-            fontWeight: 500,
-          }}
-        >
-          <ArrowLeft size={16} />
-          <span>กลับสู่หน้าหลัก</span>
-        </Link>
-      </div>
-
-      <header
-        style={{
-          borderBottom: "1px solid #e2e8f0",
-          paddingBottom: "1rem",
-          marginBottom: "1.5rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
-          gap: "1rem",
-        }}
-      >
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.25rem" }}>
-            <span style={{ background: "#eff6ff", color: "#2563eb", padding: "6px", borderRadius: "8px", display: "flex" }}>
-              <BookOpen size={20} />
-            </span>
-            <h1 style={{ color: "#1e3a8a", margin: 0, fontSize: "1.5rem" }}>
-              ระบบบริการการศึกษา (SIS Online Portal)
-            </h1>
+    <div className="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col">
+      {/* 1. Header Bar */}
+      <header className="sticky top-0 z-50 bg-surface-card/95 backdrop-blur-md shadow-xs border-b border-border-subtle">
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop h-16 flex items-center justify-between gap-space-md">
+          <div className="flex items-center gap-space-md">
+            <Link href="/" className="flex items-center gap-1.5 text-secondary hover:text-navy-deep font-label-md text-label-md transition-colors">
+              <span className="material-symbols-outlined text-lg">arrow_back</span>
+              <span>กลับหน้าหลักบริการ</span>
+            </Link>
+            <span className="text-outline-variant">|</span>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-secondary text-surface-card flex items-center justify-center font-bold">
+                <span className="material-symbols-outlined text-lg">school</span>
+              </div>
+              <div>
+                <span className="font-headline-sm text-headline-sm text-primary font-bold">
+                  Core SIS Portal
+                </span>
+                <span className="hidden sm:inline font-label-sm text-label-sm text-on-surface-variant ml-2">
+                  ระบบบริการการศึกษาและทะเบียน (M02)
+                </span>
+              </div>
+            </div>
           </div>
-          <p style={{ color: "#475569", margin: 0, fontSize: "0.9rem" }}>
-            ภาคเรียนที่ 1/2568 | วันที่: {formatThaiDate()}
-          </p>
-        </div>
 
-        <div
-          style={{
-            background: "#f0fdf4",
-            border: "1px solid #bbf7d0",
-            padding: "6px 14px",
-            borderRadius: "20px",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "0.85rem",
-            color: "#16a34a",
-            fontWeight: 600,
-          }}
-        >
-          <CheckCircle2 size={15} />
-          <span>เปิดระบบลงทะเบียนปกติ</span>
+          <div className="flex items-center gap-space-sm">
+            <span className="px-2.5 py-1 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+              ภาคเรียนที่ 1/2568
+            </span>
+          </div>
         </div>
       </header>
 
-      {/* Navigation Tabs */}
-      <div style={{ display: "flex", gap: "0.5rem", borderBottom: "1px solid #e2e8f0", marginBottom: "1.5rem" }}>
-        <button
-          onClick={() => setActiveTab("courses")}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "0.75rem 1.25rem",
-            border: "none",
-            borderBottom: activeTab === "courses" ? "3px solid #2563eb" : "3px solid transparent",
-            background: "none",
-            fontWeight: activeTab === "courses" ? 700 : 500,
-            cursor: "pointer",
-            color: activeTab === "courses" ? "#2563eb" : "#64748b",
-            fontSize: "0.95rem",
-          }}
-        >
-          <BookOpen size={16} />
-          <span>รายวิชาเปิดสอน (Course Catalog)</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("my-courses")}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "0.75rem 1.25rem",
-            border: "none",
-            borderBottom: activeTab === "my-courses" ? "3px solid #2563eb" : "3px solid transparent",
-            background: "none",
-            fontWeight: activeTab === "my-courses" ? 700 : 500,
-            cursor: "pointer",
-            color: activeTab === "my-courses" ? "#2563eb" : "#64748b",
-            fontSize: "0.95rem",
-          }}
-        >
-          <Check size={16} />
-          <span>วิชาที่ลงทะเบียนแล้ว ({enrolledIds.length})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("transcript")}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "0.75rem 1.25rem",
-            border: "none",
-            borderBottom: activeTab === "transcript" ? "3px solid #2563eb" : "3px solid transparent",
-            background: "none",
-            fontWeight: activeTab === "transcript" ? 700 : 500,
-            cursor: "pointer",
-            color: activeTab === "transcript" ? "#2563eb" : "#64748b",
-            fontSize: "0.95rem",
-          }}
-        >
-          <GraduationCap size={16} />
-          <span>ผลการเรียน (Transcript)</span>
-        </button>
-      </div>
-
-      {/* Tab 1: Courses Catalog */}
-      {activeTab === "courses" && (
-        <section>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-            <h2 style={{ fontSize: "1.15rem", color: "#0f172a", margin: 0 }}>รายวิชาที่เปิดรับลงทะเบียน</h2>
-            <span style={{ color: "#2563eb", fontWeight: 600, fontSize: "0.9rem", background: "#eff6ff", padding: "4px 10px", borderRadius: 6 }}>
-              หน่วยกิตที่เลือก: {totalCredits} / 22 สูงสุด
-            </span>
-          </div>
-
-          <div style={{ display: "grid", gap: "1rem" }}>
-            {mockCourses.map((course) => {
-              const isEnrolled = enrolledIds.includes(course.id)
-              const isFull = course.enrolled >= course.capacity
-
-              return (
-                <div
-                  key={course.id}
-                  style={{
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem 1.5rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    background: isEnrolled ? "#f0fdf4" : "#ffffff",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
-                    flexWrap: "wrap",
-                    gap: "1rem",
-                  }}
-                >
-                  <div>
-                    <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "0.35rem" }}>
-                      <span style={{ background: "#e0e7ff", color: "#3730a3", padding: "2px 8px", borderRadius: 4, fontSize: "0.85rem", fontWeight: "bold", fontFamily: "monospace" }}>
-                        {course.code}
-                      </span>
-                      <span style={{ background: "#f1f5f9", color: "#475569", padding: "2px 6px", borderRadius: 4, fontSize: "0.8rem" }}>
-                        กลุ่ม {course.section}
-                      </span>
-                      <h3 style={{ margin: 0, fontSize: "1.05rem", color: "#0f172a" }}>{course.nameTh}</h3>
-                    </div>
-
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", color: "#64748b", fontSize: "0.85rem", marginTop: "0.4rem" }}>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                        <Users size={13} />
-                        อาจารย์ผู้สอน: {course.instructor}
-                      </span>
-                      <span>•</span>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                        <MapPin size={13} />
-                        ห้องเรียน: {course.room}
-                      </span>
-                      <span>•</span>
-                      <span>{course.credit} หน่วยกิต</span>
-                    </div>
-
-                    <div style={{ marginTop: "0.4rem", fontSize: "0.85rem", color: isFull ? "#dc2626" : "#16a34a", fontWeight: 500 }}>
-                      ที่นั่ง: {course.enrolled} / {course.capacity} {isFull ? "(เต็มแล้ว)" : ""}
-                    </div>
-                  </div>
-
-                  <button
-                    disabled={!isEnrolled && isFull}
-                    onClick={() => toggleEnroll(course.id)}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      background: isEnrolled ? "#fee2e2" : isFull ? "#f1f5f9" : "#2563eb",
-                      color: isEnrolled ? "#b91c1c" : isFull ? "#94a3b8" : "#ffffff",
-                      border: isEnrolled ? "1px solid #fecaca" : "none",
-                      padding: "8px 16px",
-                      borderRadius: "8px",
-                      fontWeight: 600,
-                      fontSize: "0.875rem",
-                      cursor: !isEnrolled && isFull ? "not-allowed" : "pointer",
-                    }}
-                  >
-                    {isEnrolled ? (
-                      <>
-                        <Trash2 size={14} />
-                        <span>ถอนรายวิชา</span>
-                      </>
-                    ) : isFull ? (
-                      <span>ที่นั่งเต็ม</span>
-                    ) : (
-                      <>
-                        <Plus size={14} />
-                        <span>ลงทะเบียน</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              )
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Tab 2: My Courses */}
-      {activeTab === "my-courses" && (
-        <section>
-          <h2 style={{ fontSize: "1.15rem", color: "#0f172a", marginBottom: "1rem" }}>รายการวิชาที่ลงทะเบียนไว้</h2>
-          {enrolledIds.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "3rem", background: "#ffffff", borderRadius: 12, border: "1px solid #e2e8f0" }}>
-              <p style={{ color: "#64748b" }}>ยังไม่มีวิชาที่ลงทะเบียนในภาคเรียนนี้</p>
+      {/* 2. Main Content */}
+      <main className="w-full bg-surface-canvas flex-1 pb-space-3xl">
+        {/* Top Notification Ribbon */}
+        <div className="w-full bg-amber-subtle text-on-surface py-space-xs px-gutter-mobile lg:px-gutter-desktop shadow-xs border-b border-amber-200/50">
+          <div className="max-w-container-max mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-xs font-label-md text-label-md">
+            <div className="flex items-center gap-space-xs">
+              <span className="material-symbols-outlined text-amber-primary text-base animate-pulse">campaign</span>
+              <span className="font-bold text-amber-primary">[ประกาศด่วน M02-REG]</span>
+              <span className="text-on-surface">เปิดระบบลงทะเบียนเรียนภาคการศึกษา 1/2568: สิ้นสุด 31 มี.ค. 2568</span>
+              <span className="hidden md:inline text-outline-variant">•</span>
+              <span className="hidden md:inline font-semibold text-secondary">ระบบพร้อมให้บริการ Atomic Seat Locking</span>
             </div>
-          ) : (
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {mockCourses
-                .filter((c) => enrolledIds.includes(c.id))
-                .map((course) => (
-                  <div
-                    key={course.id}
-                    style={{
-                      border: "1px solid #e2e8f0",
-                      padding: "1.25rem 1.5rem",
-                      borderRadius: 12,
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      background: "#ffffff",
-                      boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
-                    }}
-                  >
-                    <div>
-                      <strong style={{ color: "#0f172a", fontSize: "1.05rem" }}>
-                        {course.code} - {course.nameTh}
-                      </strong>
-                      <p style={{ margin: "0.35rem 0 0 0", color: "#64748b", fontSize: "0.875rem" }}>
-                        กลุ่ม {course.section} ({course.credit} หน่วยกิต) | ห้อง {course.room} | {course.instructor}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => toggleEnroll(course.id)}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        background: "#fff1f2",
-                        color: "#be123c",
-                        border: "1px solid #fecdd3",
-                        padding: "6px 12px",
-                        borderRadius: "6px",
-                        fontSize: "0.85rem",
-                        fontWeight: 600,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <Trash2 size={13} />
-                      ถอนวิชา
-                    </button>
+            <span className="text-xs text-outline">อัปเดตสถานะแบบ Real-time</span>
+          </div>
+        </div>
+
+        {/* Academic Profile & Institutional Identity Sub-bar */}
+        <div className="w-full bg-surface-card shadow-xs border-b border-border-subtle">
+          <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-lg">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-lg">
+              {/* Student Info Core */}
+              <div className="flex items-center gap-space-md min-w-0">
+                <div className="relative shrink-0">
+                  <div className="w-16 h-16 rounded-xl bg-navy-deep text-amber-primary flex items-center justify-center font-bold text-2xl shadow-sm border border-navy-surface">
+                    <span className="material-symbols-outlined text-3xl">person</span>
                   </div>
-                ))}
+                  <span className="absolute -bottom-1 -right-1 bg-status-success text-surface-card text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-xs">
+                    ปกติ
+                  </span>
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <div className="flex flex-wrap items-center gap-space-xs">
+                    <span className="font-headline-sm text-headline-sm text-primary font-bold truncate">
+                      นายธนภัทร สิริวัฒนกุล
+                    </span>
+                    <span className="bg-surface-container-high text-primary px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+                      รหัส: 653040128-9
+                    </span>
+                    <span className="bg-blue-subtle text-secondary px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs">verified</span>
+                      Active Student
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-y-1 gap-x-space-md text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                    <span>หลักสูตร วท.บ. วิทยาการคอมพิวเตอร์ (ชั้นปีที่ 3)</span>
+                    <span>•</span>
+                    <span>คณะวิทยาการสารสนเทศและการคำนวณ</span>
+                    <span>•</span>
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs text-secondary">school</span>
+                      อ.ที่ปรึกษา: รศ.ดร. นันทิกร วิเศษสุข
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Academic KPIs Bento Strip */}
+              <div className="flex items-stretch gap-space-sm w-full xl:w-auto overflow-x-auto pb-1 xl:pb-0">
+                <div className="bg-surface-canvas p-space-sm rounded-xl min-w-[130px] flex-1 xl:flex-none flex flex-col justify-between shadow-xs border border-border-subtle">
+                  <span className="font-label-sm text-label-sm text-on-surface-variant">เกรดเฉลี่ยสะสม</span>
+                  <div className="flex items-baseline gap-1 my-0.5">
+                    <span className="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">3.68</span>
+                    <span className="font-label-sm text-label-sm text-status-success font-semibold">เกียรตินิยม</span>
+                  </div>
+                  <span className="font-body-sm text-body-sm text-outline">GPAX สะสม 5 ภาค</span>
+                </div>
+
+                <div className="bg-surface-canvas p-space-sm rounded-xl min-w-[150px] flex-1 xl:flex-none flex flex-col justify-between shadow-xs border border-border-subtle">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-sm text-label-sm text-on-surface-variant">หน่วยกิตสะสม</span>
+                    <span className="font-label-sm text-label-sm text-secondary font-bold">68.6%</span>
+                  </div>
+                  <div className="flex items-baseline gap-1 my-0.5">
+                    <span className="font-headline-lg text-headline-lg font-bold text-primary">92</span>
+                    <span className="font-label-md text-label-md text-on-surface-variant">/ 134 นก.</span>
+                  </div>
+                  <div className="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+                    <div className="bg-secondary h-full rounded-full w-[68.6%]"></div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-canvas p-space-sm rounded-xl min-w-[140px] flex-1 xl:flex-none flex flex-col justify-between shadow-xs border border-border-subtle">
+                  <span className="font-label-sm text-label-sm text-on-surface-variant">ชั่วโมงกิจกรรม</span>
+                  <div className="flex items-baseline gap-1 my-0.5">
+                    <span className="font-headline-lg text-headline-lg font-bold text-primary">64</span>
+                    <span className="font-label-md text-label-md text-on-surface-variant">/ 60 ชม.</span>
+                  </div>
+                  <span className="font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-0.5">
+                    <span className="material-symbols-outlined text-xs">check_circle</span>
+                    ผ่านเกณฑ์สำเร็จการศึกษา
+                  </span>
+                </div>
+
+                <div className="bg-surface-container-low p-space-sm rounded-xl min-w-[140px] flex-1 xl:flex-none flex flex-col justify-between border border-secondary/20">
+                  <span className="font-label-sm text-label-sm text-secondary font-semibold">สิทธิ์ลงทะเบียน</span>
+                  <div className="flex items-baseline gap-1 my-0.5">
+                    <span className="font-headline-lg text-headline-lg font-bold text-secondary">22</span>
+                    <span className="font-label-md text-label-md text-secondary">หน่วยกิตสูงสุด</span>
+                  </div>
+                  <span className="font-label-sm text-label-sm text-on-surface-variant">ไม่มีหนี้ค้างชำระ</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Functional Navigation Tabs */}
+            <div className="flex items-center gap-space-xs overflow-x-auto mt-space-lg pt-space-xs">
+              {[
+                { id: "register", label: "แผนการเรียน & ลงทะเบียน (M02-F01)", icon: "how_to_reg" },
+                { id: "grades", label: "ประวัติผลการเรียน & Transcript (M02-F02/F03)", icon: "grade" },
+                { id: "petitions", label: "ยื่นคำร้อง e-Petition (M02-F04)", icon: "assignment" },
+                { id: "schedule", label: "ตารางเรียน/ตารางสอบ (M02-F05)", icon: "calendar_month" },
+              ].map((tab) => {
+                const isActive = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                    className={`px-space-md py-space-xs rounded-lg font-label-lg text-label-lg flex items-center gap-1.5 transition-all whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? "bg-primary text-on-primary shadow-sm"
+                        : "text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-base">{tab.icon}</span>
+                    <span>{tab.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Content Body */}
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-xl space-y-space-xl">
+          {/* Toast Alert */}
+          {alertMessage && (
+            <div className="bg-navy-deep text-surface-card px-space-md py-space-sm rounded-xl shadow-md border border-navy-surface flex items-center justify-between">
+              <div className="flex items-center gap-space-sm">
+                <span className="material-symbols-outlined text-amber-primary">info</span>
+                <span className="font-label-md text-label-md">{alertMessage}</span>
+              </div>
+              <button onClick={() => setAlertMessage(null)} className="text-surface-container-high hover:text-surface-card">
+                <span className="material-symbols-outlined text-sm">close</span>
+              </button>
             </div>
           )}
-        </section>
-      )}
 
-      {/* Tab 3: Transcript */}
-      {activeTab === "transcript" && (
-        <section>
-          <h2 style={{ fontSize: "1.15rem", color: "#0f172a", marginBottom: "1rem" }}>
-            ผลการเรียนสะสม (Online Unofficial Transcript)
-          </h2>
-          <div
-            style={{
-              background: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "12px",
-              padding: "1.75rem",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem" }}>
-              <div>
-                <span style={{ color: "#64748b", fontSize: "0.875rem", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <Award size={14} color="#16a34a" />
-                  เกรดเฉลี่ยสะสม (Cumulative GPA)
-                </span>
-                <h1 style={{ margin: "0.35rem 0 0 0", color: "#16a34a", fontSize: "2.5rem", fontWeight: 700 }}>
-                  3.72
-                </h1>
+          {/* Enrolled Summary Banner */}
+          <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+            <div className="flex items-center gap-space-md">
+              <div className="w-12 h-12 rounded-xl bg-blue-subtle text-secondary flex items-center justify-center font-bold">
+                <span className="material-symbols-outlined text-2xl">receipt_long</span>
               </div>
               <div>
-                <span style={{ color: "#64748b", fontSize: "0.875rem", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <BookOpen size={14} color="#1e3a8a" />
-                  หน่วยกิตสะสม (Total Credits)
-                </span>
-                <h1 style={{ margin: "0.35rem 0 0 0", color: "#1e3a8a", fontSize: "2.5rem", fontWeight: 700 }}>
-                  36
-                </h1>
-              </div>
-              <div>
-                <span style={{ color: "#64748b", fontSize: "0.875rem", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <CheckCircle2 size={14} color="#2563eb" />
-                  สถานะทางวิชาการ
-                </span>
-                <h1 style={{ margin: "0.35rem 0 0 0", color: "#2563eb", fontSize: "1.75rem", fontWeight: 700 }}>
-                  สภาพปกติ (Normal)
-                </h1>
+                <h3 className="font-headline-sm text-headline-sm text-navy-deep font-bold">
+                  สถานะการลงทะเบียนประจำภาค 1/2568
+                </h3>
+                <p className="text-xs text-on-surface-variant">
+                  ลงทะเบียนแล้ว {enrolledCourses.length} รายวิชา รวมทั้งสิ้น <strong className="text-secondary">{currentTotalCredits}</strong> / 22 หน่วยกิต
+                </p>
               </div>
             </div>
+
+            <div className="flex items-center gap-space-sm">
+              <button
+                onClick={() => alert("พิมพ์ใบแจ้งยอดชำระเงินค่าเล่าเรียนและใบลงทะเบียนเรียนเรียบร้อย")}
+                className="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">print</span>
+                <span>พิมพ์ใบลงทะเบียน</span>
+              </button>
+              <button
+                onClick={() => alert("ยืนยันแผนการเรียนและล็อกที่นั่ง (Atomic Seat Locked) เสร็จสมบูรณ์")}
+                className="px-space-md py-2 rounded-lg bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">lock</span>
+                <span>ยืนยันการลงทะเบียน</span>
+              </button>
+            </div>
           </div>
-        </section>
-      )}
+
+          {/* Course Catalog Grid */}
+          <div className="space-y-space-md">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">
+                  M02-F01 Course Catalog
+                </span>
+                <h3 className="font-headline-md text-headline-md text-navy-deep font-bold">
+                  รายวิชาที่เปิดสอนสำหรับหลักสูตร วท.บ. วิทยาการคอมพิวเตอร์
+                </h3>
+              </div>
+              <span className="text-xs text-outline">รองรับระบบล็อกที่นั่งอัตโนมัติ (Atomic Seat Locking)</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+              {courseCatalog.map((course) => {
+                const isEnrolled = enrolledIds.includes(course.id)
+                const isFull = course.enrolled >= course.capacity
+                return (
+                  <div
+                    key={course.id}
+                    className={`bg-surface-card p-space-lg rounded-xl shadow-xs border transition-all flex flex-col justify-between ${
+                      isEnrolled
+                        ? "border-secondary ring-1 ring-secondary/30"
+                        : "border-border-subtle hover:border-slate-300"
+                    }`}
+                  >
+                    <div className="space-y-space-sm">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <span className="bg-surface-container text-secondary font-mono font-bold text-xs px-2 py-0.5 rounded">
+                            {course.code}
+                          </span>
+                          <h4 className="font-headline-sm text-headline-sm text-navy-deep font-bold mt-1">
+                            {course.nameTh}
+                          </h4>
+                          <p className="text-xs text-on-surface-variant font-medium">{course.nameEn}</p>
+                        </div>
+                        <span className="px-2.5 py-1 bg-surface-container-low text-secondary font-bold text-xs rounded-full">
+                          {course.credits} หน่วยกิต
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-surface-container-low p-space-sm rounded-lg">
+                        <div>
+                          <span className="text-slate-400 block">อาจารย์ผู้สอน:</span>
+                          <span className="font-medium text-navy-deep">{course.instructor}</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block">วัน-เวลาเรียน:</span>
+                          <span className="font-medium text-navy-deep">{course.schedule}</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block">ห้องเรียน:</span>
+                          <span className="font-medium text-navy-deep">{course.room}</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block">ที่นั่งลงทะเบียน:</span>
+                          <span className={`font-bold ${isFull ? "text-status-danger" : "text-status-success"}`}>
+                            {course.enrolled} / {course.capacity} ที่นั่ง
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-space-md flex items-center justify-between border-t border-border-subtle mt-space-md">
+                      <div className="text-xs">
+                        {isEnrolled ? (
+                          <span className="text-status-success font-bold flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">check_circle</span>
+                            ลงทะเบียนแล้ว
+                          </span>
+                        ) : isFull ? (
+                          <span className="text-status-danger font-semibold">ที่นั่งเต็มแล้ว</span>
+                        ) : (
+                          <span className="text-slate-400">พร้อมลงทะเบียน</span>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => toggleEnroll(course)}
+                        className={`px-4 py-2 rounded-lg font-label-md text-label-md font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                          isEnrolled
+                            ? "bg-red-50 hover:bg-red-100 text-status-danger border border-red-200"
+                            : isFull
+                            ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+                            : "bg-primary hover:bg-navy-deep text-surface-card shadow-xs"
+                        }`}
+                        disabled={!isEnrolled && isFull}
+                      >
+                        <span className="material-symbols-outlined text-sm">
+                          {isEnrolled ? "remove_circle" : "add_circle"}
+                        </span>
+                        <span>{isEnrolled ? "ถอนรายวิชา" : "ลงทะเบียนวิชานี้"}</span>
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* 3. Footer */}
+      <footer className="w-full bg-navy-deep text-on-primary py-space-md border-t border-navy-surface mt-auto">
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop flex flex-col sm:flex-row items-center justify-between gap-space-xs text-xs text-primary-fixed-dim">
+          <span>College SIS 2.4 • Student Information System Portal</span>
+          <span>&copy; 2569 สำนักส่งเสริมวิชาการและงานทะเบียน</span>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -2,222 +2,353 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { formatThaiDate } from "@repo/utils"
-import {
-  Users,
-  UserPlus,
-  Search,
-  Shield,
-  Mail,
-  UserCheck,
-  ArrowLeft,
-  CheckCircle2,
-  XCircle,
-  Tag
-} from "lucide-react"
 
-interface UserItem {
+interface UserAccount {
   id: string
   username: string
   nameTh: string
+  nameEn: string
   email: string
-  userType: string
+  userType: "admin" | "instructor" | "staff" | "student"
   roles: string[]
+  mfaEnabled: boolean
+  pdpaConsent: boolean
   isActive: boolean
 }
 
-const mockUsers: UserItem[] = [
-  { id: "1", username: "admin", nameTh: "ผู้ดูแล ระบบสารสนเทศ", email: "admin@college.ac.th", userType: "admin", roles: ["it_admin"], isActive: true },
-  { id: "2", username: "dean.cs", nameTh: "ศ.ดร.ประเสริฐ สุขใจ", email: "dean.cs@college.ac.th", userType: "instructor", roles: ["executive", "instructor"], isActive: true },
-  { id: "3", username: "reg.officer", nameTh: "นางสมศรี มีสุข", email: "reg01@college.ac.th", userType: "staff", roles: ["registrar"], isActive: true },
-  { id: "4", username: "doc.officer", nameTh: "นายวินัย มั่นคง", email: "doc01@college.ac.th", userType: "staff", roles: ["document_officer"], isActive: true },
-  { id: "5", username: "dpo.officer", nameTh: "นายเอกชัย ปกป้อง", email: "dpo@college.ac.th", userType: "staff", roles: ["dpo"], isActive: true },
+const initialUsers: UserAccount[] = [
+  {
+    id: "usr-01",
+    username: "admin",
+    nameTh: "ผู้ดูแล ระบบสารสนเทศ",
+    nameEn: "System Administrator",
+    email: "admin@college.ac.th",
+    userType: "admin",
+    roles: ["it_admin"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
+  {
+    id: "usr-02",
+    username: "dean.cs",
+    nameTh: "ศ.ดร. ประเสริฐ สุขใจ",
+    nameEn: "Prof. Dr. Prasert Sukjai",
+    email: "dean.cs@college.ac.th",
+    userType: "instructor",
+    roles: ["executive", "instructor"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
+  {
+    id: "usr-03",
+    username: "reg.officer",
+    nameTh: "นางสมศรี มีสุข",
+    nameEn: "Mrs. Somsri Meesook",
+    email: "reg01@college.ac.th",
+    userType: "staff",
+    roles: ["registrar"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
+  {
+    id: "usr-04",
+    username: "doc.officer",
+    nameTh: "นายวินัย มั่นคง",
+    nameEn: "Mr. Winai Mankhong",
+    email: "doc01@college.ac.th",
+    userType: "staff",
+    roles: ["document_officer"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
+  {
+    id: "usr-05",
+    username: "dpo.officer",
+    nameTh: "นายเอกชัย ปกป้อง",
+    nameEn: "Mr. Ekkachai Pokpong",
+    email: "dpo@college.ac.th",
+    userType: "staff",
+    roles: ["dpo"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
+  {
+    id: "usr-06",
+    username: "student01",
+    nameTh: "นายธนภัทร สิริวัฒนกุล",
+    nameEn: "Mr. Thanaphat Siriwatanakul",
+    email: "student01@college.ac.th",
+    userType: "student",
+    roles: ["student"],
+    mfaEnabled: true,
+    pdpaConsent: true,
+    isActive: true,
+  },
 ]
 
-export default function UsersManagementPage() {
-  const [userList, setUserList] = useState<UserItem[]>(mockUsers)
+export default function UsersGovernancePage() {
+  const [users, setUsers] = useState<UserAccount[]>(initialUsers)
   const [search, setSearch] = useState("")
+  const [roleFilter, setRoleFilter] = useState("all")
+  const [toastMsg, setToastMsg] = useState<string | null>(null)
 
-  const filtered = userList.filter(
-    (u) =>
+  const showToast = (msg: string) => {
+    setToastMsg(msg)
+    setTimeout(() => setToastMsg(null), 3500)
+  }
+
+  const filteredUsers = users.filter((u) => {
+    const matchesRole = roleFilter === "all" || u.roles.includes(roleFilter) || u.userType === roleFilter
+    const matchesSearch =
+      search === "" ||
       u.username.toLowerCase().includes(search.toLowerCase()) ||
       u.nameTh.includes(search) ||
-      u.email.includes(search)
-  )
+      u.email.toLowerCase().includes(search.toLowerCase())
+    return matchesRole && matchesSearch
+  })
 
   return (
-    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "2rem 1rem" }}>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <Link
-          href="/"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            color: "#64748b",
-            textDecoration: "none",
-            fontSize: "0.9rem",
-            fontWeight: 500,
-          }}
-        >
-          <ArrowLeft size={16} />
-          <span>กลับสู่ Executive Dashboard</span>
-        </Link>
-      </div>
-
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderBottom: "1px solid #e2e8f0",
-          paddingBottom: "1rem",
-          marginBottom: "1.5rem",
-          flexWrap: "wrap",
-          gap: "1rem",
-        }}
-      >
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.25rem" }}>
-            <span style={{ background: "#e0e7ff", color: "#4338ca", padding: "6px", borderRadius: "8px", display: "flex" }}>
-              <Users size={20} />
-            </span>
-            <h1 style={{ color: "#0f172a", margin: 0, fontSize: "1.5rem" }}>
-              ระบบจัดการผู้ใช้งานและสิทธิ์ (User & RBAC Console)
-            </h1>
+    <div className="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col">
+      {/* 1. Top Header */}
+      <header className="sticky top-0 z-50 bg-surface-card/95 backdrop-blur-md shadow-xs border-b border-border-subtle">
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop h-16 flex items-center justify-between gap-space-md">
+          <div className="flex items-center gap-space-md">
+            <Link href="/" className="flex items-center gap-1.5 text-secondary hover:text-navy-deep font-label-md text-label-md transition-colors">
+              <span className="material-symbols-outlined text-lg">arrow_back</span>
+              <span>กลับหน้าแดชบอร์ด</span>
+            </Link>
+            <span className="text-outline-variant">|</span>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-navy-deep text-amber-primary flex items-center justify-center font-bold">
+                <span className="material-symbols-outlined text-lg">manage_accounts</span>
+              </div>
+              <div>
+                <span className="font-headline-sm text-headline-sm text-primary font-bold">
+                  Identity &amp; Governance
+                </span>
+                <span className="hidden sm:inline font-label-sm text-label-sm text-on-surface-variant ml-2">
+                  ระบบบัญชีกลางและธรรมาภิบาลข้อมูล (M01/M06)
+                </span>
+              </div>
+            </div>
           </div>
-          <p style={{ color: "#64748b", margin: 0, fontSize: "0.9rem" }}>
-            จัดการบัญชีผู้ใช้ มอบหมายบทบาท และควบคุมการเข้าถึงตามหลัก PDPA | {formatThaiDate()}
-          </p>
-        </div>
 
-        <button
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            background: "#0f766e",
-            color: "#ffffff",
-            border: "none",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontSize: "0.9rem",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-          onClick={() => alert("ระบบเปิดแบบฟอร์มเพิ่มผู้ใช้ใหม่")}
-        >
-          <UserPlus size={16} />
-          <span>เพิ่มผู้ใช้ใหม่</span>
-        </button>
+          <button
+            onClick={() => showToast("เปิดแบบฟอร์มเพิ่มบัญชีผู้ใช้งานใหม่ใน Keycloak SSO")}
+            className="px-space-md py-2 bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-base">person_add</span>
+            <span>เพิ่มผู้ใช้งานใหม่</span>
+          </button>
+        </div>
       </header>
 
-      {/* Search Bar */}
-      <div style={{ marginBottom: "1.5rem", position: "relative", maxWidth: 420 }}>
-        <div style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }}>
-          <Search size={18} />
-        </div>
-        <input
-          type="text"
-          placeholder="ค้นหาตามชื่อ, ชื่อผู้ใช้, หรืออีเมล..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.65rem 1rem 0.65rem 2.4rem",
-            borderRadius: "8px",
-            border: "1px solid #cbd5e1",
-            fontSize: "0.9rem",
-            outline: "none",
-          }}
-        />
-      </div>
+      {/* 2. Main Body */}
+      <main className="w-full bg-surface-canvas flex-1 pb-space-3xl">
+        {/* Toast Alert */}
+        {toastMsg && (
+          <div className="fixed bottom-6 right-6 z-50 bg-navy-deep text-surface-card px-space-md py-space-sm rounded-xl shadow-xl border border-navy-surface flex items-center gap-space-sm animate-bounce">
+            <span className="material-symbols-outlined text-status-success">check_circle</span>
+            <span className="font-body-sm text-body-sm">{toastMsg}</span>
+          </div>
+        )}
 
-      {/* Users Table */}
-      <div
-        style={{
-          border: "1px solid #e2e8f0",
-          borderRadius: "12px",
-          overflow: "hidden",
-          background: "#ffffff",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-        }}
-      >
-        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-          <thead style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0" }}>
-            <tr>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>ชื่อผู้ใช้</th>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>ชื่อ-นามสกุล</th>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>อีเมล</th>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>ประเภท</th>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>บทบาท (Roles)</th>
-              <th style={{ padding: "0.85rem 1rem", color: "#475569", fontSize: "0.85rem", fontWeight: 600 }}>สถานะ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((user) => (
-              <tr key={user.id} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                <td style={{ padding: "1rem", fontWeight: "bold", color: "#0f172a", fontFamily: "monospace" }}>
-                  {user.username}
-                </td>
-                <td style={{ padding: "1rem", color: "#334155", fontWeight: 500 }}>{user.nameTh}</td>
-                <td style={{ padding: "1rem", color: "#64748b", fontSize: "0.9rem" }}>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <Mail size={14} color="#94a3b8" />
-                    <span>{user.email}</span>
-                  </div>
-                </td>
-                <td style={{ padding: "1rem", color: "#334155" }}>
-                  <span style={{ textTransform: "capitalize", fontSize: "0.85rem", background: "#f1f5f9", padding: "2px 8px", borderRadius: 4 }}>
-                    {user.userType}
+        {/* Top Context Sub-bar */}
+        <section className="w-full bg-navy-deep text-on-primary py-space-lg shadow-xs">
+          <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+              <div className="space-y-space-2xs">
+                <div className="flex items-center gap-space-xs flex-wrap">
+                  <span className="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-container text-primary-fixed-dim uppercase tracking-wider">
+                    โมดูล M01 / M06 • SSO &amp; PDPA
                   </span>
-                </td>
-                <td style={{ padding: "1rem" }}>
-                  <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap" }}>
-                    {user.roles.map((r) => (
-                      <span
-                        key={r}
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          background: "#e0e7ff",
-                          color: "#3730a3",
-                          fontSize: "0.75rem",
-                          padding: "2px 8px",
-                          borderRadius: 4,
-                          fontWeight: 600,
-                        }}
-                      >
-                        <Shield size={10} />
-                        {r}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td style={{ padding: "1rem" }}>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      background: user.isActive ? "#dcfce7" : "#fee2e2",
-                      color: user.isActive ? "#15803d" : "#b91c1c",
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                      padding: "3px 8px",
-                      borderRadius: 12,
-                    }}
-                  >
-                    {user.isActive ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
-                    {user.isActive ? "เปิดใช้งาน" : "ระงับ"}
+                  <span className="flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm bg-status-success/20 text-status-success">
+                    <span className="material-symbols-outlined text-xs">verified</span>
+                    ISO/IEC 27001 Certified
                   </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  <span className="flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm bg-blue-accent/20 text-primary-fixed-dim">
+                    <span className="material-symbols-outlined text-xs">lock</span>
+                    AES-256-GCM PII Encryption
+                  </span>
+                </div>
+                <h1 className="font-headline-lg text-headline-lg text-surface-card tracking-tight font-bold">
+                  การบริหารจัดการบัญชีผู้ใช้งาน และธรรมาภิบาลข้อมูลส่วนบุคคล
+                </h1>
+                <p className="text-xs text-surface-container-high">
+                  ระบบบริหารจัดการบัญชีแบบรวมศูนย์ (Single Sign-On), การกำหนดสิทธิ์ตามบทบาท (RBAC) และการกำกับดูแลตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562
+                </p>
+              </div>
+
+              <div className="flex items-center gap-space-sm bg-navy-surface/80 p-space-sm rounded-xl border border-navy-surface">
+                <span className="material-symbols-outlined text-status-success text-2xl">policy</span>
+                <div className="text-xs">
+                  <div className="font-bold text-surface-card">DPO Audit Engine</div>
+                  <div className="text-slate-300">ความยินยอม PDPA ครบถ้วน 100%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Content Container */}
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-xl space-y-space-xl">
+          {/* Top 4 KPI Metrics */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle">
+              <span className="text-xs text-outline font-semibold uppercase">ผู้ใช้งานในระบบทั้งหมด</span>
+              <div className="font-display-lg text-display-lg font-bold text-navy-deep my-1">128</div>
+              <span className="text-xs text-status-success font-semibold flex items-center gap-0.5">
+                <span className="material-symbols-outlined text-xs">check</span> ใช้งานปกติทุกบัญชี
+              </span>
+            </div>
+
+            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle">
+              <span className="text-xs text-outline font-semibold uppercase">เปิดใช้งาน 2-Factor MFA</span>
+              <div className="font-display-lg text-display-lg font-bold text-secondary my-1">98.2%</div>
+              <span className="text-xs text-secondary font-semibold">126 / 128 บัญชี</span>
+            </div>
+
+            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle">
+              <span className="text-xs text-outline font-semibold uppercase">บันทึกเข้าถึงข้อมูล PII</span>
+              <div className="font-display-lg text-display-lg font-bold text-amber-primary my-1">1,420</div>
+              <span className="text-xs text-amber-primary font-semibold">Audit Logs มีการเข้ารหัส</span>
+            </div>
+
+            <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle">
+              <span className="text-xs text-outline font-semibold uppercase">สถานะความยินยอม PDPA</span>
+              <div className="font-display-lg text-display-lg font-bold text-status-success my-1">100%</div>
+              <span className="text-xs text-status-success font-semibold">ไม่มีข้อพิพาทคงค้าง</span>
+            </div>
+          </div>
+
+          {/* Search & Filter Toolbar */}
+          <div className="bg-surface-card p-space-md rounded-xl shadow-xs border border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+            <div className="relative flex-1 max-w-md">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">
+                search
+              </span>
+              <input
+                type="text"
+                placeholder="ค้นหาชื่อ, username, อีเมลผู้ใช้งาน..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full bg-surface-container-low pl-10 pr-4 py-2 text-xs rounded-lg border border-border-subtle focus:outline-none focus:ring-2 focus:ring-secondary"
+              />
+            </div>
+
+            <div className="flex items-center gap-space-sm">
+              <span className="text-xs text-outline font-semibold">บทบาท (Role):</span>
+              <select
+                value={roleFilter}
+                onChange={(e) => setRoleFilter(e.target.value)}
+                className="bg-surface-container-low border border-border-subtle rounded-lg px-3 py-2 text-xs font-semibold text-navy-deep focus:outline-none"
+              >
+                <option value="all">ทั้งหมด (All Roles)</option>
+                <option value="it_admin">IT Admin</option>
+                <option value="executive">ผู้บริหาร (Executive)</option>
+                <option value="instructor">อาจารย์ผู้สอน (Instructor)</option>
+                <option value="registrar">เจ้าหน้าที่ทะเบียน (Registrar)</option>
+                <option value="student">นักศึกษา (Student)</option>
+                <option value="dpo">เจ้าหน้าที่ DPO</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Users Table */}
+          <div className="bg-surface-card rounded-xl shadow-xs border border-border-subtle overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left font-body-sm text-body-sm">
+                <thead className="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm border-b border-border-subtle">
+                  <tr>
+                    <th className="py-3 px-4">ผู้ใช้งาน (User Profile)</th>
+                    <th className="py-3 px-4">ชื่อผู้ใช้ (Username)</th>
+                    <th className="py-3 px-4">สิทธิ์ในระบบ (RBAC Roles)</th>
+                    <th className="py-3 px-4 text-center">MFA</th>
+                    <th className="py-3 px-4 text-center">ยินยอม PDPA</th>
+                    <th className="py-3 px-4 text-right">การจัดการ</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-subtle">
+                  {filteredUsers.map((u) => (
+                    <tr key={u.id} className="hover:bg-surface-container-low/50 transition-colors">
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-space-sm">
+                          <div className="w-9 h-9 rounded-full bg-blue-subtle text-secondary flex items-center justify-center font-bold text-xs shrink-0">
+                            {u.nameTh.substring(0, 2)}
+                          </div>
+                          <div>
+                            <div className="font-bold text-navy-deep text-xs">{u.nameTh}</div>
+                            <div className="text-[11px] text-outline">{u.email}</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="py-3 px-4 font-mono text-xs font-semibold text-secondary">
+                        {u.username}
+                      </td>
+
+                      <td className="py-3 px-4">
+                        <div className="flex flex-wrap gap-1">
+                          {u.roles.map((r) => (
+                            <span
+                              key={r}
+                              className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-surface-container text-navy-deep border border-border-subtle"
+                            >
+                              {r}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+
+                      <td className="py-3 px-4 text-center">
+                        <span className="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success text-[10px] font-bold">
+                          เปิดใช้งาน
+                        </span>
+                      </td>
+
+                      <td className="py-3 px-4 text-center">
+                        <span className="px-2 py-0.5 rounded-full bg-blue-subtle text-secondary text-[10px] font-bold">
+                          ยินยอมแล้ว
+                        </span>
+                      </td>
+
+                      <td className="py-3 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => showToast(`แก้ไขสิทธิ์ RBAC สำหรับ: ${u.username}`)}
+                            className="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-navy-deep text-xs font-semibold transition-colors"
+                          >
+                            แก้ไขสิทธิ์
+                          </button>
+                          <button
+                            onClick={() => showToast(`ส่งอีเมลรีเซ็ตรหัสผ่านไปยัง: ${u.email}`)}
+                            className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors"
+                          >
+                            รีเซ็ตรหัส
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* 3. Footer */}
+      <footer className="w-full bg-navy-deep text-on-primary py-space-md border-t border-navy-surface mt-auto">
+        <div className="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop flex flex-col sm:flex-row items-center justify-between gap-space-xs text-xs text-primary-fixed-dim">
+          <span>College Identity &amp; Governance Platform • Module 01 &amp; 06</span>
+          <span>&copy; 2569 ข้อมูลส่วนบุคคลอยู่ภายใต้การคุ้มครองตามกฎหมาย</span>
+        </div>
+      </footer>
     </div>
   )
 }
