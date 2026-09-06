@@ -8,11 +8,11 @@
 
 | Field | Value |
 |---|---|
-| **Last Updated** | 2026-09-06 13:40 (Asia/Bangkok) |
-| **Current Phase** | Phase 3 — Intelligence & Portals (MVP Complete) |
-| **Current Sprint** | Sprint 3.3 — Comprehensive Feature Completion & Delivery |
+| **Last Updated** | 2026-09-06 13:50 (Asia/Bangkok) |
+| **Current Phase** | Phase 4 — Post-MVP Enterprise Extensions (100% Complete) |
+| **Current Sprint** | Sprint 4.1 — Post-MVP Enterprise Integration & Deployment |
 | **Overall Progress** | 100% |
-| **Next AI Agent Task** | ทุกฟีเจอร์ของระบบ College Digital Ecosystem เสร็จสมบูรณ์ 100% (SIS, e-Document, Identity & Governance, Approvals Queue, Executive Dashboard with real CSV export & PDF Briefing) |
+| **Next AI Agent Task** | ระบบทั้งหมดทั้ง MVP (5.1) และ Post-MVP (5.2) ครบถ้วน 100% พร้อมสำหรับการนำไปใช้งานจริง (Production Deployment & Demo) |
 
 ---
 
@@ -20,6 +20,16 @@
 
 ### In Progress
 *(none — all tasks completed)*
+
+- [x] Post-MVP DTOs (`packages/types/src/post-mvp.dto.ts`): LMS, Finance ERP, Research, AI Analytics, CHE/ONESQA, and Multi-Campus shared types.
+- [x] LMS Portal (`apps/web/src/app/lms/page.tsx`): Active Virtual Classrooms, Lecture Videos & Slides, Assignment Dropbox with due countdown & checksum, Online Quiz assessment center with instant grading.
+- [x] Research Portal (`apps/web/src/app/research/page.tsx`): Grant proposals submission, milestone progress tracking, publication repository (Scopus Q1/Q2 & TCI), and IRB Ethics certification.
+- [x] Progressive Web App (`apps/web/public/manifest.json`): PWA mobile application support with standalone display and touch navigation.
+- [x] Central Service Hub (`apps/web/src/app/page.tsx`): Added direct cards for LMS and Research portals.
+- [x] ERP Finance Dashboard (`apps/admin/src/app/finance/page.tsx`): General Ledger journal, Budget allocation & execution rates, Tuition payment reconciliation with bank feeds, and CSV export.
+- [x] Advanced AI/ML Analytics Center (`apps/admin/src/app/ai-analytics/page.tsx`): Predictive Student Dropout risk model with early intervention alerts, AI course recommendations, and Executive Natural Language AI Copilot.
+- [x] CHE/ONESQA Data Bridge (`apps/admin/src/app/integration/page.tsx`): M2M Real-time API pipelines with JSON schema validation, and ONESQA SAR auto-assessment generator.
+- [x] Multi-institution Support (`apps/admin/src/components/campus-switcher.tsx`): Seamless switching between Bangkok Main, Prachinburi East, Chiang Mai North, and Consolidated Network.
 
 - [x] SIS Portal (`apps/web/src/app/sis/page.tsx`): Complete all 4 tabs (`register`, `grades`, `petitions`, `schedule`), URL `?tab=` search param integration, PromptPay tuition invoice modal, official e-Transcript verification modal with SHA-256 copy, new e-Petition submission modal, weekly timetable grid, and exam schedule.
 - [x] e-Document Portal (`apps/web/src/app/documents/page.tsx`): Live search filter, URL `?filter=` search param integration, full official memo view, PDF attachments preview, 3-step signing audit trail, and PKI digital signature action.

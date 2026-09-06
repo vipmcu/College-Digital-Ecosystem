@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { useSession, signIn, signOut } from "next-auth/react"
+import { CampusSwitcher } from "../components/campus-switcher"
 
 interface ServiceMetric {
   name: string
@@ -205,7 +206,7 @@ export default function ExecutiveDashboardPage() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-space-lg h-full">
+          <nav className="hidden lg:flex items-center gap-space-md h-full">
             <Link
               href="/"
               className="py-space-md transition-colors text-secondary border-b-2 border-secondary font-label-lg"
@@ -216,7 +217,7 @@ export default function ExecutiveDashboardPage() {
               href="/users"
               className="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors"
             >
-              จัดการผู้ใช้งาน &amp; PDPA
+              จัดการผู้ใช้ &amp; PDPA
             </Link>
             <Link
               href="/approvals"
@@ -224,19 +225,38 @@ export default function ExecutiveDashboardPage() {
             >
               คิวอนุมัติคำร้อง
             </Link>
+            <Link
+              href="/finance"
+              className="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors"
+            >
+              ERP Finance
+            </Link>
+            <Link
+              href="/ai-analytics"
+              className="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors"
+            >
+              AI/ML Analytics
+            </Link>
+            <Link
+              href="/integration"
+              className="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors"
+            >
+              เชื่อมโยง สกอ./สมศ.
+            </Link>
             <a
               href="http://localhost:3000"
               target="_blank"
               rel="noreferrer"
               className="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors flex items-center gap-1"
             >
-              <span>สู่หน้า Web Portal</span>
+              <span>Web Portal</span>
               <span className="material-symbols-outlined text-sm">open_in_new</span>
             </a>
           </nav>
 
-          {/* Admin User Profile */}
+          {/* Admin User Profile & Campus Switcher */}
           <div className="flex items-center gap-space-md">
+            <CampusSwitcher />
             {mounted && session?.user ? (
               <div className="flex items-center gap-space-sm">
                 <div className="hidden sm:flex flex-col text-right">

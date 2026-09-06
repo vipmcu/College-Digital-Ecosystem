@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
+import { CampusSwitcher } from "../../components/campus-switcher"
 
 interface ApprovalAttachment {
   name: string
@@ -131,10 +132,13 @@ export default function ApprovalsQueuePage() {
             </div>
           </div>
 
-          <span className="px-2.5 py-1 bg-amber-subtle text-amber-primary rounded-full font-label-sm text-label-sm font-bold flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-amber-primary animate-ping"></span>
-            รอพิจารณา {items.length} รายการ
-          </span>
+          <div className="flex items-center gap-space-sm">
+            <CampusSwitcher />
+            <span className="px-2.5 py-1 bg-amber-subtle text-amber-primary rounded-full font-label-sm text-label-sm font-bold flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-amber-primary animate-ping"></span>
+              รอพิจารณา {items.length} รายการ
+            </span>
+          </div>
         </div>
       </header>
 

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
+import { CampusSwitcher } from "../../components/campus-switcher"
 
 interface UserAccount {
   id: string
@@ -222,13 +223,16 @@ export default function UsersGovernancePage() {
             </div>
           </div>
 
-          <button
-            onClick={() => setShowAddUserModal(true)}
-            className="px-space-md py-2 bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-base">person_add</span>
-            <span>เพิ่มผู้ใช้งานใหม่</span>
-          </button>
+          <div className="flex items-center gap-space-sm">
+            <CampusSwitcher />
+            <button
+              onClick={() => setShowAddUserModal(true)}
+              className="px-space-md py-2 bg-primary hover:bg-navy-deep text-surface-card font-label-md text-label-md font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-base">person_add</span>
+              <span>เพิ่มผู้ใช้งานใหม่</span>
+            </button>
+          </div>
         </div>
       </header>
 
