@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary": "#ffffff", "primary-container": "#0b2677", "status-danger": "#DC2626", "outline-variant": "#c5c5d3", "secondary-fixed": "#d8e2ff", "inverse-on-surface": "#eaf1ff", "primary": "#00134f", "on-tertiary-fixed": "#2f1500", "background": "#f8f9ff", "outline": "#757682", "secondary-container": "#0070ea", "surface-container-highest": "#d5e3fc", "on-secondary": "#ffffff", "surface-variant": "#d5e3fc", "primary-fixed": "#dde1ff", "surface-canvas": "#F8FAFC", "blue-accent": "#007BFF", "navy-deep": "#081B54", "border-subtle": "#E2E8F0", "error": "#ba1a1a", "tertiary-container": "#4b2500", "inverse-surface": "#233144", "surface-container-low": "#eff4ff", "status-info": "#0284C7", "on-background": "#0d1c2e", "blue-subtle": "#EBF4FF", "amber-primary": "#D97706", "surface-tint": "#4459aa", "surface-bright": "#f8f9ff", "amber-subtle": "#FEF3C7", "secondary": "#0059bb", "surface-container": "#e6eeff", "inverse-primary": "#b7c4ff", "on-primary": "#ffffff", "on-error-container": "#93000a", "on-error": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface-variant": "#454651", "surface-card": "#FFFFFF", "on-secondary-fixed-variant": "#004493", "surface": "#f8f9ff", "status-success": "#16A34A", "error-container": "#ffdad6", "tertiary": "#2d1400", "surface-container-high": "#dce9ff", "navy-surface": "#0F3299", "on-tertiary-fixed-variant": "#6e3900", "on-primary-container": "#7d91e6", "on-surface": "#0d1c2e", "primary-fixed-dim": "#b7c4ff", "on-tertiary-container": "#e17d11", "secondary-fixed-dim": "#adc7ff", "on-secondary-fixed": "#001a41", "on-primary-fixed": "#001453", "surface-dim": "#ccdbf3", "status-warning": "#EA580C", "tertiary-fixed-dim": "#ffb77d", "on-primary-fixed-variant": "#2b4090", "on-secondary-container": "#fefcff", "tertiary-fixed": "#ffdcc3" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "space-xs": "0.5rem", "space-3xl": "4rem", "gutter-mobile": "1rem", "gutter-desktop": "1.5rem", "space-md": "1rem", "space-2xs": "0.25rem", "container-max": "1440px", "space-2xl": "3rem", "space-sm": "0.75rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"] }, "fontSize": { "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs min-w-0"><img alt="Modern university digital ecosystem emblem and crest logo, deep navy blue and royal gold accents, clean geometric academic tech shield icon with abstract digital nodes and open book symbol, minimalist vector style. Design context: - Primary color: #0b2677
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-sm
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1W6I1GPHxf9EbWmIj5G8PG3foXd7DvyYF1G-6K5bllLvdQABjAKJA6GdYc3mz8uoHvPeQjDtbYhXPN0FPwYERHFJrf7OmbD66YcLakv2dq-X7S-JcaikN_5LbY-ErvdlKgzbvU40QHwfwWNKbtT0OptpdG-OaX2QbKxI-tbofogrxMoQn_olZmwX6-vxNPYUWDXwgvyJRmn9FAUsdXUV8u5uw6m8aD9fVr6YvQWKKeI_K6WaSJaRx-MEA"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-2xs"><span class="font-label-md text-label-md text-primary font-bold tracking-tight truncate">BIT SIS Mobile</span><span class="px-1.5 py-0.5 rounded-full bg-amber-subtle text-amber-primary font-label-sm text-label-sm font-semibold tracking-wide">2/2568</span></div><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Grades Transcript</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_3px_rgba(11,38,119,0.08)]" src="https://lh3.googleusercontent.com/aida/AEtjO1XpcY5nLThBx3C7OwiIBd56wFJQrDlBgDIZWZYdmtrm-_c532M2jFrd1kOVuNiOO2_R4pQZGEzzNL_d2Q0flA60l70Cz1AG0fNxUkkW_dbUAF58BPskKqgv14VDY5lCc2g9SDq__dTftY6_Sj7JG7yTkhAW5B4lSxpvFhgMoZuZBIPKH75y_DAELWjbOm4g00u1V20mYbDAg8sm2P8w0wY28ASqH5wgwTVGTuJJUU_3GCZlBSg722zyI3I"/></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface px-gutter-mobile"><div class="flex flex-col w-full gap-space-md">
+<!-- Sub-Header & Navigation Controls -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<button aria-label="ย้อนกลับ" class="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-primary hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">ผลการเรียนและทรานสคริปต์</h1>
+<span class="font-body-sm text-body-sm text-on-surface-variant">เกรดเฉลี่ยสะสมและสถานะหลักสูตร</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+        ระบบรับรอง
+      </span>
+</div>
+<!-- Tab Switcher (Segmented Control) -->
+<div class="w-full bg-surface-container-low p-1 rounded-xl flex items-center gap-1">
+<button class="flex-1 py-2 px-2 text-center rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md font-bold transition-all truncate" id="tab-cum" onclick="switchMainTab('cumulative')" type="button">
+        ทรานสคริปต์สะสม
+      </button>
+<button class="flex-1 py-2 px-2 text-center rounded-lg text-on-surface-variant hover:text-primary font-label-md text-label-md font-medium transition-all truncate" id="tab-sem" onclick="switchMainTab('semester')" type="button">
+        ผลเรียนรายภาค
+      </button>
+<button class="flex-1 py-2 px-2 text-center rounded-lg text-on-surface-variant hover:text-primary font-label-md text-label-md font-medium transition-all truncate" id="tab-prog" onclick="switchMainTab('progress')" type="button">
+        หลักสูตร
+      </button>
+</div>
+<!-- Quick Action Bar -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-primary-container text-on-primary shadow-sm active:scale-[0.98] transition-transform text-left" onclick="showDownloadToast()" type="button">
+<span class="material-symbols-outlined text-[20px] text-amber-subtle">picture_as_pdf</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-primary font-semibold leading-tight truncate">ทรานสคริปต์ (PDF)</span>
+<span class="font-label-sm text-[10px] text-on-primary-container leading-none">e-Signed Verified</span>
+</div>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-blue-subtle text-secondary shadow-sm active:scale-[0.98] transition-transform text-left" type="button">
+<span class="material-symbols-outlined text-[20px] text-blue-accent">history_edu</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-semibold leading-tight truncate">ขอฉบับจริง (e-Petition)</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant leading-none">คำร้องออนไลน์ M03</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Student Info Strip -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold text-label-lg flex-shrink-0">
+        CS
+      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold truncate">นายธนภัทร สิริวัฒนกุล</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">ID: 653040128-9 • ชั้นปีที่ 3 CS</span>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">
+        ปกติ (Active)
+      </span>
+<p class="font-body-sm text-[11px] text-outline truncate max-w-[120px]">อ.ที่ปรึกษา: รศ.ดร. นันทิกร</p>
+</div>
+</div>
+<!-- Academic Excellence & GPAX Hero Card -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary-container to-navy-surface text-on-primary p-space-md shadow-md">
+<!-- Subtle Institutional Crest Watermark SVG -->
+<svg class="absolute -right-6 -bottom-6 w-36 h-36 text-white/5 pointer-events-none" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z"></path>
+</svg>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary-fixed uppercase tracking-wider font-semibold">เกรดเฉลี่ยสะสมรวม (GPAX)</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-display-lg text-display-lg text-on-primary font-bold leading-none tracking-tight">3.68</span>
+<span class="font-label-md text-label-md text-on-primary-container">/ 4.00</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-subtle text-amber-primary font-label-sm text-label-sm font-bold shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+          เกียรตินิยมอันดับหนึ่ง
+        </span>
+<span class="font-body-sm text-[11px] text-secondary-fixed">สถานะ: ปกติ (Good Standing)</span>
+</div>
+</div>
+<!-- Mini Progress Bar toward graduation -->
+<div class="mt-4 relative z-10">
+<div class="flex justify-between items-center text-secondary-fixed font-body-sm text-[12px] mb-1.5">
+<span>ความก้าวหน้าหลักสูตร (92/134 นก.)</span>
+<span class="font-bold text-on-primary">68.6%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-white/20 overflow-hidden">
+<div class="h-full bg-gradient-to-r from-amber-primary to-amber-subtle rounded-full transition-all duration-700" style="width: 68.6%;"></div>
+</div>
+</div>
+<!-- 3 Quick Stats Grid inside Hero -->
+<div class="grid grid-cols-3 gap-space-xs mt-4 pt-3.5 border-t-0 bg-white/5 rounded-lg p-2.5 backdrop-blur-sm relative z-10">
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-[11px] text-secondary-fixed truncate w-full">หน่วยกิตสะสม</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold mt-0.5">92</span>
+<span class="font-body-sm text-[10px] text-on-primary-container">จาก 134 นก.</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-[11px] text-secondary-fixed truncate w-full">เทอมนี้ (2/2568)</span>
+<span class="font-headline-sm text-headline-sm text-amber-subtle font-bold mt-0.5">12</span>
+<span class="font-body-sm text-[10px] text-on-primary-container">4 วิชา กำลังศึกษา</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-[11px] text-secondary-fixed truncate w-full">กิจกรรมสะสม</span>
+<span class="font-headline-sm text-headline-sm text-status-success font-bold mt-0.5">64</span>
+<span class="font-body-sm text-[10px] text-status-success">เกณฑ์ 60 ชม. (ครบ)</span>
+</div>
+</div>
+</div>
+<!-- Section: GPA Trend & Grade Distribution -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">trending_up</span>
+<h2 class="font-headline-sm text-[16px] text-primary font-bold">แนวโน้มผลการเรียน (GPA Trend)</h2>
+</div>
+<span class="font-body-sm text-[12px] text-outline">5 ภาคการศึกษา</span>
+</div>
+<!-- Visual Sparkline / Bar Graph Indicator -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-2">
+<div class="grid grid-cols-5 gap-2 items-end h-28 pt-4 px-1">
+<!-- 1/2566 -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="font-label-sm text-[10px] text-on-surface-variant font-bold">3.60</span>
+<div class="w-full bg-surface-container-highest rounded-t-md hover:bg-secondary transition-all" style="height: 80%;"></div>
+<span class="font-body-sm text-[10px] text-outline truncate">1/66</span>
+</div>
+<!-- 2/2566 -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="font-label-sm text-[10px] text-on-surface-variant font-bold">3.75</span>
+<div class="w-full bg-surface-container-highest rounded-t-md hover:bg-secondary transition-all" style="height: 88%;"></div>
+<span class="font-body-sm text-[10px] text-outline truncate">2/66</span>
+</div>
+<!-- 1/2567 -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="font-label-sm text-[10px] text-on-surface-variant font-bold">3.55</span>
+<div class="w-full bg-surface-container-highest rounded-t-md hover:bg-secondary transition-all" style="height: 77%;"></div>
+<span class="font-body-sm text-[10px] text-outline truncate">1/67</span>
+</div>
+<!-- 2/2567 -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="font-label-sm text-[10px] text-secondary font-bold">3.80</span>
+<div class="w-full bg-secondary-container rounded-t-md hover:bg-secondary transition-all" style="height: 94%;"></div>
+<span class="font-body-sm text-[10px] text-primary font-bold truncate">2/67</span>
+</div>
+<!-- 1/2568 (Latest) -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="font-label-sm text-[10px] text-primary font-bold">3.70</span>
+<div class="w-full bg-primary rounded-t-md relative group" style="height: 85%;">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-primary"></span>
+</div>
+<span class="font-body-sm text-[10px] text-primary font-bold truncate">1/68</span>
+</div>
+</div>
+</div>
+<!-- Grade Count Chips -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-[11px] text-on-surface-variant">การกระจายตัวของเกรดสะสม (29 รายวิชา)</span>
+<div class="grid grid-cols-4 gap-1.5">
+<div class="bg-status-success/10 py-1 px-2 rounded-lg flex items-center justify-between">
+<span class="font-label-md text-label-md text-status-success font-bold">A</span>
+<span class="font-body-sm text-[11px] text-on-surface font-semibold">14 วิชา</span>
+</div>
+<div class="bg-blue-subtle py-1 px-2 rounded-lg flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary font-bold">B+</span>
+<span class="font-body-sm text-[11px] text-on-surface font-semibold">8 วิชา</span>
+</div>
+<div class="bg-surface-container-high py-1 px-2 rounded-lg flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-bold">B</span>
+<span class="font-body-sm text-[11px] text-on-surface font-semibold">5 วิชา</span>
+</div>
+<div class="bg-surface-container py-1 px-2 rounded-lg flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">C+</span>
+<span class="font-body-sm text-[11px] text-on-surface font-semibold">2 วิชา</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Detailed Course Lists (Semester Accordions) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">menu_book</span>
+<h2 class="font-headline-sm text-[16px] text-primary font-bold">ประวัติรายวิชาตามภาคการศึกษา</h2>
+</div>
+<button class="font-label-sm text-label-sm text-secondary font-semibold hover:underline" onclick="toggleAllSemesters()" type="button">
+        ย่อทั้งหมด
+      </button>
+</div>
+<!-- Semester 1/2568 (Expanded by default) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<!-- Semester Header Bar -->
+<div class="p-space-sm bg-surface-container-low cursor-pointer flex items-center justify-between select-none" onclick="toggleSemester('sem-1-2568')">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-[12px] font-bold">
+            3/1
+          </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold leading-snug">ภาคการศึกษาที่ 1/2568 (ปี 3)</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">ลงทะเบียน 18 นก. • GPS: 66.6</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-md text-label-md font-bold">
+            GPA 3.70
+          </span>
+<span class="material-symbols-outlined text-[20px] text-outline transition-transform duration-200 rotate-180" id="arrow-sem-1-2568">expand_more</span>
+</div>
+</div>
+<!-- Course List Content -->
+<div class="p-space-sm flex flex-col gap-2" id="content-sem-1-2568">
+<!-- Course 1 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">CS301</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Database Systems Architecture</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">สถาปัตยกรรมระบบฐานข้อมูล</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              A
+            </div>
+</div>
+</div>
+<!-- Course 2 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">CS320</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Web Application Engineering</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">วิศวกรรมเว็บแอปพลิเคชัน</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              A
+            </div>
+</div>
+</div>
+<!-- Course 3 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">CS311</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Computer Networks &amp; Distributed Systems</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">เครือข่ายและระบบกระจาย</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              B+
+            </div>
+</div>
+</div>
+<!-- Course 4 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">CS332</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Software Testing &amp; Quality Assurance</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">การทดสอบซอฟต์แวร์และการประกันคุณภาพ</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              A
+            </div>
+</div>
+</div>
+<!-- Course 5 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">CS350</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Information Security Fundamentals</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">ความมั่นคงปลอดภัยสารสนเทศขั้นพื้นฐาน</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              B+
+            </div>
+</div>
+</div>
+<!-- Course 6 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-canvas hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col min-w-0 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-primary font-bold">GE105</span>
+<span class="font-body-sm text-[11px] text-outline truncate">3 นก.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Data Analytics for Daily Life</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">การวิเคราะห์ข้อมูลในชีวิตประจำวัน</span>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<div class="w-9 h-9 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center font-headline-sm text-[16px] font-bold">
+              A
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Semester 2/2567 (Collapsed) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<div class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer flex items-center justify-between select-none" onclick="toggleSemester('sem-2-2567')">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-label-sm text-[12px] font-bold">
+            2/2
+          </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold leading-snug">ภาคการศึกษาที่ 2/2567 (ปี 2)</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">เรียน 19 นก. • GPS: 72.2</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-status-success/10 text-status-success font-label-md text-label-md font-bold">
+            GPA 3.80
+          </span>
+<span class="material-symbols-outlined text-[20px] text-outline transition-transform duration-200" id="arrow-sem-2-2567">expand_more</span>
+</div>
+</div>
+<div class="p-space-sm flex-col gap-2 hidden" id="content-sem-2-2567">
+<div class="p-2.5 rounded-lg bg-surface-canvas flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">CS204 Algorithm Analysis &amp; Design (4 นก.)</span>
+<span class="font-label-md font-bold text-status-success">A</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-canvas flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">CS212 Operating Systems Architecture (3 นก.)</span>
+<span class="font-label-md font-bold text-status-success">A</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-canvas flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">CS221 Object-Oriented Software Design (3 นก.)</span>
+<span class="font-label-md font-bold text-secondary">B+</span>
+</div>
+</div>
+</div>
+<!-- Semester 1/2567 (Collapsed) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<div class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer flex items-center justify-between select-none" onclick="toggleSemester('sem-1-2567')">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-label-sm text-[12px] font-bold">
+            2/1
+          </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold leading-snug">ภาคการศึกษาที่ 1/2567 (ปี 2)</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">เรียน 18 นก. • GPS: 63.9</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-bold">
+            GPA 3.55
+          </span>
+<span class="material-symbols-outlined text-[20px] text-outline transition-transform duration-200" id="arrow-sem-1-2567">expand_more</span>
+</div>
+</div>
+<div class="p-space-sm flex-col gap-2 hidden" id="content-sem-1-2567">
+<div class="p-2.5 rounded-lg bg-surface-canvas flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">CS201 Data Structures &amp; Algorithms (4 นก.)</span>
+<span class="font-label-md font-bold text-status-success">A</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-canvas flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">MA202 Linear Algebra for Computing (3 นก.)</span>
+<span class="font-label-md font-bold text-on-surface">B</span>
+</div>
+</div>
+</div>
+<!-- Academic Year 2566 (Collapsed Year Group) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<div class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer flex items-center justify-between select-none" onclick="toggleSemester('sem-2566')">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-label-sm text-[12px] font-bold">
+            Y1
+          </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold leading-snug">ปีการศึกษา 2566 (ชั้นปีที่ 1 รวม)</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">ครบ 2 เทอม • 37 หน่วยกิต</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-bold">
+            GPAX 3.67
+          </span>
+<span class="material-symbols-outlined text-[20px] text-outline transition-transform duration-200" id="arrow-sem-2566">expand_more</span>
+</div>
+</div>
+<div class="p-space-sm flex-col gap-2 hidden" id="content-sem-2566">
+<div class="p-2 rounded-lg bg-surface-container-low flex justify-between items-center text-body-sm">
+<span>1/2566: 18 หน่วยกิต</span>
+<span class="font-bold text-primary">GPA 3.60</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low flex justify-between items-center text-body-sm">
+<span>2/2566: 19 หน่วยกิต</span>
+<span class="font-bold text-primary">GPA 3.75</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Curriculum Audit & Degree Progress (134 Credits) -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">checklist</span>
+<h2 class="font-headline-sm text-[16px] text-primary font-bold">ตรวจสอบโครงสร้างหลักสูตร (134 นก.)</h2>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-subtle text-secondary font-label-sm text-[11px] font-bold">
+        คงเหลือ 42 นก.
+      </span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Requirement 1: GE -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-medium truncate">1. หมวดวิชาศึกษาทั่วไป (General Education)</span>
+<span class="font-bold text-status-success flex items-center gap-1">
+            30/30 นก.
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-status-success rounded-full" style="width: 100%;"></div>
+</div>
+<span class="font-body-sm text-[10px] text-status-success">ครบถ้วนตามเกณฑ์ 100%</span>
+</div>
+<!-- Requirement 2: Major Core -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-medium truncate">2. หมวดวิชาเฉพาะบังคับ (Core CS Courses)</span>
+<span class="font-bold text-primary">48/62 นก.</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 77.4%;"></div>
+</div>
+<span class="font-body-sm text-[10px] text-on-surface-variant">เหลือ 14 หน่วยกิต (ลงทะเบียนในเทอม 2/68 และ ปี 4)</span>
+</div>
+<!-- Requirement 3: Major Electives -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-medium truncate">3. หมวดวิชาเฉพาะเลือก (Major Electives)</span>
+<span class="font-bold text-amber-primary">12/24 นก.</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-amber-primary rounded-full" style="width: 50%;"></div>
+</div>
+<span class="font-body-sm text-[10px] text-on-surface-variant">เหลือ 12 หน่วยกิต (หมวด AI &amp; Software Architecture)</span>
+</div>
+<!-- Requirement 4: Free Electives -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-medium truncate">4. หมวดวิชาเลือกเสรี (Free Electives)</span>
+<span class="font-bold text-status-success flex items-center gap-1">
+            6/6 นก.
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-status-success rounded-full" style="width: 100%;"></div>
+</div>
+<span class="font-body-sm text-[10px] text-status-success">ครบถ้วนตามเกณฑ์ 100%</span>
+</div>
+</div>
+<!-- Projected Graduation Banner -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0">event_available</span>
+<span class="font-body-sm text-[11px] text-on-surface">
+        คาดการณ์การสำเร็จการศึกษา: <strong>ภาคการศึกษาที่ 2/2569</strong> (เป็นไปตามแผน 4 ปี)
+      </span>
+</div>
+</div>
+<!-- Section: Digital Verification & Official Seal Footer -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b-0 pb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">verified_user</span>
+<span class="font-label-md text-label-md text-primary font-bold">การรับรองความถูกต้องดิจิทัล (OIDC &amp; PDPA)</span>
+</div>
+<span class="font-label-sm text-[10px] text-status-success font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">lock</span> TLS 1.3
+      </span>
+</div>
+<div class="flex items-center gap-3 py-1">
+<!-- QR Placeholder using SVG matrix design -->
+<div class="w-16 h-16 bg-surface-container-high rounded-lg p-1 flex items-center justify-center flex-shrink-0">
+<svg class="w-14 h-14 text-primary" fill="currentColor" viewbox="0 0 24 24">
+<path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm8-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm11-2h2v2h-2v-2zm-3 2h2v2h-2v-2zm6 0h2v2h-2v-2zm-3 2h2v2h-2v-2zm3 2h2v2h-2v-2zm-6 2h2v2h-2v-2zm3 0h2v2h-2v-2zm3-6h2v2h-2v-2z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[11px] text-on-surface font-semibold truncate">Ref: TR-6530401289-2568-1</span>
+<span class="font-body-sm text-[10px] text-outline font-mono truncate">SHA256: 8f9b4c02...e4a12c89d0</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">ออกโดย: สำนักทะเบียนและประมวลผล สถาบันบูรพา (BIT)</span>
+</div>
+</div>
+<p class="font-body-sm text-[10px] text-outline leading-tight mt-1">
+      เอกสารนี้ออกผ่านระบบสารสนเทศบริการนักศึกษา (BIT SIS Mobile) ได้รับการรับรองตาม พ.ร.บ.ว่าด้วยธุรกรรมทางอิเล็กทรอนิกส์ และ พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 มีผลสมบูรณ์ทางกฎหมายในฐานะสำเนารายงานผลการศึกษา
+    </p>
+</div>
+<!-- Interactive Client-side Logic -->
+<script>
+    function toggleSemester(id) {
+      const content = document.getElementById('content-' + id);
+      const arrow = document.getElementById('arrow-' + id);
+      if (!content || !arrow) return;
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        content.classList.add('flex');
+        arrow.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        content.classList.remove('flex');
+        arrow.classList.remove('rotate-180');
+      }
+    }
+
+    let allCollapsed = false;
+    function toggleAllSemesters() {
+      const semIds = ['sem-1-2568', 'sem-2-2567', 'sem-1-2567', 'sem-2566'];
+      allCollapsed = !allCollapsed;
+      
+      semIds.forEach(id => {
+        const content = document.getElementById('content-' + id);
+        const arrow = document.getElementById('arrow-' + id);
+        if (content && arrow) {
+          if (allCollapsed) {
+            content.classList.add('hidden');
+            content.classList.remove('flex');
+            arrow.classList.remove('rotate-180');
+          } else {
+            content.classList.remove('hidden');
+            content.classList.add('flex');
+            arrow.classList.add('rotate-180');
+          }
+        }
+      });
+    }
+
+    function switchMainTab(tabKey) {
+      const cumBtn = document.getElementById('tab-cum');
+      const semBtn = document.getElementById('tab-sem');
+      const progBtn = document.getElementById('tab-prog');
+      
+      [cumBtn, semBtn, progBtn].forEach(b => {
+        if (!b) return;
+        b.className = 'flex-1 py-2 px-2 text-center rounded-lg text-on-surface-variant hover:text-primary font-label-md text-label-md font-medium transition-all truncate';
+      });
+
+      const activeClasses = 'flex-1 py-2 px-2 text-center rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md font-bold transition-all truncate';
+
+      if (tabKey === 'cumulative' && cumBtn) cumBtn.className = activeClasses;
+      if (tabKey === 'semester' && semBtn) semBtn.className = activeClasses;
+      if (tabKey === 'progress' && progBtn) progBtn.className = activeClasses;
+    }
+
+    function showDownloadToast() {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-inverse-surface text-inverse-on-surface px-4 py-2.5 rounded-full shadow-lg flex items-center gap-2 font-label-md text-label-md animate-bounce';
+      toast.innerHTML = '<span class="material-symbols-outlined text-[18px] text-amber-subtle">task_alt</span> ทรานสคริปต์ PDF เข้ารหัสพร้อมดาวน์โหลด';
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_8px_rgba(0,0,0,0.04)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[64px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="overview" href="#"><span class="material-symbols-outlined text-[24px]">dashboard</span><span class="font-label-sm text-label-sm mt-0.5">หน้าแรก</span></a><a class="flex flex-col items-center justify-center min-w-[64px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="registration" href="#"><span class="material-symbols-outlined text-[24px]">app_registration</span><span class="font-label-sm text-label-sm mt-0.5">ลงทะเบียน</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] h-11 transition-all text-primary-container font-semibold" data-path="grades-transcript" href="#"><span class="material-symbols-outlined text-[24px]">school</span><span class="font-label-sm text-label-sm mt-0.5">ผลการเรียน</span></a><a class="flex flex-col items-center justify-center min-w-[64px] h-11 text-on-surface-variant hover:text-primary transition-all" data-path="e-petitions" href="#"><span class="material-symbols-outlined text-[24px]">description</span><span class="font-label-sm text-label-sm mt-0.5">คำร้อง</span></a></div></nav></body></html>

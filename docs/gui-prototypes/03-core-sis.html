@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Sarabun:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#eff4ff","outline-variant":"#c5c5d3","on-error":"#ffffff","blue-subtle":"#EBF4FF","on-tertiary-fixed-variant":"#6e3900","on-tertiary":"#ffffff","status-success":"#16A34A","on-surface":"#0d1c2e","inverse-on-surface":"#eaf1ff","primary":"#00134f","on-secondary":"#ffffff","secondary-container":"#0070ea","surface":"#f8f9ff","inverse-surface":"#233144","primary-fixed-dim":"#b7c4ff","on-primary-container":"#7d91e6","surface-container":"#e6eeff","tertiary-fixed":"#ffdcc3","surface-dim":"#ccdbf3","on-surface-variant":"#454651","on-tertiary-container":"#e17d11","secondary-fixed":"#d8e2ff","secondary":"#0059bb","surface-card":"#FFFFFF","surface-variant":"#d5e3fc","on-secondary-container":"#fefcff","surface-container-lowest":"#ffffff","error":"#ba1a1a","on-error-container":"#93000a","error-container":"#ffdad6","secondary-fixed-dim":"#adc7ff","tertiary":"#2d1400","on-secondary-fixed-variant":"#004493","surface-canvas":"#F8FAFC","on-primary":"#ffffff","primary-container":"#0b2677","primary-fixed":"#dde1ff","on-primary-fixed":"#001453","status-danger":"#DC2626","on-background":"#0d1c2e","blue-accent":"#007BFF","background":"#f8f9ff","surface-container-highest":"#d5e3fc","amber-primary":"#D97706","on-secondary-fixed":"#001a41","outline":"#757682","border-subtle":"#E2E8F0","on-tertiary-fixed":"#2f1500","status-info":"#0284C7","tertiary-fixed-dim":"#ffb77d","amber-subtle":"#FEF3C7","inverse-primary":"#b7c4ff","on-primary-fixed-variant":"#2b4090","surface-bright":"#f8f9ff","navy-deep":"#081B54","surface-tint":"#4459aa","surface-container-high":"#dce9ff","navy-surface":"#0F3299","tertiary-container":"#4b2500","status-warning":"#EA580C"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-2xs":"0.25rem","gutter-desktop":"1.5rem","space-2xl":"3rem","space-xl":"2rem","space-sm":"0.75rem","space-xs":"0.5rem","container-max":"1440px","space-lg":"1.5rem","space-md":"1rem","space-3xl":"4rem","gutter-mobile":"1rem"},fontFamily:{"label-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"]},fontSize:{"label-md":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"30px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","fontWeight":"700"}],"display-lg-mobile":["30px",{"lineHeight":"38px","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface-card/95 backdrop-blur-md shadow-[0_1px_8px_rgba(11,38,119,0.06)]"><div class="bg-primary-container text-on-primary py-space-2xs px-gutter-mobile lg:px-gutter-desktop"><div class="max-w-container-max mx-auto flex items-center justify-between font-label-sm text-label-sm"><div class="flex items-center gap-space-md"><span class="flex items-center gap-space-2xs"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>ระบบบริการสารสนเทศกลาง มหาวิทยาลัย</span><span class="hidden md:inline text-outline-variant">|</span><span class="hidden md:inline text-surface-container-high">ปีการศึกษา 2568 (ภาคเรียนที่ 1)</span></div><div class="flex items-center gap-space-sm"><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">ระบบเครือข่าย</a><span class="text-primary-fixed-dim/40 hidden sm:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">ปฏิทินการศึกษา</a><span class="text-primary-fixed-dim/40 hidden sm:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">สำนักทะเบียน</a><span class="text-primary-fixed-dim/40 hidden md:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden md:inline" href="#">สมุดโทรศัพท์</a><div class="flex items-center bg-navy-deep px-space-xs py-0.5 rounded ml-space-xs gap-space-2xs"><button class="text-amber-subtle font-label-sm text-label-sm">TH</button><span class="text-outline-variant">/</span><button class="text-surface-container-high hover:text-on-primary font-label-sm text-label-sm">EN</button></div></div></div></div><div class="h-20 max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><img alt="College Digital Ecosystem Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7dfpAys-PW38zDt1cp34Ry68CMrn9nJIXzOMyUccy9Zo01pyrMzCbTHbg4WHGVzOYQ_uslVGlKp78NVHN7w7iWUYcVBImQJqFaPmBiD9d4MN8OSq7L82WJB6x1ne7Dvq7cH6RIOXkBdUJ1kMdY6p0igqwT0EteSKPAisV6CL0ymRn2G5zRx6BRsW5sbixkbf4MWO2wwL9bV609Ym2C9oQRNwEnHSPoI83FUTB5O7ypcSgC5PsTkZ3"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-tight">ศูนย์บริการสารสนเทศและดิจิทัล</span><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Digital Service Hub · BIT Ecosystem</span></div></div><div class="hidden xl:flex items-center flex-1 max-w-md mx-space-lg"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-lg pointer-events-none">search</span><input class="w-full bg-surface-container-low pl-10 pr-12 py-space-xs font-body-sm text-body-sm text-on-surface rounded-lg placeholder-outline focus:outline-none focus:ring-2 focus:ring-secondary focus:bg-surface-card transition-all" placeholder="ค้นหาบริการดิจิทัล, คำร้อง, แพลตฟอร์ม..." type="text"/><span class="absolute right-space-sm top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-outline bg-surface-card px-1.5 py-0.5 rounded shadow-sm">⌘K</span></div></div><nav class="hidden lg:flex items-center gap-space-lg h-full" data-active-classes="text-secondary border-b-2 border-secondary font-label-lg"><a aria-current="page" class="py-space-md transition-colors text-secondary border-b-2 border-secondary font-label-lg" data-path="main-service-hub" href="#">หน้าหลักบริการ</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="student-information-system" href="#">ระบบทะเบียน SIS</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="electronic-document-system" href="#">งานสารบรรณ e-Doc</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="executive-analytics-dashboard" href="#">แดชบอร์ดผู้บริหาร</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="it-helpdesk-and-support" href="#">ติดต่อสอบถาม / IT Helpdesk</a></nav><div class="flex items-center gap-space-md pl-space-xs"><div class="hidden sm:flex flex-col text-right"><div class="flex items-center justify-end gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold">น.ส. กานดา รัตนวิชัย</span><span class="px-1.5 py-0.2 bg-amber-subtle text-amber-primary font-label-sm text-label-sm rounded">SSO ยืนยันแล้ว</span></div><span class="font-body-sm text-body-sm text-on-surface-variant">อาจารย์/นักวิจัย (คณะวิทยาการสารสนเทศ)</span></div><div class="relative flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5sMdLcHoE65JPd-x1UPUXsgrX_3wd9YNWThvBZX6RmXNAkOQU2CEQwUIK4o3dPz-kPP8CkLteGOXzieV8rpTGPs3dtF5ByDxfzIGWvtFP6BkAu4nVDdPXVGO-VHEjNpFy9bcJTli9tLSUtnCTNBrnKkVrJWdbIKxgRTmJ_Wafyy7XU-JwM7uAD111378xn0LypNCkrENW4Hou36qpVnSmEkTndbof9Azbu0fVajE_a5Q1oBjtRj37"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-card"></span></div><button class="lg:hidden text-on-surface p-space-2xs focus:outline-none"><span class="material-symbols-outlined">menu</span></button></div></div></header><main class="w-full pt-28 bg-surface-canvas flex-1"><div class="flex flex-col w-full">
+<!-- Top Notification Ribbon -->
+<div class="w-full bg-amber-subtle text-on-surface py-space-xs px-gutter-mobile lg:px-gutter-desktop shadow-sm">
+<div class="max-w-container-max mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-xs font-label-md text-label-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-amber-primary text-base animate-pulse">campaign</span>
+<span class="font-bold text-amber-primary">[ประกาศด่วน M02-REG]</span>
+<span class="text-on-surface">เปิดระบบลงทะเบียนเรียนภาคการศึกษา 2/2568: 15–22 พ.ย. 2568</span>
+<span class="hidden md:inline text-outline-variant">•</span>
+<span class="hidden md:inline font-semibold text-secondary">วันนี้: ยืนยันแผนการเรียนล่วงหน้า</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="text-secondary hover:underline flex items-center gap-1" href="#registration-widget">
+<span>ตรวจสอบรายวิชาล่วงหน้า</span>
+<span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Academic Profile & Institutional Identity Sub-bar -->
+<div class="w-full bg-surface-card shadow-sm">
+<div class="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-lg">
+<div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-lg">
+<!-- Student Info Core -->
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex-shrink-0">
+<img class="w-16 h-16 rounded-xl object-cover shadow-sm bg-surface-container" data-alt="Thai male university computer science student in neat academic uniform wearing modern glasses with university badge in high quality institutional photography style soft ambient university lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFs9XRB25eapuK_2oDKPkghNXcA-xJM52m4r9zE8a6ndp7v4VAmjZ-3_6GDwWSK1Hy9xTtr7h3YslvrMbXyr1ZJSaeUPv5kIyIrN4hqfr4_t3fqZk0HgqjuYU2FrRuWVOYrdiJWyL9aEHXfB5oeFCqIVGBSW_Ln6g2VzSYECzFlZQNHwuynw6jtsJlMW-4il5zqJACQ0topdjpxemjKQ_7df_mROBFVj6a_BUz9H4srkrvoX2_hQ7G"/>
+<span class="absolute -bottom-1 -right-1 bg-status-success text-on-secondary text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">ปกติ</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary font-bold truncate">นายธนภัทร สิริวัฒนกุล</span>
+<span class="bg-surface-container-high text-primary px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">รหัส: 653040128-9</span>
+<span class="bg-blue-subtle text-secondary px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span>
+                Active Student
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-space-md text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+<span>หลักสูตร วท.บ. วิทยาการคอมพิวเตอร์ (ชั้นปีที่ 3)</span>
+<span>•</span>
+<span>คณะวิทยาการสารสนเทศและการคำนวณ</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-secondary">school</span>
+                อ.ที่ปรึกษา: รศ.ดร. นันทิกร วิเศษสุข
+              </span>
+</div>
+</div>
+</div>
+<!-- Academic KPIs Bento Strip -->
+<div class="flex items-stretch gap-space-sm w-full xl:w-auto overflow-x-auto pb-1 xl:pb-0">
+<div class="bg-surface-canvas p-space-sm rounded-xl min-w-[130px] flex-1 xl:flex-none flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">เกรดเฉลี่ยสะสม</span>
+<div class="flex items-baseline gap-1 my-0.5">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">3.68</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold">เกียรตินิยม</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">GPAX สะสม 5 ภาค</span>
+</div>
+<div class="bg-surface-canvas p-space-sm rounded-xl min-w-[150px] flex-1 xl:flex-none flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">หน่วยกิตสะสม</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">68.6%</span>
+</div>
+<div class="flex items-baseline gap-1 my-0.5">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">92</span>
+<span class="font-label-md text-label-md text-on-surface-variant">/ 134 นก.</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[68.6%]"></div>
+</div>
+</div>
+<div class="bg-surface-canvas p-space-sm rounded-xl min-w-[140px] flex-1 xl:flex-none flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">ชั่วโมงกิจกรรม มข.</span>
+<div class="flex items-baseline gap-1 my-0.5">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">64</span>
+<span class="font-label-md text-label-md text-on-surface-variant">/ 60 ชม.</span>
+</div>
+<span class="font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+              ผ่านเกณฑ์สำเร็จการศึกษา
+            </span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-xl min-w-[140px] flex-1 xl:flex-none flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">สิทธิ์ลงทะเบียน 2/2568</span>
+<div class="flex items-baseline gap-1 my-0.5">
+<span class="font-headline-lg text-headline-lg font-bold text-secondary">22</span>
+<span class="font-label-md text-label-md text-secondary">หน่วยกิตสูงสุด</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ไม่มีหนี้ค้างชำระ</span>
+</div>
+</div>
+</div>
+<!-- Functional Navigation Tabs (M02 Sub-modules) -->
+<div class="flex items-center gap-space-xs overflow-x-auto mt-space-lg pt-space-xs">
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-primary text-on-primary shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">dashboard</span>
+<span>ภาพรวม (Overview)</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">app_registration</span>
+<span>ลงทะเบียนเรียนออนไลน์ (M02-F01)</span>
+<span class="w-2 h-2 rounded-full bg-amber-primary"></span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">grade</span>
+<span>ผลการเรียน &amp; Transcript (F02/F03)</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">description</span>
+<span>คำร้องออนไลน์ e-Petition (F04)</span>
+<span class="bg-amber-subtle text-amber-primary px-1.5 py-0.2 rounded-full font-label-sm text-label-sm">1 รอดำเนินการ</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>ตารางเรียน / ตารางสอบ (F05)</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-base">account_tree</span>
+<span>โครงสร้างหลักสูตร (F06)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Portal Body Canvas -->
+<div class="max-w-container-max mx-auto w-full px-gutter-mobile lg:px-gutter-desktop py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Primary Column (Left 8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-xl min-w-0">
+<!-- SECTION A: Today's Interactive Schedule Card -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between flex-wrap gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-blue-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">ตารางเรียนวันนี้ (Today's Classes)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">วันพุธที่ 12 พฤศจิกายน 2568 • สัปดาห์การเรียนการสอนที่ 14</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">print</span> พิมพ์ตารางเรียน
+              </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm hover:bg-surface-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">sync</span> เชื่อม Google Calendar
+              </button>
+</div>
+</div>
+<!-- Class Timeline Stack -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Class 1: Completed / Morning -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-status-success"></div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs pl-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-semibold">09:00 - 12:00 น. (3 ชม.)</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> เช็คชื่อเข้าเรียนแล้ว
+                  </span>
+</div>
+<div class="pl-2">
+<span class="font-label-md text-label-md text-secondary font-bold">CS301 (Sec 01)</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Database Systems Architecture</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">ระบบการจัดการฐานข้อมูลและการออกแบบสถาปัตยกรรมข้อมูล</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle pl-2 flex flex-col gap-1 font-body-sm text-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">location_on</span> อาคาร SC-06 ห้อง 6402</span>
+<span class="font-label-sm text-label-sm bg-surface-card px-2 py-0.5 rounded shadow-sm">3(2-3-5)</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">person</span> ผศ.ดร. ธนากร วิทยาศักดิ์</span>
+<a class="text-secondary hover:underline font-label-sm text-label-sm" href="#">ดาวน์โหลดสไลด์ #14</a>
+</div>
+</div>
+</div>
+<!-- Class 2: In-Session / Afternoon -->
+<div class="bg-surface-card rounded-xl p-space-md flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-amber-primary"></div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs pl-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-amber-subtle text-amber-primary font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-amber-primary animate-ping"></span>
+                    13:00 - 16:00 น. (คลาสถัดไป)
+                  </span>
+<span class="font-label-sm text-label-sm bg-blue-subtle text-secondary px-2 py-0.5 rounded font-semibold">ปฏิบัติการคอมพิวเตอร์</span>
+</div>
+<div class="pl-2">
+<span class="font-label-md text-label-md text-secondary font-bold">CS320 (Sec 02)</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Web Application Engineering</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">วิศวกรรมการพัฒนาเว็บแอปพลิเคชันและสถาปัตยกรรมคลาวด์</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle pl-2 flex flex-col gap-1 font-body-sm text-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-amber-primary">computer</span> ห้องปฏิบัติการ IT Lab 3 อาคารสารสนเทศ</span>
+<span class="font-label-sm text-label-sm bg-surface-container-low px-2 py-0.5 rounded text-primary font-semibold">3(1-4-5)</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">person</span> รศ.ดร. นันทิกร วิเศษสุข</span>
+<span class="text-status-warning font-label-sm text-label-sm font-bold">แล็บสอบย่อย 15:00 น.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Weekly Schedule Drawer Bar -->
+<div class="bg-surface-canvas rounded-lg p-space-sm flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">info</span>
+              วันพรุ่งนี้ (พฤหัสบดี): ไม่มีรายวิชาบรรยาย (วันค้นคว้าอิสระตามแผนศึกษา CS Year 3)
+            </span>
+<a class="text-secondary hover:underline font-label-md text-label-md font-semibold flex items-center gap-1" href="#">
+<span>ดูตารางเรียนทั้งสัปดาห์</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- SECTION B: Online Registration Gateway (M02-F01 Portal Widget) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md" id="registration-widget">
+<div class="flex items-center justify-between flex-wrap gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">how_to_reg</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">ระบบลงทะเบียนเรียนออนไลน์ ภาคการศึกษา 2/2568 (M02-F01)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">กำหนดการเปิดสิทธิ์นักศึกษาชั้นปีที่ 3: 17 พฤศจิกายน 2568 เวลา 09:00 น.</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-status-success/10 text-status-success font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+              Prerequisite Checked (ผ่านเงื่อนไขวิชาบังคับก่อนครบ)
+            </span>
+</div>
+<!-- Pre-Selected Cart Preview -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary">shopping_cart_checkout</span>
+                วิชาในแผนการเรียนที่เตรียมบันทึกลงทะเบียน (4 รายวิชา | 12 หน่วยกิต)
+              </span>
+<span class="text-on-surface-variant">โควตาคงเหลือที่ลงได้: <strong class="text-primary font-bold">10 หน่วยกิต</strong> (ไม่เกิน 22 นก.)</span>
+</div>
+<!-- Mini List of Subjects -->
+<div class="space-y-2">
+<div class="bg-surface-card p-space-xs px-space-sm rounded-lg flex items-center justify-between text-body-sm font-body-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold min-w-[70px]">CS331</span>
+<span class="text-on-surface font-medium truncate">Artificial Intelligence &amp; Machine Learning</span>
+<span class="hidden sm:inline-block font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">3(3-0-6)</span>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<span class="font-label-sm text-label-sm text-status-success">Sec 01 (ที่นั่ง 42/50)</span>
+<button class="text-outline hover:text-status-danger p-1"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<div class="bg-surface-card p-space-xs px-space-sm rounded-lg flex items-center justify-between text-body-sm font-body-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold min-w-[70px]">CS345</span>
+<span class="text-on-surface font-medium truncate">Cloud Native Computing &amp; DevOps</span>
+<span class="hidden sm:inline-block font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">3(2-2-5)</span>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<span class="font-label-sm text-label-sm text-status-success">Sec 01 (ที่นั่ง 35/40)</span>
+<button class="text-outline hover:text-status-danger p-1"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<div class="bg-surface-card p-space-xs px-space-sm rounded-lg flex items-center justify-between text-body-sm font-body-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold min-w-[70px]">CS391</span>
+<span class="text-on-surface font-medium truncate">Software Engineering Capstone Project Preparation</span>
+<span class="hidden sm:inline-block font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">3(1-6-5)</span>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<span class="font-label-sm text-label-sm text-status-success">Sec 02 (ที่นั่ง 28/35)</span>
+<button class="text-outline hover:text-status-danger p-1"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<div class="bg-surface-card p-space-xs px-space-sm rounded-lg flex items-center justify-between text-body-sm font-body-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold min-w-[70px]">GE203</span>
+<span class="text-on-surface font-medium truncate">Digital Entrepreneurship and Innovation Management</span>
+<span class="hidden sm:inline-block font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">3(3-0-6)</span>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<span class="font-label-sm text-label-sm text-amber-primary font-semibold">Sec 03 (ที่นั่ง 78/80)</span>
+<button class="text-outline hover:text-status-danger p-1"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+</div>
+<!-- Action Buttons for Registration -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-2">
+<button class="px-space-sm py-1.5 rounded bg-surface-card hover:bg-surface-container text-on-surface font-label-md text-label-md shadow-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> ค้นหารายวิชาเพิ่มเติม
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-surface-card hover:bg-surface-container text-on-surface font-label-md text-label-md shadow-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">checklist</span> แผนการเรียนแนะนำ
+                </button>
+</div>
+<button class="w-full sm:w-auto px-space-xl py-space-xs rounded bg-primary text-on-primary hover:bg-navy-deep font-label-lg text-label-lg font-bold shadow-md transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">touch_app</span>
+                เข้าสู่ระบบลงทะเบียนเรียนด่วน (Register Courses)
+              </button>
+</div>
+</div>
+</div>
+<!-- SECTION C: Student e-Petitions Widget (M02-F04) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between flex-wrap gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">assignment</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">คำร้องออนไลน์ล่าสุด (Student e-Petitions - M02-F04)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ติดตามความคืบหน้าคำร้องวิชาการ เอกสารสำคัญ และการอนุมัติผ่านระบบ Digital Workflow</p>
+</div>
+</div>
+<button class="px-space-md py-space-xs rounded bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-primary transition-colors flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-sm">post_add</span> + ยื่นคำร้องใหม่
+            </button>
+</div>
+<!-- Petitions Table / Cards -->
+<div class="space-y-space-sm">
+<!-- Petition 1: In Progress / Advisor Pending -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded font-bold text-primary">REQ-6802-0041</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">คำร้องขอเปิดรายวิชาเป็นกรณีพิเศษ (Special Section Request)</h3>
+</div>
+<span class="font-label-sm text-label-sm bg-amber-subtle text-amber-primary font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 self-start sm:self-auto">
+<span class="material-symbols-outlined text-xs">pending</span> รออาจารย์ที่ปรึกษาลงนามดิจิทัล
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                ขอเปิดตอนเรียน CS492 Cloud Security Architecture เพิ่มเติมสำหรับนักศึกษาหลักสูตรปกติ จำนวน 25 คน
+              </p>
+<!-- Progress Steps Strip -->
+<div class="grid grid-cols-4 gap-2 pt-space-xs text-center font-label-sm text-label-sm">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-status-success text-on-secondary flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-xs">check</span>
+</div>
+<span class="text-on-surface font-semibold">1. ยื่นคำร้อง</span>
+<span class="text-outline text-[10px]">10 พ.ย. 68</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-amber-primary text-on-tertiary flex items-center justify-center mb-1 shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-xs">edit_square</span>
+</div>
+<span class="text-amber-primary font-bold">2. อ.ที่ปรึกษา</span>
+<span class="text-outline text-[10px]">กำลังรอพิจารณา</span>
+</div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-6 h-6 rounded-full bg-surface-container text-on-surface flex items-center justify-center mb-1">
+<span class="text-xs">3</span>
+</div>
+<span class="text-on-surface-variant">3. หัวหน้าสาขาวิชา</span>
+<span class="text-outline text-[10px]">-</span>
+</div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-6 h-6 rounded-full bg-surface-container text-on-surface flex items-center justify-center mb-1">
+<span class="text-xs">4</span>
+</div>
+<span class="text-on-surface-variant">4. สำนักทะเบียน</span>
+<span class="text-outline text-[10px]">-</span>
+</div>
+</div>
+</div>
+<!-- Petition 2: Completed -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm shadow-sm">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded font-bold text-primary">REQ-6801-0982</span>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">คำร้องขอหนังสือรับรองสถานภาพนักศึกษาภาษาอังกฤษ (Certificate of Student Status)</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  ยื่นเพื่อสมัครเข้าร่วมโครงการแลกเปลี่ยนนักศึกษา TU-Graz International Exchange Program
+                </p>
+<span class="font-body-sm text-body-sm text-outline">อนุมัติเรียบร้อยเมื่อ: 28 ต.ค. 2568 (ใบเสร็จรับเงินเล่มที่ R68-002319)</span>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<span class="font-label-sm text-label-sm bg-status-success/10 text-status-success font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> สำเร็จ / ส่งเอกสารแล้ว
+                </span>
+<button class="px-space-sm py-1 rounded bg-secondary text-on-secondary hover:bg-navy-deep transition-colors font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">download</span> รับไฟล์ PDF
+                </button>
+</div>
+</div>
+<!-- Petition 3: Forwarded to Registrar -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm shadow-sm">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded font-bold text-primary">REQ-6801-0744</span>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">คำร้องขอเทียบโอนรายวิชาและหมวดวิชาศึกษาทั่วไป (Credit Transfer)</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  เทียบโอนวิชา GE จากสถาบันเดิม จำนวน 6 หน่วยกิต (หมวดมนุษยศาสตร์และสังคมศาสตร์)
+                </p>
+<span class="font-body-sm text-body-sm text-outline">ส่งต่อสำนักทะเบียนและประมวลผล: 15 ต.ค. 2568</span>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<span class="font-label-sm text-label-sm bg-blue-subtle text-secondary font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">sync</span> ส่งต่อสำนักทะเบียน
+                </span>
+<button class="px-space-sm py-1 rounded bg-surface-card hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors shadow-sm">
+                  ดูประวัติการเดินเอกสาร
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Column (Right Sidebar 4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-xl min-w-0">
+<!-- Transcript & Grade Summary Card (M02-F03) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-blue-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-base">monitoring</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">สรุปผลการเรียน (M02-F03)</h2>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container-high px-2 py-0.5 rounded text-primary font-bold">ล่าสุด 1/2568</span>
+</div>
+<!-- Grade Spark / Visual Chart -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">เกรดเฉลี่ยประจำภาค 1/2568</span>
+<div class="font-display-lg text-display-lg font-bold text-primary leading-none mt-1">3.75</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-status-success font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm">trending_up</span> +0.12 จากเทอมก่อน
+                </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ลงทะเบียน 18 นก. (ได้ A 4 วิชา)</span>
+</div>
+</div>
+<!-- Historical GPA Bar Chart (Inline SVG under 2KB) -->
+<div class="pt-2">
+<div class="flex items-center justify-between text-[11px] font-semibold text-outline mb-1">
+<span>1/2566 (3.50)</span>
+<span>2/2566 (3.62)</span>
+<span>1/2567 (3.60)</span>
+<span>2/2567 (3.63)</span>
+<span class="text-secondary font-bold">1/2568 (3.75)</span>
+</div>
+<svg class="w-full h-14 text-secondary overflow-visible" preserveaspectratio="none" viewbox="0 0 300 60">
+<!-- Grid Lines -->
+<line stroke="#CBD5E1" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="300" y1="10" y2="10"></line>
+<line stroke="#CBD5E1" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="300" y1="35" y2="35"></line>
+<!-- Polyline Chart -->
+<polyline fill="none" points="20,40 85,25 150,28 215,24 280,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Gradient Area -->
+<polygon fill="rgba(0, 89, 187, 0.08)" points="20,40 85,25 150,28 215,24 280,10 280,55 20,55"></polygon>
+<!-- Dots -->
+<circle class="fill-surface-card" cx="20" cy="40" r="3.5" stroke="#0059bb" stroke-width="2"></circle>
+<circle class="fill-surface-card" cx="85" cy="25" r="3.5" stroke="#0059bb" stroke-width="2"></circle>
+<circle class="fill-surface-card" cx="150" cy="28" r="3.5" stroke="#0059bb" stroke-width="2"></circle>
+<circle class="fill-surface-card" cx="215" cy="24" r="3.5" stroke="#0059bb" stroke-width="2"></circle>
+<circle class="fill-secondary" cx="280" cy="10" r="4.5" stroke="#FFFFFF" stroke-width="2"></circle>
+</svg>
+</div>
+</div>
+<!-- Download Action -->
+<div class="flex flex-col gap-2">
+<button class="w-full py-space-xs rounded bg-surface-container-low hover:bg-surface-container text-secondary font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-base">picture_as_pdf</span>
+              ดาวน์โหลด Unofficial Transcript (PDF)
+            </button>
+<button class="w-full py-space-xs rounded bg-surface-card hover:bg-surface-canvas text-on-surface font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-base">history_edu</span>
+              ตรวจสอบผลการประเมินอาจารย์ผู้สอน
+            </button>
+</div>
+</div>
+<!-- Academic Milestones & Critical Dates -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-base">event_note</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">ปฏิทินการศึกษาสำคัญ</h2>
+</div>
+<a class="font-label-sm text-label-sm text-secondary hover:underline" href="#">ดาวน์โหลด PDF</a>
+</div>
+<div class="space-y-space-sm font-body-sm text-body-sm">
+<div class="flex items-start gap-space-sm p-space-xs rounded-lg hover:bg-surface-canvas transition-colors">
+<div class="bg-status-warning/10 text-status-warning font-bold text-center px-2 py-1 rounded min-w-[54px] flex-shrink-0">
+<div class="text-xs">พ.ย.</div>
+<div class="text-lg leading-tight">14</div>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">วันสุดท้ายของการขอถอนรายวิชา (ติด W)</span>
+<span class="text-outline text-xs">ภาคเรียนที่ 1/2568 ผ่านระบบสารสนเทศ</span>
+<span class="text-status-danger font-label-sm text-label-sm font-semibold mt-0.5">เหลือเวลาอีก 2 วัน</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded-lg hover:bg-surface-canvas transition-colors">
+<div class="bg-blue-subtle text-secondary font-bold text-center px-2 py-1 rounded min-w-[54px] flex-shrink-0">
+<div class="text-xs">พ.ย.</div>
+<div class="text-lg leading-tight">15</div>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">เปิดระบบลงทะเบียนเรียน ภาคเรียนที่ 2/2568</span>
+<span class="text-outline text-xs">เริ่มเวลา 09:00 น. ตามลำดับชั้นปี</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded-lg hover:bg-surface-canvas transition-colors">
+<div class="bg-surface-container text-on-surface-variant font-bold text-center px-2 py-1 rounded min-w-[54px] flex-shrink-0">
+<div class="text-xs">ธ.ค.</div>
+<div class="text-lg leading-tight">01</div>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">สอบปลายภาค ภาคการศึกษา 1/2568</span>
+<span class="text-outline text-xs">ระหว่างวันที่ 1–14 ธันวาคม 2568</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded-lg hover:bg-surface-canvas transition-colors">
+<div class="bg-surface-container text-on-surface-variant font-bold text-center px-2 py-1 rounded min-w-[54px] flex-shrink-0">
+<div class="text-xs">ธ.ค.</div>
+<div class="text-lg leading-tight">25</div>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">กำหนดชำระเงินค่าธรรมเนียมการศึกษา 2/2568</span>
+<span class="text-outline text-xs">ผ่าน Mobile Banking / QR Payment</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SSO & PDPA Security Trust Seal -->
+<div class="bg-navy-surface text-on-primary rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider">ระบบความปลอดภัยและสิทธิการเข้าถึง</span>
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+</div>
+<div class="flex items-center gap-space-xs my-0.5">
+<span class="material-symbols-outlined text-amber-primary text-xl">encrypted</span>
+<span class="font-label-md text-label-md text-surface-card font-bold">Keycloak SSO &amp; Multi-Factor Auth</span>
+</div>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim leading-relaxed">
+            ระบบ M02 ทำงานภายใต้การควบคุมตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) เข้าสู่ระบบล่าสุด: วันนี้ เวลา 08:14 น. จาก Campus Core Wi-Fi
+          </p>
+<div class="pt-1 flex items-center justify-between text-xs text-primary-fixed-dim">
+<span>Session ID: #SIS-99482-TX</span>
+<a class="text-amber-subtle hover:underline" href="#">จัดการสิทธิ์ยินยอม</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Quick micro-interaction for removing temporary registration preview item
+    document.querySelectorAll('#registration-widget button').forEach(function(btn) {
+      if (btn.querySelector('.material-symbols-outlined') && btn.querySelector('.material-symbols-outlined').textContent === 'close') {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var card = this.closest('.flex.items-center.justify-between');
+          if (card) {
+            card.style.opacity = '0';
+            card.style.transition = 'opacity 0.2s ease';
+            setTimeout(function() {
+              card.remove();
+            }, 200);
+          }
+        });
+      }
+    });
+  })();
+</script></main><footer class="w-full bg-navy-deep text-on-primary pt-space-2xl pb-space-lg shadow-[0_-1px_12px_rgba(8,27,84,0.08)]"><div class="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-xl"><div class="space-y-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-amber-primary">account_balance</span><span class="font-headline-sm text-headline-sm font-bold text-surface-card">สำนักนวัตกรรมดิจิทัลและการศึกษา</span></div><p class="font-body-sm text-body-sm text-primary-fixed-dim leading-relaxed">ศูนย์กลางเทคโนโลยีและโครงสร้างพื้นฐานดิจิทัล เพื่อการบริหารจัดการ การจัดการเรียนการสอน และการวิจัยระดับสากล</p><div class="flex items-center gap-space-xs pt-space-xs"><span class="px-2 py-0.5 bg-primary-container text-on-primary font-label-sm text-label-sm rounded border border-outline-variant/30">ISO/IEC 27001</span><span class="px-2 py-0.5 bg-primary-container text-on-primary font-label-sm text-label-sm rounded border border-outline-variant/30">PDPA Compliant</span></div></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">ฝ่ายสนับสนุนและบริการ</h4><ul class="space-y-space-2xs font-body-sm text-body-sm text-surface-container-high"><li><a class="hover:text-surface-card transition-colors" href="#">แจ้งซ่อมคอมพิวเตอร์และเครือข่าย</a></li><li><a class="hover:text-surface-card transition-colors" href="#">บริการบัญชีผู้ใช้งาน Google / MS Office</a></li><li><a class="hover:text-surface-card transition-colors" href="#">การขออนุมัติลายมือชื่อดิจิทัล (CA PKI)</a></li><li><a class="hover:text-surface-card transition-colors" href="#">ดาวน์โหลดคู่มือการใช้งานระบบสารสนเทศ</a></li></ul></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">ระดับการให้บริการและความปลอดภัย</h4><div class="bg-navy-surface p-space-sm rounded-lg space-y-space-2xs border border-primary-container"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">System SLA</span><span class="font-label-md text-label-md text-status-success font-bold">99.85%</span></div><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">Single Sign-On (SSO)</span><span class="font-label-sm text-label-sm text-surface-card">เปิดใช้งานปกติ</span></div><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">PDPA Security Protocol</span><span class="font-label-sm text-label-sm text-status-success">ตรวจสอบแล้ว</span></div></div></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">IT Helpdesk &amp; แจ้งเหตุฉุกเฉิน</h4><div class="space-y-space-2xs font-body-sm text-body-sm text-surface-container-high"><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">call</span><span>โทรศัพท์กลาง: 02-123-4567 ต่อ 8888</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">emergency</span><span class="text-status-warning font-semibold">สายด่วนเซิร์ฟเวอร์ขัดข้อง: 081-999-8888</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">mail</span><span>อีเมล: helpdesk@college.ac.th</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">schedule</span><span>เวลาทำการ: จันทร์ - ศุกร์ 08.30 - 16.30 น.</span></div></div></div></div><div class="pt-space-md border-t border-navy-surface flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-primary-fixed-dim"><div class="flex flex-wrap items-center gap-space-md"><span>© 2568 สำนักนวัตกรรมดิจิทัลและการศึกษา มหาวิทยาลัย สงวนลิขสิทธิ์ทุกประการ</span><a class="hover:text-surface-card underline" href="#">นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)</a><a class="hover:text-surface-card underline" href="#">เงื่อนไขการใช้บริการดิจิทัล</a></div><div class="flex items-center gap-space-2xs"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>สถานะเครือข่าย: เชื่อมต่อสมบูรณ์ (Campus Core 10Gbps)</span></div></div></div></footer></body></html>

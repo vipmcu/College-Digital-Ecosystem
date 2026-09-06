@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Sarabun:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#eff4ff","outline-variant":"#c5c5d3","on-error":"#ffffff","blue-subtle":"#EBF4FF","on-tertiary-fixed-variant":"#6e3900","on-tertiary":"#ffffff","status-success":"#16A34A","on-surface":"#0d1c2e","inverse-on-surface":"#eaf1ff","primary":"#00134f","on-secondary":"#ffffff","secondary-container":"#0070ea","surface":"#f8f9ff","inverse-surface":"#233144","primary-fixed-dim":"#b7c4ff","on-primary-container":"#7d91e6","surface-container":"#e6eeff","tertiary-fixed":"#ffdcc3","surface-dim":"#ccdbf3","on-surface-variant":"#454651","on-tertiary-container":"#e17d11","secondary-fixed":"#d8e2ff","secondary":"#0059bb","surface-card":"#FFFFFF","surface-variant":"#d5e3fc","on-secondary-container":"#fefcff","surface-container-lowest":"#ffffff","error":"#ba1a1a","on-error-container":"#93000a","error-container":"#ffdad6","secondary-fixed-dim":"#adc7ff","tertiary":"#2d1400","on-secondary-fixed-variant":"#004493","surface-canvas":"#F8FAFC","on-primary":"#ffffff","primary-container":"#0b2677","primary-fixed":"#dde1ff","on-primary-fixed":"#001453","status-danger":"#DC2626","on-background":"#0d1c2e","blue-accent":"#007BFF","background":"#f8f9ff","surface-container-highest":"#d5e3fc","amber-primary":"#D97706","on-secondary-fixed":"#001a41","outline":"#757682","border-subtle":"#E2E8F0","on-tertiary-fixed":"#2f1500","status-info":"#0284C7","tertiary-fixed-dim":"#ffb77d","amber-subtle":"#FEF3C7","inverse-primary":"#b7c4ff","on-primary-fixed-variant":"#2b4090","surface-bright":"#f8f9ff","navy-deep":"#081B54","surface-tint":"#4459aa","surface-container-high":"#dce9ff","navy-surface":"#0F3299","tertiary-container":"#4b2500","status-warning":"#EA580C"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-2xs":"0.25rem","gutter-desktop":"1.5rem","space-2xl":"3rem","space-xl":"2rem","space-sm":"0.75rem","space-xs":"0.5rem","container-max":"1440px","space-lg":"1.5rem","space-md":"1rem","space-3xl":"4rem","gutter-mobile":"1rem"},fontFamily:{"label-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"]},fontSize:{"label-md":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"30px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","fontWeight":"700"}],"display-lg-mobile":["30px",{"lineHeight":"38px","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface-card/95 backdrop-blur-md shadow-[0_1px_8px_rgba(11,38,119,0.06)]"><div class="bg-primary-container text-on-primary py-space-2xs px-gutter-mobile lg:px-gutter-desktop"><div class="max-w-container-max mx-auto flex items-center justify-between font-label-sm text-label-sm"><div class="flex items-center gap-space-md"><span class="flex items-center gap-space-2xs"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>ระบบบริการสารสนเทศกลาง มหาวิทยาลัย</span><span class="hidden md:inline text-outline-variant">|</span><span class="hidden md:inline text-surface-container-high">ปีการศึกษา 2568 (ภาคเรียนที่ 1)</span></div><div class="flex items-center gap-space-sm"><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">ระบบเครือข่าย</a><span class="text-primary-fixed-dim/40 hidden sm:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">ปฏิทินการศึกษา</a><span class="text-primary-fixed-dim/40 hidden sm:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden sm:inline" href="#">สำนักทะเบียน</a><span class="text-primary-fixed-dim/40 hidden md:inline">•</span><a class="hover:text-amber-subtle transition-colors hidden md:inline" href="#">สมุดโทรศัพท์</a><div class="flex items-center bg-navy-deep px-space-xs py-0.5 rounded ml-space-xs gap-space-2xs"><button class="text-amber-subtle font-label-sm text-label-sm">TH</button><span class="text-outline-variant">/</span><button class="text-surface-container-high hover:text-on-primary font-label-sm text-label-sm">EN</button></div></div></div></div><div class="h-20 max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><img alt="College Digital Ecosystem Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7dfpAys-PW38zDt1cp34Ry68CMrn9nJIXzOMyUccy9Zo01pyrMzCbTHbg4WHGVzOYQ_uslVGlKp78NVHN7w7iWUYcVBImQJqFaPmBiD9d4MN8OSq7L82WJB6x1ne7Dvq7cH6RIOXkBdUJ1kMdY6p0igqwT0EteSKPAisV6CL0ymRn2G5zRx6BRsW5sbixkbf4MWO2wwL9bV609Ym2C9oQRNwEnHSPoI83FUTB5O7ypcSgC5PsTkZ3"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-tight">ศูนย์บริการสารสนเทศและดิจิทัล</span><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Digital Service Hub · BIT Ecosystem</span></div></div><div class="hidden xl:flex items-center flex-1 max-w-md mx-space-lg"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-lg pointer-events-none">search</span><input class="w-full bg-surface-container-low pl-10 pr-12 py-space-xs font-body-sm text-body-sm text-on-surface rounded-lg placeholder-outline focus:outline-none focus:ring-2 focus:ring-secondary focus:bg-surface-card transition-all" placeholder="ค้นหาบริการดิจิทัล, คำร้อง, แพลตฟอร์ม..." type="text"/><span class="absolute right-space-sm top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-outline bg-surface-card px-1.5 py-0.5 rounded shadow-sm">⌘K</span></div></div><nav class="hidden lg:flex items-center gap-space-lg h-full" data-active-classes="text-secondary border-b-2 border-secondary font-label-lg"><a aria-current="page" class="py-space-md transition-colors text-secondary border-b-2 border-secondary font-label-lg" data-path="main-service-hub" href="#">หน้าหลักบริการ</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="student-information-system" href="#">ระบบทะเบียน SIS</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="electronic-document-system" href="#">งานสารบรรณ e-Doc</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="executive-analytics-dashboard" href="#">แดชบอร์ดผู้บริหาร</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary py-space-md transition-colors" data-path="it-helpdesk-and-support" href="#">ติดต่อสอบถาม / IT Helpdesk</a></nav><div class="flex items-center gap-space-md pl-space-xs"><div class="hidden sm:flex flex-col text-right"><div class="flex items-center justify-end gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold">น.ส. กานดา รัตนวิชัย</span><span class="px-1.5 py-0.2 bg-amber-subtle text-amber-primary font-label-sm text-label-sm rounded">SSO ยืนยันแล้ว</span></div><span class="font-body-sm text-body-sm text-on-surface-variant">อาจารย์/นักวิจัย (คณะวิทยาการสารสนเทศ)</span></div><div class="relative flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5sMdLcHoE65JPd-x1UPUXsgrX_3wd9YNWThvBZX6RmXNAkOQU2CEQwUIK4o3dPz-kPP8CkLteGOXzieV8rpTGPs3dtF5ByDxfzIGWvtFP6BkAu4nVDdPXVGO-VHEjNpFy9bcJTli9tLSUtnCTNBrnKkVrJWdbIKxgRTmJ_Wafyy7XU-JwM7uAD111378xn0LypNCkrENW4Hou36qpVnSmEkTndbof9Azbu0fVajE_a5Q1oBjtRj37"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-card"></span></div><button class="lg:hidden text-on-surface p-space-2xs focus:outline-none"><span class="material-symbols-outlined">menu</span></button></div></div></header><main class="w-full pt-28 bg-surface-canvas flex-1"><div class="flex flex-col w-full">
+<!-- Governance Context Header & Status Banner -->
+<div class="w-full bg-navy-deep text-on-primary shadow-md">
+<div class="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div class="space-y-space-2xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 bg-amber-primary text-navy-deep font-label-sm text-label-sm uppercase tracking-wider rounded">
+              โมดูล M01 / M06
+            </span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider">
+              Identity, Cybersecurity &amp; PDPA Data Governance
+            </span>
+<span class="text-primary-fixed-dim/40">•</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-status-success">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+              WORM Compliant Ledger Active
+            </span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-surface-card tracking-tight">
+              ระบบจัดการบัญชีกลางและความมั่นคงปลอดภัยข้อมูล PDPA
+            </h1>
+<span class="hidden md:inline font-body-sm text-body-sm text-primary-fixed-dim">
+              (Centralized IAM &amp; Institutional Privacy Officer Console)
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-high max-w-3xl">
+            กำกับดูแลการพิสูจน์ตัวตนกลาง (Keycloak SSO / OIDC), จัดการสิทธิ์การเข้าถึงเชิงลึก (RBAC 7 บทบาท), ปฏิบัติตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 และบันทึก Audit Logs แบบไม่สามารถแก้ไขได้ (Hash-Chained PII Ledger)
+          </p>
+</div>
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-sm pt-space-xs lg:pt-0">
+<button class="inline-flex items-center gap-space-2xs bg-navy-surface hover:bg-primary-container text-surface-card font-label-md text-label-md px-space-md py-2.5 rounded shadow-sm transition-all duration-150">
+<span class="material-symbols-outlined text-base text-amber-primary">encrypted</span>
+<span>ส่งออก Audit Logs (Encrypted CSV)</span>
+</button>
+<button class="inline-flex items-center gap-space-2xs bg-amber-primary hover:bg-status-warning text-navy-deep font-label-md text-label-md px-space-md py-2.5 rounded shadow-sm transition-all duration-150">
+<span class="material-symbols-outlined text-base">verified_user</span>
+<span>รายงาน PDPA Compliance (PDF)</span>
+</button>
+</div>
+</div>
+<!-- Trust Badges & System Architecture Pills -->
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center gap-space-sm">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-primary-container text-surface-card font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-secondary-container">fingerprint</span>
+<span>Keycloak SSO v24.2 (OIDC / OAuth 2.1)</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-primary-container text-surface-card font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-status-success">lock</span>
+<span>AES-256 Storage &amp; TLS 1.3 In-Transit</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-primary-container text-surface-card font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-amber-primary">gavel</span>
+<span>PDPA Compliance 100% (สคส. Audit-Ready)</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-primary-container text-surface-card font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-status-success">shield_person</span>
+<span>Zero Data Breach Incident (2568)</span>
+</div>
+<div class="ml-auto hidden xl:flex items-center gap-space-xs text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-amber-subtle">schedule</span>
+<span>การตรวจรับรองล่าสุด: 24 มกราคม 2568 09:30:14 ICT</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sub-Navigation Modules Tabs -->
+<div class="w-full bg-surface-card shadow-sm sticky top-20 z-30">
+<div class="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop">
+<div class="flex items-center overflow-x-auto gap-space-lg no-scrollbar">
+<button class="flex items-center gap-space-2xs py-space-sm font-label-lg text-label-lg text-secondary border-b-2 border-secondary whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span>ภาพรวมความมั่นคงปลอดภัย (Security Overview)</span>
+</button>
+<button class="flex items-center gap-space-2xs py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-secondary whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-lg">group</span>
+<span>จัดการบัญชีและสิทธิ์ RBAC (User &amp; Roles - M01)</span>
+</button>
+<button class="flex items-center gap-space-2xs py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-secondary whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-lg">assignment_turned_in</span>
+<span>การจัดการความยินยอม PDPA &amp; คำร้อง DSR (M06)</span>
+<span class="px-1.5 py-0.2 rounded-full bg-amber-subtle text-amber-primary font-label-sm text-label-sm font-bold">1 รอตรวจ</span>
+</button>
+<button class="flex items-center gap-space-2xs py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-secondary whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span>บันทึกเข้าถึง PII &amp; Audit Trail (M01-F04 / M06-F04)</span>
+</button>
+<button class="flex items-center gap-space-2xs py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-secondary whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-lg">cloud_sync</span>
+<span>การสำรองข้อมูล &amp; ฟื้นฟู DR (Backup &amp; DR)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Administrative Canvas Area -->
+<div class="w-full max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-xl space-y-space-xl">
+<!-- 4 High-Trust Executive KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: SSO & MFA -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 right-0 h-1 bg-navy-surface"></div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">บัญชีกลาง SSO Active</span>
+<span class="w-9 h-9 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">vpn_key</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-primary font-bold">6,280</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold">99.8% ครอบคลุม</span>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-low p-space-2xs rounded">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface">
+<span>MFA Enforcement:</span>
+<span class="font-bold text-status-success flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+              100% บังคับใช้ (Staff/Admin)
+            </span>
+</div>
+</div>
+</div>
+<!-- KPI 2: PDPA DSR Requests -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 right-0 h-1 bg-amber-primary"></div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">คำร้องสิทธิเจ้าของข้อมูล (DSR)</span>
+<span class="w-9 h-9 rounded-lg bg-amber-subtle text-amber-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">rule_folder</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-primary font-bold">12</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">รายการรอบปี 2568</span>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-low p-space-2xs rounded">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface">
+<span>SLA ดำเนินการเฉลี่ย:</span>
+<span class="font-bold text-status-success">2.4 วัน (กฎหมายกำหนด ≤ 30 วัน)</span>
+</div>
+</div>
+</div>
+<!-- KPI 3: Audit Logs & Threat Defense -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">บันทึก PII Audit Log 24 ชม.</span>
+<span class="w-9 h-9 rounded-lg bg-blue-subtle text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">security</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-primary font-bold">148,290</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Transactions</span>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-low p-space-2xs rounded">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface">
+<span>ภัยคุกคามที่ถูกสกัดกั้น:</span>
+<span class="font-bold text-status-warning">24 Brute-force IPs</span>
+</div>
+</div>
+</div>
+<!-- KPI 4: Automated Backup & DR Readiness -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 right-0 h-1 bg-status-success"></div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">สำรองข้อมูล &amp; แผนฟื้นฟู DR</span>
+<span class="w-9 h-9 rounded-lg bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">database</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-status-success font-bold">พร้อมใช้</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Snapshot 03:00 น.</span>
+</div>
+<div class="mt-space-xs pt-space-xs bg-surface-container-low p-space-2xs rounded">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface">
+<span>RTO: 1.2 ชม. (เป้า ≤ 4)</span>
+<span class="font-bold text-primary">RPO: 4 ชม. (เป้า ≤ 24)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Multi-Column Layout: Left (Deep Operational Records) / Right (Governance Controls & Infrastructure) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column (8 of 12 columns) -->
+<div class="lg:col-span-8 space-y-space-xl">
+<!-- 1. Data Subject Access Requests (DSAR / PDPA Consent Ledger - M06-F07) -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+<div class="px-space-lg py-space-md bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="p-2 rounded bg-amber-subtle text-amber-primary">
+<span class="material-symbols-outlined text-xl">privacy_tip</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">คำร้องตามสิทธิเจ้าของข้อมูลส่วนบุคคล (PDPA DSR Ledger)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  บันทึกคำร้องขอเข้าถึง แก้ไข โอนย้าย หรือเพิกถอนความยินยอมตามมาตรา 30-34 แห่ง พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-1 rounded bg-surface-card text-on-surface-variant font-label-sm text-label-sm shadow-sm">
+                ทั้งหมด 12 คำร้อง
+              </span>
+<button class="bg-secondary hover:bg-navy-surface text-on-secondary font-label-md text-label-md px-space-sm py-1.5 rounded transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add_task</span>
+<span>บันทึกคำร้องใหม่</span>
+</button>
+</div>
+</div>
+<!-- DSR Table List -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-sm px-space-md">รหัสคำร้อง / วันที่</th>
+<th class="py-space-sm px-space-md">เจ้าของข้อมูล (Data Subject)</th>
+<th class="py-space-sm px-space-md">ประเภทสิทธิที่ร้องขอ (DSR Type)</th>
+<th class="py-space-sm px-space-md">สถานะทางกฎหมาย</th>
+<th class="py-space-sm px-space-md text-right">การจัดการของ DPO</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1: Pending -->
+<tr class="bg-amber-subtle/30 hover:bg-amber-subtle/50 transition-colors">
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary font-bold">DSR-2568-0012</div>
+<div class="text-on-surface-variant text-[11px]">24 ม.ค. 2568 08:45 น.</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold">นายสมภพ วรโชติสกุล</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">เจ้าหน้าที่สายสนับสนุน (ST-2541)</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary">ขอแก้ไขข้อมูล PII (Rectification)</div>
+<div class="text-[11px] text-on-surface-variant truncate max-w-xs">แก้ไขชื่อสกุลและคำนำหน้าตามคำสั่งศาล</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-subtle text-amber-primary font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-primary animate-ping"></span>
+                      รอ DPO ยืนยันเอกสาร
+                    </span>
+<div class="text-[10px] text-on-surface-variant mt-0.5">เหลือเวลา 29 วัน (SLA 30 วัน)</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<button class="bg-primary hover:bg-navy-deep text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded shadow-sm transition-all">
+                      ตรวจสอบเอกสารแนบ
+                    </button>
+</td>
+</tr>
+<!-- Row 2: Completed Portability -->
+<tr class="bg-surface-card hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary font-bold">DSR-2568-0011</div>
+<div class="text-on-surface-variant text-[11px]">22 ม.ค. 2568 14:20 น.</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold">น.ส. ธนัชชา กิจประเสริฐ</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">นักศึกษา ป.ตรี (653040128-9)</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary">โอนย้ายข้อมูล (Data Portability)</div>
+<div class="text-[11px] text-on-surface-variant truncate max-w-xs">ขอส่งออกประวัติการศึกษาและกิจกรรม (JSON/PDF เข้ารหัส)</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-status-success font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                      ส่งออกสำเร็จ (ZIP AES)
+                    </span>
+<div class="text-[10px] text-on-surface-variant mt-0.5">เสร็จสิ้นใน 1.8 วัน</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<button class="text-secondary hover:text-navy-surface font-label-sm text-label-sm px-space-sm py-1 rounded transition-colors">
+                      ดูหลักฐานยืนยัน
+                    </button>
+</td>
+</tr>
+<!-- Row 3: Revocation Consent -->
+<tr class="bg-surface-card hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary font-bold">DSR-2568-0010</div>
+<div class="text-on-surface-variant text-[11px]">20 ม.ค. 2568 11:10 น.</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold">นายวรัญญู รัตนเวทย์</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">นักศึกษา ป.ตรี (663040019-2)</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="font-label-md text-label-md text-primary">เพิกถอนความยินยอม (Consent Revocation)</div>
+<div class="text-[11px] text-on-surface-variant truncate max-w-xs">ระงับการเผยแพร่ภาพถ่ายประชาสัมพันธ์ใน Portal มหาวิทยาลัย</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-status-success font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                      ระงับการใช้งานในระบบแล้ว
+                    </span>
+<div class="text-[10px] text-on-surface-variant mt-0.5">Synced Media CDN Vault</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<button class="text-secondary hover:text-navy-surface font-label-sm text-label-sm px-space-sm py-1 rounded transition-colors">
+                      ดูหลักฐานยืนยัน
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-space-lg py-space-sm bg-surface-container-lowest flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>แสดง 3 จาก 12 รายการคำร้อง (ทั้งหมดบันทึกใน Audit Ledger อัตโนมัติ)</span>
+<a class="text-secondary hover:underline font-semibold flex items-center gap-1" href="#">
+<span>ดูประวัติคำร้อง DSR ย้อนหลังทั้งหมด</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 2. Live Immutable Security & Authentication Audit Log (M01-F04 / M06-F04) -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+<div class="px-space-lg py-space-md bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="p-2 rounded bg-blue-subtle text-secondary">
+<span class="material-symbols-outlined text-xl">fingerprint</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">บันทึกการเข้าถึงข้อมูล PII &amp; Audit Trail (Immutable WORM)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  บันทึกกิจกรรมระบบตามมาตราฐาน ISO 27001 พร้อมการเข้ารหัส Hash-chain ป้องกันการลบหรือดัดแปลง
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-card pl-8 pr-3 py-1.5 rounded font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary w-48 sm:w-64" placeholder="ค้นหาตาม User / IP / Hash..." type="text"/>
+</div>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm p-2 rounded transition-colors" title="รีเฟรชข้อมูลเรียลไทม์">
+<span class="material-symbols-outlined text-base">refresh</span>
+</button>
+</div>
+</div>
+<!-- Real-Time Log Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-sm px-space-md">เวลา (ICT)</th>
+<th class="py-space-sm px-space-md">ประเภทเหตุการณ์</th>
+<th class="py-space-sm px-space-md">ผู้กระทำ (Actor / Role)</th>
+<th class="py-space-sm px-space-md">เป้าหมายข้อมูล (Resource)</th>
+<th class="py-space-sm px-space-md">เครือข่ายต้นทาง (IP / Net)</th>
+<th class="py-space-sm px-space-md">สถานะ</th>
+<th class="py-space-sm px-space-md">SHA-256 Chain</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm">
+<!-- Log 1: PII Access -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md text-[12px] font-mono text-on-surface-variant">
+                    09:28:44
+                  </td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 rounded bg-blue-subtle text-secondary font-label-sm text-label-sm font-semibold">
+                      PII_READ_TRANSCRIPT
+                    </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">นางศิริพร บุญช่วย</div>
+<div class="text-[11px] text-on-surface-variant">registrar (REG-004)</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-primary font-mono text-xs">tbl_student_gpa:66304012</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-mono text-xs">10.150.2.44</span>
+<span class="text-[10px] text-on-surface-variant block">Campus Core LAN</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-success font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check</span>
+                      SUCCESS
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-mono text-[10px] text-outline">
+<span class="px-1 py-0.5 bg-surface-container rounded" title="SHA256: 7f83b165...9d10e">7f83...d10e</span>
+</td>
+</tr>
+<!-- Log 2: MFA Challenge -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md text-[12px] font-mono text-on-surface-variant">
+                    09:26:12
+                  </td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+                      MFA_CHALLENGE_PASS
+                    </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">รศ.ดร. นฤมล ทวีสิน</div>
+<div class="text-[11px] text-on-surface-variant">executive (VP-ACAD)</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-primary font-mono text-xs">edoc_sign_portal</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-mono text-xs">171.96.220.14</span>
+<span class="text-[10px] text-on-surface-variant block">Institutional VPN</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-success font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check</span>
+                      SUCCESS
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-mono text-[10px] text-outline">
+<span class="px-1 py-0.5 bg-surface-container rounded" title="SHA256: a138cf02...84b2">a138...84b2</span>
+</td>
+</tr>
+<!-- Log 3: Suspicious Blocked Attempt -->
+<tr class="bg-error-container/20 hover:bg-error-container/40 transition-colors">
+<td class="py-space-sm px-space-md text-[12px] font-mono text-status-danger font-bold">
+                    09:22:05
+                  </td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 rounded bg-status-danger text-on-error font-label-sm text-label-sm font-semibold">
+                      BRUTE_FORCE_BLOCKED
+                    </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="font-label-sm text-label-sm text-status-danger font-bold">UNKNOWN (Target: admin_root)</div>
+<div class="text-[11px] text-on-surface-variant">Failed Password 5x</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-danger font-mono text-xs">keycloak_auth_gateway</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-mono text-xs text-status-danger font-bold">185.220.101.5</span>
+<span class="text-[10px] text-status-danger block">TOR Exit Node (Blocked)</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-danger font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">block</span>
+                      ISOLATED
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-mono text-[10px] text-outline">
+<span class="px-1 py-0.5 bg-surface-container rounded" title="SHA256: ee0421bb...0941">ee04...0941</span>
+</td>
+</tr>
+<!-- Log 4: Role Assignment Change -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md text-[12px] font-mono text-on-surface-variant">
+                    09:14:18
+                  </td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 rounded bg-amber-subtle text-amber-primary font-label-sm text-label-sm font-semibold">
+                      RBAC_ROLE_GRANT
+                    </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">นายจิรภัทร ชาญวณิช</div>
+<div class="text-[11px] text-on-surface-variant">it_admin (IT-002)</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-primary font-mono text-xs">role:document_officer &gt; user:OF-119</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-mono text-xs">10.150.1.12</span>
+<span class="text-[10px] text-on-surface-variant block">IT Sec Console</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-success font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check</span>
+                      SUCCESS
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-mono text-[10px] text-outline">
+<span class="px-1 py-0.5 bg-surface-container rounded" title="SHA256: 489cc17a...b55a">489c...b55a</span>
+</td>
+</tr>
+<!-- Log 5: Bulk Sync Master Data -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md text-[12px] font-mono text-on-surface-variant">
+                    08:30:00
+                  </td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+                      MASTER_DATA_SYNC
+                    </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">SYSTEM_SCHEDULER</div>
+<div class="text-[11px] text-on-surface-variant">daemon (SIS-KEEPER)</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-primary font-mono text-xs">sis_student_master (5,840 records)</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-mono text-xs">127.0.0.1</span>
+<span class="text-[10px] text-on-surface-variant block">Internal IPC</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="text-status-success font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check</span>
+                      VERIFIED
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-mono text-[10px] text-outline">
+<span class="px-1 py-0.5 bg-surface-container rounded" title="SHA256: 91fa0021...83c9">91fa...83c9</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-space-lg py-space-sm bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span>WORM Chain ID: 2568-SEC-CH-088192 | Sync ไปยัง Cloud Vault ทุก 5 นาที</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-semibold transition-colors">
+                ตรวจสอบความถูกต้อง Hash Chain
+              </button>
+</div>
+</div>
+</div>
+<!-- 3. Master Data Provisioning & Self-Service Revocation Action Strip -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">การจัดการบัญชีผู้ใช้งานส่วนกลาง (Identity Life-cycle)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                นำเข้าข้อมูลนักศึกษาและบุคลากรผ่านไฟล์ CSV/Excel พร้อมระบบรีเซ็ตรหัสผ่านแบบ Self-service และตัดการเชื่อมต่อเซสชันแบบฉุกเฉิน (Session Revocation)
+              </p>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base">upload_file</span>
+<span>นำเข้าผู้ใช้ (Bulk Import CSV)</span>
+</button>
+<button class="px-space-md py-2 rounded bg-status-danger text-on-error font-label-md text-label-md hover:bg-error transition-colors flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-base">power_settings_new</span>
+<span>บังคับออกจากระบบทั้งหมด</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Security Controls, RBAC Matrix & Infrastructure Readiness (4 of 12 columns) -->
+<div class="lg:col-span-4 space-y-space-lg">
+<!-- RBAC Role Matrix & Privilege Card (M01-F02) -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-blue-subtle text-secondary">
+<span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">สิทธิ์การใช้งาน (RBAC)</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">7 Institutional Role Profiles</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-bold">
+              Keycloak Realm
+            </span>
+</div>
+<!-- Role Breakdown Chips & Quotas -->
+<div class="space-y-space-2xs font-body-sm text-body-sm">
+<!-- Student -->
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-semibold text-on-surface">นักศึกษา (student)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">5,840</span>
+<span class="text-[11px] text-on-surface-variant">คน</span>
+</div>
+</div>
+<!-- Instructor -->
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="font-semibold text-on-surface">อาจารย์ (instructor)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">320</span>
+<span class="text-[11px] text-on-surface-variant">คน</span>
+</div>
+</div>
+<!-- Registrar -->
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-navy-surface"></span>
+<span class="font-semibold text-on-surface">นายทะเบียน (registrar)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">25</span>
+<span class="text-[11px] text-on-surface-variant">คน</span>
+</div>
+</div>
+<!-- Document Officer -->
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-info"></span>
+<span class="font-semibold text-on-surface">สารบรรณ (document_officer)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">42</span>
+<span class="text-[11px] text-on-surface-variant">คน</span>
+</div>
+</div>
+<!-- Executive -->
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-primary"></span>
+<span class="font-semibold text-on-surface">ผู้บริหาร (executive)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">15</span>
+<span class="text-[11px] text-on-surface-variant">คน</span>
+</div>
+</div>
+<!-- IT Admin & DPO -->
+<div class="flex items-center justify-between p-2 rounded bg-amber-subtle/50 text-amber-primary">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-warning"></span>
+<span class="font-bold text-navy-deep">ผู้ดูแลระบบ &amp; DPO (it_admin / dpo)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-navy-deep">4 + 2</span>
+<span class="text-[11px] text-on-surface-variant">คน (MFA 100%)</span>
+</div>
+</div>
+</div>
+<!-- Policy Control Settings -->
+<div class="pt-space-xs border-t-0 space-y-space-xs">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">หมดอายุเซสชันทั่วไป:</span>
+<span class="font-semibold text-primary">8 ชั่วโมง</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">หมดอายุเซสชัน Admin/DPO:</span>
+<span class="font-semibold text-status-warning">30 นาที (Idle timeout)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Password Complexity:</span>
+<span class="font-semibold text-status-success">12+ Chars, Mixed, Symbols</span>
+</div>
+</div>
+</div>
+<!-- Automated Backup & Disaster Recovery Card (M06-F05/F06) -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-surface-container text-primary">
+<span class="material-symbols-outlined text-xl">cloud_sync</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">สำรองข้อมูล &amp; ฟื้นฟู DR</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">MinIO S3 / Multi-Zone Backup</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-status-success font-label-sm text-label-sm font-bold">
+              30 วัน Retention
+            </span>
+</div>
+<!-- Storage Gauge Graphic -->
+<div class="p-space-sm bg-surface-container-low rounded-lg space-y-space-2xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">ปริมาณข้อมูลเข้ารหัส (AES-256 GCM)</span>
+<span class="font-bold text-primary">4.8 TB / 12 TB (40%)</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 40%"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-variant pt-1">
+<span>ฐานข้อมูล SIS: 1.4 TB</span>
+<span>เอกสาร e-Doc PKI: 3.4 TB</span>
+</div>
+</div>
+<!-- DR Target Metrics -->
+<div class="grid grid-cols-2 gap-space-xs text-center">
+<div class="bg-surface-container p-space-xs rounded">
+<div class="font-label-sm text-label-sm text-on-surface-variant">RTO Actual</div>
+<div class="font-headline-sm text-headline-sm text-status-success font-bold">1.2 ชม.</div>
+<div class="text-[10px] text-on-surface-variant">เป้าหมาย ≤ 4 ชม.</div>
+</div>
+<div class="bg-surface-container p-space-xs rounded">
+<div class="font-label-sm text-label-sm text-on-surface-variant">RPO Actual</div>
+<div class="font-headline-sm text-headline-sm text-status-success font-bold">4.0 ชม.</div>
+<div class="text-[10px] text-on-surface-variant">เป้าหมาย ≤ 24 ชม.</div>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface pt-space-2xs">
+<span class="flex items-center gap-1 text-status-success font-semibold">
+<span class="material-symbols-outlined text-base">verified</span>
+              จำลองกู้ภัย DR ล่าสุด: ผ่าน 100%
+            </span>
+<button class="text-secondary hover:underline font-semibold">ดูบันทึก DR Test</button>
+</div>
+</div>
+<!-- Vulnerability & Compliance Status (M06-F08) -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-blue-subtle text-secondary">
+<span class="material-symbols-outlined text-xl">policy</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">การตรวจสอบความปลอดภัย</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ISO/IEC 27001 &amp; PDPA Checklist</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-status-success font-label-sm text-label-sm font-bold">
+              Grade A+
+            </span>
+</div>
+<!-- Compliance Progress Items -->
+<div class="space-y-space-xs">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-base text-status-success mt-0.5">check_circle</span>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">การเข้ารหัสข้อมูลสำคัญ (PII Encryption)</div>
+<div class="text-[11px] text-on-surface-variant">เลขบัตรประชาชน, เกรดเฉลี่ย, และรูปถ่าย เข้ารหัสแบบ AES-256</div>
+</div>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-base text-status-success mt-0.5">check_circle</span>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">การรายงานเหตุละเมิดข้อมูล (Breach SLA)</div>
+<div class="text-[11px] text-on-surface-variant">มีระบบแจ้งเตือนอัตโนมัติภายใน 72 ชั่วโมง ตามเกณฑ์ สคส.</div>
+</div>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-base text-status-success mt-0.5">check_circle</span>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">นโยบายความยินยอมตามวัตถุประสงค์ (Consent Matrix)</div>
+<div class="text-[11px] text-on-surface-variant">จัดเก็บประวัติเวอร์ชันของ Privacy Policy ย้อนหลังครบ 10 ปี</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">การประเมินช่องโหว่ (VAPT) รอบถัดไป:</span>
+<span class="font-bold text-primary">มีนาคม 2568</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Quick Scripts for Micro-Interactions -->
+<script>
+    (function() {
+      // Micro-interaction for table action buttons
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // Visual click feedback
+          btn.classList.add('opacity-80', 'scale-[0.98]');
+          setTimeout(() => {
+            btn.classList.remove('opacity-80', 'scale-[0.98]');
+          }, 150);
+        });
+      });
+    })();
+  </script>
+</div></main><footer class="w-full bg-navy-deep text-on-primary pt-space-2xl pb-space-lg shadow-[0_-1px_12px_rgba(8,27,84,0.08)]"><div class="max-w-container-max mx-auto px-gutter-mobile lg:px-gutter-desktop"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-xl"><div class="space-y-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-amber-primary">account_balance</span><span class="font-headline-sm text-headline-sm font-bold text-surface-card">สำนักนวัตกรรมดิจิทัลและการศึกษา</span></div><p class="font-body-sm text-body-sm text-primary-fixed-dim leading-relaxed">ศูนย์กลางเทคโนโลยีและโครงสร้างพื้นฐานดิจิทัล เพื่อการบริหารจัดการ การจัดการเรียนการสอน และการวิจัยระดับสากล</p><div class="flex items-center gap-space-xs pt-space-xs"><span class="px-2 py-0.5 bg-primary-container text-on-primary font-label-sm text-label-sm rounded border border-outline-variant/30">ISO/IEC 27001</span><span class="px-2 py-0.5 bg-primary-container text-on-primary font-label-sm text-label-sm rounded border border-outline-variant/30">PDPA Compliant</span></div></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">ฝ่ายสนับสนุนและบริการ</h4><ul class="space-y-space-2xs font-body-sm text-body-sm text-surface-container-high"><li><a class="hover:text-surface-card transition-colors" href="#">แจ้งซ่อมคอมพิวเตอร์และเครือข่าย</a></li><li><a class="hover:text-surface-card transition-colors" href="#">บริการบัญชีผู้ใช้งาน Google / MS Office</a></li><li><a class="hover:text-surface-card transition-colors" href="#">การขออนุมัติลายมือชื่อดิจิทัล (CA PKI)</a></li><li><a class="hover:text-surface-card transition-colors" href="#">ดาวน์โหลดคู่มือการใช้งานระบบสารสนเทศ</a></li></ul></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">ระดับการให้บริการและความปลอดภัย</h4><div class="bg-navy-surface p-space-sm rounded-lg space-y-space-2xs border border-primary-container"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">System SLA</span><span class="font-label-md text-label-md text-status-success font-bold">99.85%</span></div><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">Single Sign-On (SSO)</span><span class="font-label-sm text-label-sm text-surface-card">เปิดใช้งานปกติ</span></div><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-fixed-dim">PDPA Security Protocol</span><span class="font-label-sm text-label-sm text-status-success">ตรวจสอบแล้ว</span></div></div></div><div class="space-y-space-xs"><h4 class="font-label-lg text-label-lg text-amber-subtle uppercase tracking-wider mb-space-xs">IT Helpdesk &amp; แจ้งเหตุฉุกเฉิน</h4><div class="space-y-space-2xs font-body-sm text-body-sm text-surface-container-high"><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">call</span><span>โทรศัพท์กลาง: 02-123-4567 ต่อ 8888</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">emergency</span><span class="text-status-warning font-semibold">สายด่วนเซิร์ฟเวอร์ขัดข้อง: 081-999-8888</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">mail</span><span>อีเมล: helpdesk@college.ac.th</span></div><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-sm text-amber-primary">schedule</span><span>เวลาทำการ: จันทร์ - ศุกร์ 08.30 - 16.30 น.</span></div></div></div></div><div class="pt-space-md border-t border-navy-surface flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-primary-fixed-dim"><div class="flex flex-wrap items-center gap-space-md"><span>© 2568 สำนักนวัตกรรมดิจิทัลและการศึกษา มหาวิทยาลัย สงวนลิขสิทธิ์ทุกประการ</span><a class="hover:text-surface-card underline" href="#">นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)</a><a class="hover:text-surface-card underline" href="#">เงื่อนไขการใช้บริการดิจิทัล</a></div><div class="flex items-center gap-space-2xs"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span><span>สถานะเครือข่าย: เชื่อมต่อสมบูรณ์ (Campus Core 10Gbps)</span></div></div></div></footer></body></html>
