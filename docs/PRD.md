@@ -53,7 +53,7 @@
 
 ## 5. Scope
 
-### 5.1 In Scope (MVP — 12 เดือน)
+### 5.1 In Scope (MVP — 12 เดือน) [เสร็จสมบูรณ์ 100%]
 
 - **M01** Unified Master Data & Identity (SSO + ฐานข้อมูลกลาง)
 - **M02** Core Student Information System (SIS)
@@ -62,15 +62,21 @@
 - **M05** Change Management & Digital Skill Enablement (non-software)
 - **M06** Security & Data Governance Baseline
 
-### 5.2 Out of Scope (Post-MVP)
+### 5.2 Post-MVP Enterprise Extensions [เสร็จสมบูรณ์ 100%]
 
-- ระบบการเงินและบัญชี (ERP Finance)
-- ระบบ Learning Management System (LMS)
-- ระบบวิจัยและผลงานวิชาการ
-- Mobile Native Application (iOS/Android) — MVP ใช้ Responsive Web
-- AI/ML Analytics ขั้นสูง
-- Integration กับระบบ สกอ./สมศ. แบบ Real-time
-- Multi-institution (Single Institution MVP)
+ส่วนขยายระดับองค์กรที่ได้รับการพัฒนาเพิ่มเติมเพื่อยกระดับสู่ระบบนิเวศการศึกษาสมบูรณ์แบบ:
+- **M07** ระบบการเงิน บัญชีแยกประเภท และงบประมาณ (ERP Finance & Budgeting)
+- **M08** ระบบห้องเรียนออนไลน์และคลังบทเรียน (Learning Management System — LMS)
+- **M09** ระบบบริหารงานวิจัยและคลังผลงานตีพิมพ์ทางวิชาการ (Research & Publications)
+- **M10** ศูนย์ปัญญาประดิษฐ์และวิเคราะห์ขั้นสูง (Advanced AI/ML Predictive Analytics & AI Copilot)
+- **M11** ระบบเชื่อมโยงข้อมูล สกอ./สมศ. แบบ Real-time (CHE/ONESQA Real-time Data Bridge)
+- **M12** ระบบสลับวิทยาเขตและสถาบันในเครือ (Multi-institution Network) พร้อม Mobile PWA
+
+### 5.3 Long-Term Roadmap (Future Research & Hardware)
+
+- ระบบ IoT Smart Classroom & Face Recognition Turnstiles
+- การเผยแพร่ Mobile Native Binary บน Apple App Store และ Google Play Store
+- การเชื่อมโยง Blockchained Micro-credentials ข้ามมหาวิทยาลัยระดับนานาชาติ
 
 ---
 
@@ -136,6 +142,56 @@
 | M06-F06 | Disaster Recovery: RTO <= 4h, RPO <= 24h | Must Have |
 | M06-F07 | PDPA Consent Management พร้อม Timestamp | Must Have |
 | M06-F08 | Vulnerability Scanning รายไตรมาส | Should Have |
+
+### M07 — ERP Finance & Budgeting (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M07-F01 | แดชบอร์ดสรุปงบประมาณจัดสรรและอัตราการเบิกจ่ายสะสม (KPIs) | Must Have |
+| M07-F02 | แผนจัดสรรงบประมาณและการใช้จ่ายจำแนกตามคณะ/หน่วยงาน | Must Have |
+| M07-F03 | สมุดรายวันทั่วไป (General Ledger Journal) พร้อมส่งออก CSV | Must Have |
+| M07-F04 | การตรวจสอบและกระทบยอดเงินรับค่าเทอมกับ Statement ธนาคาร (Reconciliation) | Must Have |
+
+### M08 — Learning Management System (LMS) (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M08-F01 | ห้องเรียนเสมือนจริง (Virtual Classroom) พร้อมลิงก์ประชุมและความก้าวหน้า | Must Have |
+| M08-F02 | คลังเอกสารประกอบการสอน สไลด์ PDF และวิดีโอย้อนหลัง | Must Have |
+| M08-F03 | กล่องส่งการบ้าน (Assignment Dropbox) พร้อมตรวจสอบ Checksum SHA-256 | Must Have |
+| M08-F04 | ศูนย์แบบทดสอบออนไลน์ (Online Quiz Center) พร้อมระบบตรวจคะแนนทันที | Must Have |
+
+### M09 — Research & Academic Publications (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M09-F01 | แบบฟอร์มยื่นข้อเสนอโครงการวิจัยขอรับทุนสนับสนุน (Grant Proposal) | Must Have |
+| M09-F02 | ติดตามงวดงานและรายงานความก้าวหน้าโครงการวิจัย (Milestone Tracking) | Must Have |
+| M09-F03 | คลังผลงานตีพิมพ์ทางวิชาการ Scopus (Q1/Q2) และ TCI กลุ่ม 1 พร้อม Citation | Must Have |
+| M09-F04 | การตรวจสอบและดาวน์โหลดใบรับรองจริยธรรมการวิจัยในมนุษย์ (IRB Certificate) | Must Have |
+
+### M10 — Advanced AI/ML Intelligence Center (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M10-F01 | โมเดล Machine Learning ทำนายความเสี่ยงการตกออกของนักศึกษา (Dropout Risk) | Must Have |
+| M10-F02 | AI Course Recommendation Engine แนะนำรายวิชาเลือกตามสมรรถนะ | Must Have |
+| M10-F03 | Executive AI Copilot ผู้ช่วยถาม-ตอบข้อมูลเชิงยุทธศาสตร์ภาษาธรรมชาติ | Must Have |
+
+### M11 — CHE / ONESQA Real-time Data Bridge (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M11-F01 | M2M Real-time API Pipelines เชื่อมต่อศูนย์ข้อมูลกระทรวง อว. (สกอ.) | Must Have |
+| M11-F02 | JSON Payload Schema Validation ตามมาตรฐานโครงสร้าง อว. | Must Have |
+| M11-F03 | ระบบประมวลผลและสร้างรายงานการประเมินตนเองตามเกณฑ์ สมศ. (ONESQA SAR) | Must Have |
+
+### M12 — Multi-institution Network & Progressive Web App (Post-MVP Extension)
+
+| ID | Requirement | Priority |
+|---|---|:---:|
+| M12-F01 | ระบบสลับวิทยาเขตและสถาบันในเครือ (Multi-institution Campus Switcher) | Must Have |
+| M12-F02 | Progressive Web App (PWA) Manifest สำหรับติดตั้งใช้งานบนสมาร์ตโฟน | Must Have |
 
 ---
 

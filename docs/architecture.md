@@ -14,6 +14,7 @@
 | ADR-005 | **Local File Storage (`fs/promises`)** | จัดเก็บไฟล์เอกสารบน Host Disk พร้อม SHA-256 Checksum ตรวจสอบความถูกต้อง แทน MinIO S3 Container | + ตัด Container Overhead ลด RAM, + ไม่มี S3 Dependency, + ควบคุม Data Residency บนโฮสต์ได้ 100%; - ต้องจัดการ Disk Backup เอง |
 | ADR-006 | **Fastify เป็น Backend Framework** | ต้องการ Performance สูง (Low overhead), TypeScript Native | + เร็วกว่า Express 2-3x, + TypeScript; - Ecosystem เล็กกว่า Express |
 | ADR-007 | **Native In-App Dashboard + Tailwind CSS + Lucide Icons** | สร้างหน้า Dashboard บริหารและวัดสถานะระบบใน Next.js (`apps/admin`) โดยตรง แทน Prometheus Scraper UI และ Grafana | + ลด RAM 1.5–2.5GB (ไม่ต้องรัน Prometheus/Grafana), + สวยงามกลมกลืนกับระบบวิทยาลัย, + ใช้ Lucide Icons ทั้งระบบ, + Dual-Tab สลับ KPIs และ Observability ได้ในหน้าเดียว; - เก็บ Time-series ละเอียดได้น้อยกว่า TSDB เฉพาะทาง |
+| ADR-008 | **Post-MVP Enterprise Extensions Architecture** | พัฒนาระบบ LMS, ERP Finance, Research Grants, Predictive AI, CHE/ONESQA Data Bridge และ Multi-institution Switcher ภายใน Monorepo | + เชื่อมต่อกับ NextAuth.js และ Master Data ไร้รอยต่อ, + ไม่ต้องเพิ่ม Third-party Platform ภายนอก, + ขยาย DTOs ใน `@repo/types` แบบ Type-safe 100%; - ต้องดูแลขอบเขตการทดสอบเพิ่มขึ้น |
 
 ---
 
@@ -38,36 +39,42 @@
 
 ---
 
-## 3. Container Diagram (C4 — Container Level)
+### 3. Container Diagram (C4 — Container Level)
 
 ```
-┌────────────────────────────────────────────────────────────┐
-│                    College Digital Ecosystem               │
-│                                                            │
-│  [Web App]        [Admin Panel]                           │
-│  Next.js 14       Next.js 14                              │
-│  Port: 3000       Port: 3001                              │
-│       │                │                                  │
-│       └────────┬───────┘                                  │
-│                ▼                                           │
-│         [API Gateway]                                      │
-│         Fastify                                            │
-│         Port: 4000                                         │
-│                │                                           │
-│    ┌───────────┼───────────────────┐                      │
-│    ▼           ▼                   ▼                      │
-│ [Identity   [SIS         [Document  [Analytics            │
-│  Service]   Service]     Service]   Service]              │
-│  :4001      :4002        :4003      :4004                  │
-│    │           │             │          │                  │
-│    └───────────┴─────────────┴──────────┘                 │
-│                      │                                     │
-│               [PostgreSQL]  [RabbitMQ]                     │
-│               Port: 5432    Port: 5672                     │
-│                                                            │
-│  [RabbitMQ 3.13]    [Local Storage: ./uploads]    [Native Metrics] │
-│  Port: 5672         Host Disk Storage             Port: 3001/4004  │
-└────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                               College Digital Ecosystem                                │
+│                                                                                        │
+│  [Web App & PWA]                      [Admin Console & Executive Suite]                │
+│  Next.js 14 — Port: 3000               Next.js 14 — Port: 3001                          │
+│  Routes:                              Routes:                                          │
+│  • / (Service Hub)                    • / (Executive Cockpit & Observability)          │
+│  • /sis (Core SIS & Registration)     • /users (Identity & PDPA Governance)            │
+│  • /documents (e-Document & Sign)     • /approvals (Review & Approval Queue)           │
+│  • /lms (Digital Classrooms & Quiz)   • /finance (ERP Finance & General Ledger)        │
+│  • /research (Grants & Publications)  • /ai-analytics (Predictive Dropout AI)          │
+│  • manifest.json (Mobile PWA)         • /integration (CHE/ONESQA Data Bridge)          │
+│       │                               • CampusSwitcher (Multi-institution Selector)    │
+│       │                                    │                                           │
+│       └───────────────────┬────────────────┘                                           │
+│                           ▼                                                            │
+│                    [API Gateway]                                                       │
+│                    Fastify — Port: 4000                                                │
+│                           │                                                            │
+│    ┌──────────────┬───────┴──────┬──────────────┬──────────────┐                       │
+│    ▼              ▼              ▼              ▼              ▼                       │
+│ [Identity      [SIS           [Document      [Analytics     [Notification              │
+│  Service]      Service]       Service]       Service]        Service]                  │
+│  :4001         :4002          :4003          :4004           :4005                     │
+│    │              │              │              │              │                       │
+│    └──────────────┴──────────────┼──────────────┴──────────────┘                       │
+│                                  │                                                     │
+│                    [PostgreSQL 16]      [RabbitMQ 3.13]                                │
+│                    Port: 5432           Port: 5672                                     │
+│                                                                                        │
+│  [Local Host Storage: ./uploads]         [Native Observability: Port 3001/4004]        │
+│  SHA-256 Checksum Integrity              Latency, RAM RSS/Heap, System Health          │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -92,7 +99,7 @@
 - **Responsibility**: e-Document, Approval Workflow, Digital Signature
 - **Owns**: `documents`, `workflows`, `workflow_steps`, `approvals`, `digital_signatures`
 - **Exposes API**: `POST /api/v1/documents`, `GET /api/v1/workflows`, `POST /api/v1/approvals`
-- **Consumes**: M01 (User/Role), MinIO (File Storage), RabbitMQ (Notifications)
+- **Consumes**: M01 (User/Role), Local File Storage (Disk & SHA-256), RabbitMQ (Notifications)
 - **Depends On**: M01
 
 ### M04 — Analytics Service (`services/analytics/`)
@@ -106,6 +113,42 @@
 - **Responsibility**: Security Policies, PDPA Enforcement, Audit Logging
 - **ไม่ใช่ Service แยก** — เป็น Middleware/Policy ที่ inject เข้าทุก Service
 - **Components**: JWT Validation Middleware, PII Masking, Rate Limiter, Audit Log Writer
+
+### M07 — ERP Finance & Budgeting (`apps/admin/src/app/finance/`)
+- **Responsibility**: บัญชีแยกประเภท (General Ledger), แผนงบประมาณรายคณะ, การกระทบยอดเงินรับค่าเทอม
+- **Owns**: `FinanceLedgerEntry`, `BudgetAllocation`, `PaymentReconciliation` (DTOs)
+- **Exposes**: Real-time Budget Metrics, Reconciliation Audit, CSV Ledger Export
+- **Depends On**: M01, M02 (Tuition payment records)
+
+### M08 — Learning Management System (`apps/web/src/app/lms/`)
+- **Responsibility**: ห้องเรียนออนไลน์เสมือนจริง, คลังสื่อการสอน, กล่องส่งการบ้าน และศูนย์ข้อสอบออนไลน์
+- **Owns**: `LmsCourse`, `CourseMaterial`, `Assignment`, `OnlineQuiz` (DTOs)
+- **Exposes**: Course Progress, Due Date Countdown, SHA-256 Checksum Verification, Instant Quiz Grading
+- **Depends On**: M01, M02 (Enrolled Courses & Sections)
+
+### M09 — Research & Publications Portal (`apps/web/src/app/research/`)
+- **Responsibility**: ยื่นขอทุนอุดหนุนวิจัย, ติดตามงวดงาน, คลังผลงานตีพิมพ์ Scopus/TCI, รับรองจริยธรรม IRB
+- **Owns**: `GrantProposal`, `ResearchProject`, `PublicationRecord`, `EthicsReview` (DTOs)
+- **Exposes**: Grant Workflow Submission, Milestone Tracker, Citations Stats, COA Certificate Download
+- **Depends On**: M01, M03 (e-Document Review)
+
+### M10 — Advanced AI/ML Analytics Center (`apps/admin/src/app/ai-analytics/`)
+- **Responsibility**: โมเดลทำนายความเสี่ยงการตกออก (Dropout Risk AI), AI แนะนำวิชาเลือก, Executive Copilot
+- **Owns**: `DropoutRiskPrediction`, `CourseRecommendation`, `AiCopilotQuery/Response` (DTOs)
+- **Exposes**: XGBoost Risk Scores (92.4% Accuracy), Early Intervention Alerts, Natural Language Chat
+- **Depends On**: M01, M02, M04, M08
+
+### M11 — CHE / ONESQA Real-time Data Bridge (`apps/admin/src/app/integration/`)
+- **Responsibility**: M2M Data Pipeline เชื่อมต่อศูนย์ข้อมูลกระทรวง อว. (สกอ.) และระบบประเมินตนเอง สมศ. (SAR)
+- **Owns**: `MhesiSyncStatus`, `OnesqaSarIndicator`, `DataBridgeAudit` (DTOs)
+- **Exposes**: M2M Sync Triggers, JSON Payload Validator, Automated SAR Export
+- **Depends On**: M01, M02, M04, M07, M09
+
+### M12 — Multi-institution Network & Progressive Web App (`apps/admin` & `apps/web`)
+- **Responsibility**: ระบบสลับวิทยาเขต (Campus Switcher) และรองรับการติดตั้งแอปพลิเคชันบนมือถือ (PWA)
+- **Owns**: `CampusNode`, `CampusOption`, Web App Manifest (`manifest.json`)
+- **Exposes**: Bangkok Main, Prachinburi East, Chiang Mai North, and Consolidated Network Contexts
+- **Depends On**: M01 (RBAC Context)
 
 ---
 

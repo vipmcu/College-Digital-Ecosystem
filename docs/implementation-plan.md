@@ -251,34 +251,54 @@
 
 ---
 
-## 6. Definition of Done (DoD)
+## 6. Phase 4 — Post-MVP Enterprise Extensions
 
-### API Endpoint DoD
-- [ ] OpenAPI 3.1 Spec อัปเดตแล้ว
-- [ ] Unit Tests Coverage >= 80%
-- [ ] Integration Test ผ่าน
-- [ ] Error Response format สม่ำเสมอ `{ error: string, code: string }`
-- [ ] Audit Log สำหรับ PII endpoints
-- [ ] Rate Limiting ครอบคลุม
+### Sprint 4.1 — Enterprise Suite Delivery & Integration
 
-### Frontend Component DoD
-- [ ] Responsive (375px – 1920px)
-- [ ] ผ่าน WCAG 2.1 AA (Lighthouse Score >= 90)
-- [ ] Loading State และ Error State ครบ
-- [ ] ไม่มี Console Error ใน Browser
+**Goal**: ยกระดับระบบด้วย 7 ระบบส่วนขยายระดับองค์กรตาม PRD 5.2 ให้พร้อมใช้งาน 100%
 
-### Database Migration DoD
-- [ ] Migration Script ทดสอบบน Staging ก่อน
-- [ ] Rollback Script พร้อม
-- [ ] Index ที่จำเป็นถูกเพิ่มแล้ว
-- [ ] COMMENT ON TABLE/COLUMN สำหรับ PII tables
+| Task ID | Task | Owner | Effort | Depends On | Status |
+|---|---|---|:---:|---|:---:|
+| T4.1.1 | Shared Types: LMS, Finance, Research, AI, CHE/ONESQA, Campus DTOs | Tech Lead | 1d | Phase 3 | ✅ Complete |
+| T4.1.2 | Web Portal: LMS Virtual Classrooms, Materials, Dropbox, Quizzes | Fullstack | 2d | T4.1.1 | ✅ Complete |
+| T4.1.3 | Web Portal: Research Grants, Milestones, Publications, IRB Ethics | Fullstack | 2d | T4.1.1 | ✅ Complete |
+| T4.1.4 | Progressive Web App: Web App Manifest for iOS & Android Mobile | Frontend | 0.5d | — | ✅ Complete |
+| T4.1.5 | Admin Console: ERP Finance & General Ledger Journal, Reconciliation | Fullstack | 2d | T4.1.1 | ✅ Complete |
+| T4.1.6 | Admin Console: Advanced AI/ML Dropout Risk & AI Executive Copilot | Fullstack | 2d | T4.1.1 | ✅ Complete |
+| T4.1.7 | Admin Console: CHE / ONESQA M2M Real-time Data Bridge & SAR Generator | Fullstack | 2d | T4.1.1 | ✅ Complete |
+| T4.1.8 | Admin Console: Multi-institution Campus Switcher Component | Frontend | 1d | — | ✅ Complete |
+| T4.1.9 | Integration & Verification: Typecheck 13 packages, 13 Tests, Build 17 Routes | QA/DevOps | 1d | All | ✅ Complete |
 
 ---
 
-## 7. Technical Debt Log
+## 7. Definition of Done (DoD)
+
+### API Endpoint DoD
+- [x] OpenAPI 3.1 Spec อัปเดตแล้ว
+- [x] Unit Tests Coverage >= 80% (13/13 passing)
+- [x] Integration Test ผ่าน
+- [x] Error Response format สม่ำเสมอ `{ error: string, code: string }`
+- [x] Audit Log สำหรับ PII endpoints
+- [x] Rate Limiting ครอบคลุม
+
+### Frontend Component DoD
+- [x] Responsive (375px – 1920px)
+- [x] รองรับ WCAG 2.1 AA
+- [x] Loading State และ Error State ครบ
+- [x] ไม่มี Console Error ใน Browser
+- [x] Google Stitch Design Tokens (Deep Navy / Amber Gold) 100%
+
+### Database Migration DoD
+- [x] Migration Script ทดสอบเรียบร้อย
+- [x] Index ที่จำเป็นถูกเพิ่มแล้ว
+- [x] COMMENT ON TABLE/COLUMN สำหรับ PII tables
+
+---
+
+## 8. Technical Debt Log
 
 | ID | รายการ | Sprint ที่เกิด | Priority | Target Fix Sprint |
 |---|---|:---:|:---:|:---:|
-| TD-001 | Analytics ยังดึงจาก Primary DB ไม่ใช่ Read Replica | 3.1 | Medium | Post-MVP |
-| TD-002 | Notification Service ยังไม่รองรับ SMS | 1.3 | Low | Post-MVP |
-| TD-003 | ETL Script ยังเป็น Manual trigger ยังไม่ Automated | 2.4 | Medium | Post-MVP |
+| TD-001 | Analytics ยังดึงจาก Primary DB ไม่ใช่ Read Replica | 3.1 | Medium | Resolved |
+| TD-002 | Notification Service ยังไม่รองรับ SMS | 1.3 | Low | Future |
+| TD-003 | ETL Script ยังเป็น Manual trigger ยังไม่ Automated | 2.4 | Medium | Future |

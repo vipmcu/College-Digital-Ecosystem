@@ -502,3 +502,37 @@ SELECT cron.schedule('refresh-student-summary', '0 1 * * *',
 | `ENROLL_YEAR` | INT (CE) | `students` | `enrollment_year` | Convert CE to BE (+543) |
 | `GRADE` | VARCHAR | `enrollments` | `grade` | Normalize to standard scale |
 | `DEPT_CODE` | VARCHAR | `organizations` | `code` | Map to new Org hierarchy |
+
+---
+
+## 9. Post-MVP Enterprise Extensions Domain Models & DTOs
+
+สำหรับระบบส่วนขยายระดับองค์กรที่พัฒนาใน Phase 4 (Post-MVP) ได้กำหนดโครงสร้างข้อมูลร่วมใน `packages/types/src/post-mvp.dto.ts` ดังนี้:
+
+### 9.1 LMS (Learning Management System) Models
+- **`LmsCourse`**: `id`, `courseCode`, `courseNameTh`, `courseNameEn`, `instructorName`, `classroomUrl`, `progressPercentage`, `totalModules`, `completedModules`, `nextClassTime`, `bannerColor`
+- **`CourseMaterial`**: `id`, `courseId`, `title`, `type ('video'|'pdf'|'slide'|'link')`, `sizeOrDuration`, `downloadUrl`, `updatedAt`
+- **`Assignment`**: `id`, `courseId`, `courseCode`, `title`, `description`, `dueDate`, `maxScore`, `submittedScore`, `status ('PENDING'|'SUBMITTED'|'GRADED'|'OVERDUE')`, `submissionUrl`, `feedback`
+- **`OnlineQuiz`**: `id`, `courseId`, `title`, `timeLimitMinutes`, `totalQuestions`, `status ('OPEN'|'COMPLETED'|'UPCOMING')`, `score`, `maxScore`
+
+### 9.2 ERP Finance & Budgeting Models
+- **`FinanceLedgerEntry`**: `id`, `entryNumber`, `timestamp`, `description`, `category ('TUITION_FEE'|'RESEARCH_GRANT'|'PROCUREMENT'|'SALARY'|'MAINTENANCE'|'OTHER')`, `type ('DEBIT'|'CREDIT')`, `amount`, `departmentCode`, `referenceDocId`, `status ('POSTED'|'PENDING'|'RECONCILED')`
+- **`BudgetAllocation`**: `departmentCode`, `departmentName`, `fiscalYear`, `allocatedAmount`, `disbursedAmount`, `obligatedAmount`, `remainingAmount`, `executionRatePercent`
+- **`PaymentReconciliation`**: `id`, `receiptNumber`, `studentCode`, `studentName`, `amount`, `paymentMethod ('PROMPTPAY'|'BILL_PAYMENT'|'BANK_TRANSFER')`, `transactionRef`, `paidAt`, `reconciled (BOOLEAN)`
+
+### 9.3 Research & Publications Models
+- **`GrantProposal`**: `id`, `projectTitle`, `principalInvestigator`, `faculty`, `grantType ('INTERNAL_SEED'|'NATIONAL_NRCT'|'INDUSTRY_JOINT')`, `budgetRequested`, `durationMonths`, `submissionDate`, `status ('SUBMITTED'|'UNDER_REVIEW'|'APPROVED'|'REVISION_REQUIRED')`
+- **`ResearchProject`**: `id`, `code`, `title`, `leadResearcher`, `fundedAmount`, `currentMilestone`, `progressPercent`, `startDate`, `endDate`, `status ('ACTIVE'|'MILESTONE_DUE'|'COMPLETED')`
+- **`PublicationRecord`**: `id`, `paperTitle`, `authors`, `journalName`, `indexing ('SCOPUS'|'TCI_TIER_1'|'TCI_TIER_2'|'WOS')`, `quartile ('Q1'|'Q2'|'Q3'|'Q4')`, `publicationYear`, `citationsCount`, `doiUrl`
+
+### 9.4 Advanced AI/ML Models
+- **`DropoutRiskPrediction`**: `studentId`, `studentCode`, `studentName`, `faculty`, `yearLevel`, `currentGpa`, `riskLevel ('LOW'|'MEDIUM'|'HIGH'|'CRITICAL')`, `riskScore (0-100)`, `riskFactors (ARRAY)`, `interventionRecommended`
+- **`CourseRecommendation`**: `courseCode`, `courseName`, `credits`, `matchScore (0-100)`, `reasons (ARRAY)`, `prerequisiteMet (BOOLEAN)`
+- **`AiCopilotQuery` / `AiCopilotResponse`**: `prompt`, `contextCampus`, `fiscalYear` ➔ `answer`, `confidence`, `generatedAt`, `suggestedFollowUps`, `supportingDataMetrics`
+
+### 9.5 CHE / ONESQA Data Bridge Models
+- **`MhesiSyncStatus`**: `serviceName`, `endpoint`, `lastSyncTimestamp`, `status ('HEALTHY'|'SYNCING'|'ERROR'|'OFFLINE')`, `recordsTransferred`, `validationErrorsCount`
+- **`OnesqaSarIndicator`**: `indicatorCode`, `indicatorName`, `category`, `targetScore`, `actualScore`, `status ('EXCEEDED'|'MET'|'NEEDS_IMPROVEMENT')`, `lastAuditDate`
+
+### 9.6 Multi-institution Campus Context
+- **`CampusNode`**: `id`, `campusCode`, `nameTh`, `nameEn`, `isMainCampus (BOOLEAN)`, `activeStudents`, `activeStaff`, `establishedYear`
